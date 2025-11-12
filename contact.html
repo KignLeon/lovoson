@@ -268,8 +268,36 @@
         });
 
         // Tally fade-in
-        const frame = document.getElementById("tally-frame");
-        setTimeout(() => frame.style.opacity = "1", 800);
+        const d = document;
+        const frame = d.getElementById("tally-frame");
+        const scriptUrl = "https://tally.so/widgets/embed.js";
+
+        // Load Tally embed if not already loaded
+        const initTally = function () {
+            if (typeof Tally !== "undefined") {
+                Tally.loadEmbeds();
+                setTimeout(() => {
+                    frame.style.opacity = "1";
+                }, 600);
+            } else {
+                d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(e => {
+                    e.src = e.dataset.tallySrc;
+                });
+                setTimeout(() => {
+                    frame.style.opacity = "1";
+                }, 800);
+            }
+        };
+
+        if (typeof Tally !== "undefined") {
+            initTally();
+        } else if (d.querySelector(`script[src="${scriptUrl}"]`) == null) {
+            const s = d.createElement("script");
+            s.src = scriptUrl;
+            s.onload = initTally;
+            s.onerror = initTally;
+            d.body.appendChild(s);
+        }
     </script>
 </body>
 

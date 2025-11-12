@@ -14,37 +14,26 @@
   <meta name="author" content="Lovoson Media">
   <link rel="canonical" href="https://www.lovosonmedia.com/">
 
-  <!-- OPEN GRAPH TAGS -->
+  <!-- OPEN GRAPH / TWITTER -->
   <meta property="og:title" content="Lovoson Media | Website Design + Digital Marketing">
   <meta property="og:description"
     content="Scaling brands through strategy, design, and automation. We help businesses grow online with measurable impact.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
   <meta property="og:url" content="https://www.lovosonmedia.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Lovoson Media">
-
-  <!-- TWITTER CARD -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Lovoson Media | Website Design + Digital Marketing">
-  <meta name="twitter:description"
-    content="Build, automate, and scale your business with Lovoson Media — a full-service design and automation agency.">
-  <meta name="twitter:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
 
-  <!-- FAVICON -->
+  <!-- FAVICON + STYLES -->
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
-
-  <!-- FONT + STYLES + ICONS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* Smooth shrink effect + blur on scroll */
     #main-header {
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
@@ -53,13 +42,11 @@
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Default State */
     #main-header div {
       max-width: 1100px;
       padding: 1rem 2rem;
     }
 
-    /* Scrolled State */
     #main-header.scrolled div {
       max-width: 700px;
       background: rgba(255, 255, 255, 0.5);
@@ -69,7 +56,7 @@
       transform: scale(0.96);
     }
 
-    /* --- Mobile Dropdown Menu --- */
+    /* Mobile dropdown */
     #mobile-nav {
       max-height: 0;
       overflow: hidden;
@@ -90,13 +77,7 @@
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
 
-    /* Header hide on scroll */
-    .header-hidden {
-      transform: translateY(-100%);
-    }
-
-    /* Responsive text + layout */
-    @media (max-width: 768px) {
+    @media (max-width:768px) {
       h1 {
         font-size: 2.3rem !important;
         line-height: 1.3;
@@ -130,30 +111,21 @@
 </head>
 
 <body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24">
-
-  <!-- Header -->
+  <!-- HEADER -->
   <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
     <div
       class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md">
       <a href="index.html" class="text-2xl font-bold text-black">Lovoson Media</a>
-
-      <!-- Desktop Nav -->
       <nav class="hidden md:flex items-center space-x-6">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="about.html" class="nav-link active">About</a>
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About</a>
         <a href="contact.html" class="nav-link">Contact</a>
       </nav>
-
-      <!-- Get Started -->
       <a href="enroll.html" class="hidden md:inline-block button-glow font-semibold py-2.5 px-5">Get Started</a>
-
-      <!-- Mobile Menu Button -->
-      <button id="nav-toggle" class="md:hidden text-2xl text-black">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      <button id="nav-toggle" class="md:hidden text-2xl text-black"><i class="fa-solid fa-bars"></i></button>
     </div>
 
-    <!-- Mobile Dropdown -->
+    <!-- Mobile Nav -->
     <nav id="mobile-nav" class="md:hidden text-center px-8 py-6">
       <div class="flex flex-col space-y-5">
         <a href="index.html" class="text-lg font-medium text-black hover:underline">Home</a>
@@ -165,7 +137,7 @@
     </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <main class="max-w-7xl mx-auto px-8 md:px-12">
     <section class="grid md:grid-cols-2 gap-16 items-center py-20 md:py-28">
       <div class="text-center md:text-left">
@@ -183,111 +155,85 @@
       </div>
     </section>
 
-    <!-- Client Highlight -->
+    <!-- CLIENT HIGHLIGHT -->
     <section class="py-20 md:py-24">
       <div class="text-center max-w-4xl mx-auto mb-16">
         <h2 class="text-5xl font-bold text-black">Lovoson Client Highlight</h2>
         <p class="mt-4 text-lg text-slate-700">Real results. Real growth. Real engagement.</p>
       </div>
-
       <div
-        class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 md:p-16 max-w-7xl mx-auto grid md:grid-cols-5 gap-10 items-center transition-all duration-500 hover:shadow-2xl">
-
-        <!-- Client Image -->
+        class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 md:p-16 max-w-7xl mx-auto grid md:grid-cols-5 gap-10 items-center hover:shadow-2xl transition-all">
         <div class="flex justify-center md:justify-start md:col-span-1">
-          <picture>
-            <source
-              srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370295/san-diego-boxing-gym-coach-ernest_nqcdob.avif"
-              type="image/avif">
-            <source
-              srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370293/san-diego-boxing-gym-coach-ernest_bwhrsy.webp"
-              type="image/webp">
-            <img
-              src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
-              alt="Coach Ernest training a boxer at Old School Boxing & Fitness in San Diego"
-              class="h-32 w-32 object-cover rounded-full transition-transform duration-300 hover:scale-105 shadow-md border border-white/40">
-          </picture>
+          <img
+            src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+            alt="Coach Ernest training a boxer"
+            class="h-32 w-32 object-cover rounded-full border border-white/40 shadow-md" />
         </div>
-
-        <!-- Partner Content -->
         <div class="md:col-span-4 text-center md:text-left">
           <h3 class="text-3xl md:text-4xl font-bold text-black mb-3">Old School Boxing & Fitness</h3>
-          <p class="text-base md:text-lg text-slate-800 leading-relaxed max-w-3xl mx-auto md:mx-0 mb-8">
+          <p class="text-base md:text-lg text-slate-800 leading-relaxed mb-8">
             Lovoson redesigned their site and built a social strategy that grew their TikTok by
             <span class="font-bold text-black">4k+</span> followers in weeks — boosting engagement, visibility, and
             local brand recognition.
           </p>
-
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 md:gap-10 text-center md:text-left mb-8">
             <div>
               <h4 class="text-3xl font-extrabold text-black">+4k</h4>
-              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Social Media Growth</p>
+              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Social Growth</p>
             </div>
             <div>
               <h4 class="text-3xl font-extrabold text-black">5x</h4>
-              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Engagement Rate</p>
+              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Engagement</p>
             </div>
             <div>
               <h4 class="text-3xl font-extrabold text-black">+72%</h4>
-              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Website Inquiries</p>
+              <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">Inquiries</p>
             </div>
             <div>
               <h4 class="text-3xl font-extrabold text-black">4.5x</h4>
               <p class="text-slate-600 text-xs uppercase tracking-wide mt-1">ROI</p>
             </div>
           </div>
-
-          <div class="flex justify-center md:justify-start">
-            <a href="https://oldschoolboxingandfitnesscenter.com" target="_blank"
-              class="button-glow font-semibold py-3 px-8 text-lg inline-block">See Our Work →</a>
-          </div>
+          <a href="https://oldschoolboxingandfitnesscenter.com" target="_blank"
+            class="button-glow font-semibold py-3 px-8 text-lg inline-block">See Our Work →</a>
         </div>
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- SERVICES -->
     <section class="py-20 md:py-28">
       <div class="text-center max-w-4xl mx-auto mb-16">
         <h2 class="text-5xl font-bold text-black">Everything You Need to Grow Online</h2>
-        <p class="mt-4 text-lg text-slate-700">
-          Lovoson Media builds, automates, and scales your business with smart digital systems that convert.
-        </p>
+        <p class="mt-4 text-lg text-slate-700">Lovoson Media builds, automates, and scales your business with smart
+          digital systems that convert.</p>
       </div>
-
       <div class="grid md:grid-cols-3 gap-10 text-center max-w-7xl mx-auto">
         <div
-          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
+          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all">
           <i class="fa-solid fa-display text-5xl text-black mb-6"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Web Design & Management</h3>
-          <p class="text-slate-800">
-            Websites that work while you don’t. Search-optimized, mobile-ready, and designed to convert visitors into
-            paying customers.
-          </p>
+          <p class="text-slate-800">Websites that work while you don’t — optimized, mobile-ready, and designed to
+            convert visitors into customers.</p>
         </div>
-
         <div
-          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
+          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all">
           <i class="fa-solid fa-envelope-open-text text-5xl text-black mb-6"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Email & SMS Automation</h3>
-          <p class="text-slate-800">
-            Automate engagement, capture leads, and drive consistent growth with smart systems that convert.
-          </p>
+          <p class="text-slate-800">Automate engagement, capture leads, and drive consistent growth with smart systems
+            that convert.</p>
         </div>
-
         <div
-          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
+          class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all">
           <i class="fa-solid fa-bullhorn text-5xl text-black mb-6"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Ads & Campaigns</h3>
-          <p class="text-slate-800">
-            Turn scrolls into sales with high-impact campaigns that attract attention, boost conversions, and drive
-            measurable ROI.
-          </p>
+          <p class="text-slate-800">Turn scrolls into sales with high-impact campaigns that attract attention and drive
+            measurable ROI.</p>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="py-24 md:py-32 max-w-7xl mx-auto text-center px-6">
+    <!-- DESKTOP CTA -->
+    <section class="hidden md:block py-24 md:py-32 max-w-7xl mx-auto text-center px-6">
       <div class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-16 md:p-20">
         <div class="max-w-4xl mx-auto">
           <h2 class="text-5xl md:text-6xl font-bold text-black leading-tight mb-6">
@@ -295,44 +241,50 @@
           </h2>
           <p class="text-lg md:text-xl text-slate-700 mb-10">
             We’ve helped brands convert attention into <span class="font-semibold text-black">revenue</span> through
-            design,
-            automation, and performance marketing — now it’s your turn.
+            design, automation, and performance marketing — now it’s your turn.
           </p>
-
           <div class="flex flex-col md:flex-row justify-center gap-6">
             <a href="enroll.html"
-              class="button-glow font-bold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Get Started
-              →</a>
+              class="button-glow font-bold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Get Started →</a>
             <a href="about.html"
-              class="button-outline font-semibold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Learn More
-            </a>
+              class="button-outline font-semibold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Learn
+              More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE MINI CTA -->
+    <section class="block md:hidden py-10 md:py-14 text-center">
+      <div
+        class="max-w-4xl mx-auto bg-white/60 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-10 md:p-14">
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-4xl font-bold text-black leading-tight mb-4">Ready to Scale with Lovoson Media?</h2>
+          <p class="text-base text-slate-700 mb-8">Let’s build systems that grow your business — through design,
+            automation, and strategy.</p>
+          <div class="flex flex-col md:flex-row justify-center gap-5">
+            <a href="enroll.html" class="button-glow font-semibold py-3 px-10 text-base rounded-full inline-block">Get
+              Started →</a>
+            <a href="about.html" class="button-outline font-medium py-3 px-10 text-base rounded-full inline-block">Learn
+              More</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800">
     <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
-      <!-- Brand + Description -->
       <div class="pt-1">
         <div class="flex items-center space-x-1 mb-3">
-          <picture>
-            <source srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821610/lovoson_icon_fmdiol.svg"
-              type="image/svg+xml">
-            <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
-              alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
-          </picture>
+          <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
+            alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
           <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
         </div>
-        <p class="text-sm text-slate-700">
-          Scaling businesses through strategy, design, and automation.
-          We help businesses scale online with measurable impact.
-        </p>
+        <p class="text-sm text-slate-700">Scaling businesses through strategy, design, and automation. We help
+          businesses scale online with measurable impact.</p>
       </div>
-
-      <!-- Services -->
       <div>
         <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
         <p class="text-sm text-slate-700">Website Design & Management</p>
@@ -341,23 +293,18 @@
         <p class="text-sm text-slate-700">Brand Strategy</p>
         <p class="text-sm text-slate-700">Content Creation</p>
       </div>
-
-      <!-- Connect -->
       <div>
         <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
         <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
         <p class="text-sm text-slate-700 mb-4">Phone: (206) 806-3329</p>
         <div class="flex space-x-5 text-2xl text-slate-700">
-          <a href="mailto:contact@lovosonmedia.com" class="hover:text-black transition">
-            <i class="fa-solid fa-envelope"></i>
-          </a>
-          <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition">
-            <i class="fab fa-instagram"></i>
-          </a>
+          <a href="mailto:contact@lovosonmedia.com" class="hover:text-black transition"><i
+              class="fa-solid fa-envelope"></i></a>
+          <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition"><i
+              class="fab fa-instagram"></i></a>
         </div>
       </div>
     </div>
-
     <div class="text-center text-slate-500 text-sm py-6 border-t border-slate-200/50">
       © 2025 Lovoson Media. All Rights Reserved.
     </div>
@@ -375,7 +322,7 @@
       icon.classList.toggle('fa-xmark');
     });
 
-    window.addEventListener("scroll", function () {
+    window.addEventListener("scroll", () => {
       const header = document.getElementById("main-header");
       if (window.scrollY > 20) header.classList.add("scrolled");
       else header.classList.remove("scrolled");

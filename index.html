@@ -34,10 +34,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    /* Header */
     #main-header {
-      position: relative;
-      /* ✅ added so dropdown anchors correctly */
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
@@ -45,13 +42,11 @@
       transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Default header layout */
     #main-header div {
       max-width: 1100px;
       padding: 1rem 2rem;
     }
 
-    /* Scrolled header style */
     #main-header.scrolled div {
       max-width: 700px;
       background: rgba(255, 255, 255, 0.5);
@@ -63,30 +58,23 @@
 
     /* Mobile dropdown */
     #mobile-nav {
-      position: absolute;
-      top: 100%;
-      /* starts directly below header */
-      left: 0;
-      right: 0;
       max-height: 0;
       overflow: hidden;
       opacity: 0;
       transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.65);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255, 255, 255, 0.4);
       border-bottom-left-radius: 1.5rem;
       border-bottom-right-radius: 1.5rem;
       transition: all 0.4s ease-in-out;
-      z-index: 40;
-      /* stays above other elements */
     }
 
     #mobile-nav.active {
       max-height: 45vh;
       opacity: 1;
       transform: translateY(0);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
 
     @media (max-width:768px) {
@@ -336,17 +324,8 @@
 
     window.addEventListener("scroll", () => {
       const header = document.getElementById("main-header");
-      const mobileNav = document.getElementById("mobile-nav");
-
-      if (window.scrollY > 20) {
-        header.classList.add("scrolled");
-        mobileNav.style.background = "rgba(255,255,255,0.4)";
-        mobileNav.style.backdropFilter = "blur(14px)";
-      } else {
-        header.classList.remove("scrolled");
-        mobileNav.style.background = "rgba(255,255,255,0.65)";
-        mobileNav.style.backdropFilter = "blur(16px)";
-      }
+      if (window.scrollY > 20) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
     });
   </script>
 </body>

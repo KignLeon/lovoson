@@ -42,21 +42,14 @@
             transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        #main-header div {
-            max-width: 1100px;
-            padding: 1rem 2rem;
-        }
-
         #main-header.scrolled div {
             max-width: 700px;
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(14px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 0.5rem 1rem;
             transform: scale(0.96);
         }
 
-        /* Mobile dropdown */
         #mobile-nav {
             max-height: 0;
             overflow: hidden;
@@ -75,6 +68,36 @@
             opacity: 1;
             transform: translateY(0);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Carousel */
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.03);
+        }
+
+        @media (min-width: 768px) {
+            .carousel-item {
+                flex: 0 0 45%;
+            }
         }
 
         @media (max-width:768px) {
@@ -145,16 +168,14 @@
             <p class="text-lg md:text-xl uppercase tracking-wide text-slate-600 mb-5">Who We Are</p>
             <p class="max-w-4xl mx-auto text-slate-800 text-lg md:text-2xl leading-relaxed font-medium">
                 At Lovoson Media, our vision is to fuel your brand’s growth through powerful, data-driven automation and
-                purposeful design. We believe in building systems that not only drive revenue and growth but also
-                establish
-                lasting trust and genuine relationships between brands and people.
+                purposeful design. We build systems that drive revenue and trust between brands and people.
             </p>
         </section>
 
         <!-- METRICS -->
         <section class="py-16 md:py-24">
             <div
-                class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+                class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 flex flex-col md:flex-row justify-around text-center gap-10">
                 <div>
                     <h3 class="text-5xl font-bold text-black">+72%</h3>
                     <p class="text-slate-700 mt-2">Leads Generated</p>
@@ -174,116 +195,34 @@
             </div>
         </section>
 
-        <!-- SERVICES -->
-        <section class="py-20 md:py-28">
-            <div class="text-center max-w-4xl mx-auto mb-16">
-                <h2 class="text-5xl font-bold text-black">What We Do</h2>
-                <p class="mt-4 text-lg text-slate-700">Scalable systems designed for performance and simplicity.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-10 text-center max-w-7xl mx-auto">
-                <div
-                    class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
-                    <i class="fa-solid fa-display text-5xl text-black mb-6"></i>
-                    <h3 class="text-2xl font-semibold text-black mb-4">Web Design & Management</h3>
-                    <ul class="text-slate-800 text-left inline-block space-y-2">
-                        <li>• High Converting UI</li>
-                        <li>• Search Engine Optimization</li>
-                        <li>• Automated Lead Capture</li>
-                    </ul>
-                </div>
-                <div
-                    class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
-                    <i class="fa-solid fa-envelope-open-text text-5xl text-black mb-6"></i>
-                    <h3 class="text-2xl font-semibold text-black mb-4">Email & SMS Automation</h3>
-                    <ul class="text-slate-800 text-left inline-block space-y-2">
-                        <li>• Automated Lead Follow Up</li>
-                        <li>• CRM Integrations</li>
-                        <li>• Customer Retention</li>
-                    </ul>
-                </div>
-                <div
-                    class="p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl hover:shadow-2xl transition-all duration-500">
-                    <i class="fa-solid fa-bullhorn text-5xl text-black mb-6"></i>
-                    <h3 class="text-2xl font-semibold text-black mb-4">Ads & Campaigns</h3>
-                    <ul class="text-slate-800 text-left inline-block space-y-2">
-                        <li>• Social Media Management</li>
-                        <li>• Creative Ads</li>
-                        <li>• Conversion Tracking Systems</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
         <!-- TEAM -->
         <section class="py-20 md:py-28">
-            <div class="text-center max-w-4xl mx-auto mb-16">
+            <div class="text-center max-w-4xl mx-auto mb-12">
                 <h2 class="text-5xl font-bold text-black">Meet the Team</h2>
-                <p class="mt-4 text-lg text-slate-700">The minds driving strategy, creativity, and execution.</p>
+                <p class="mt-4 text-lg text-slate-700">Swipe through the people driving strategy, creativity, and
+                    execution.</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto text-center">
-                <div class="p-6 rounded-3xl bg-white/70 border border-white/40 shadow-xl">
+
+            <div class="carousel px-4">
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
                     <img src="https://placehold.co/300x300" alt="Leon" class="rounded-2xl mb-4 mx-auto" />
                     <h3 class="text-xl font-semibold text-black">Leon</h3>
                     <p class="text-slate-700 text-sm">Owner & Creative Director</p>
                 </div>
-                <div class="p-6 rounded-3xl bg-white/70 border border-white/40 shadow-xl">
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
                     <img src="https://placehold.co/300x300" alt="Ethan" class="rounded-2xl mb-4 mx-auto" />
                     <h3 class="text-xl font-semibold text-black">Ethan</h3>
                     <p class="text-slate-700 text-sm">Director of Client Success</p>
                 </div>
-                <div class="p-6 rounded-3xl bg-white/70 border border-white/40 shadow-xl">
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
                     <img src="https://placehold.co/300x300" alt="Juanzel" class="rounded-2xl mb-4 mx-auto" />
                     <h3 class="text-xl font-semibold text-black">Juanzel</h3>
                     <p class="text-slate-700 text-sm">Automation Engineer</p>
                 </div>
-                <div class="p-6 rounded-3xl bg-white/70 border border-white/40 shadow-xl">
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
                     <img src="https://placehold.co/300x300" alt="Michael" class="rounded-2xl mb-4 mx-auto" />
                     <h3 class="text-xl font-semibold text-black">Michael</h3>
                     <p class="text-slate-700 text-sm">Design Specialist</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA (Desktop + Mobile) -->
-        <section class="hidden md:block py-24 md:py-32 max-w-7xl mx-auto text-center px-6">
-            <div class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-16 md:p-20">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-5xl md:text-6xl font-bold text-black leading-tight mb-6">
-                        Ready to Scale Your Business With Lovoson Media?
-                    </h2>
-                    <p class="text-lg md:text-xl text-slate-700 mb-10">
-                        We’ve helped brands convert attention into <span class="font-semibold text-black">revenue</span>
-                        through
-                        design, automation, and performance marketing — now it’s your turn.
-                    </p>
-                    <div class="flex flex-col md:flex-row justify-center gap-6">
-                        <a href="enroll.html"
-                            class="button-glow font-bold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Get
-                            Started →</a>
-                        <a href="about.html"
-                            class="button-outline font-semibold py-4 px-12 text-lg md:text-xl rounded-full inline-block">Learn
-                            More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="block md:hidden py-10 md:py-14 text-center">
-            <div
-                class="max-w-4xl mx-auto bg-white/60 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-10 md:p-14">
-                <div class="max-w-2xl mx-auto">
-                    <h2 class="text-4xl font-bold text-black leading-tight mb-4">Ready to Scale with Lovoson Media?</h2>
-                    <p class="text-base text-slate-700 mb-8">Let’s build systems that grow your business — through
-                        design,
-                        automation, and strategy.</p>
-                    <div class="flex flex-col md:flex-row justify-center gap-5">
-                        <a href="enroll.html"
-                            class="button-glow font-semibold py-3 px-10 text-base rounded-full inline-block">Get
-                            Started →</a>
-                        <a href="about.html"
-                            class="button-outline font-medium py-3 px-10 text-base rounded-full inline-block">Learn
-                            More</a>
-                    </div>
                 </div>
             </div>
         </section>
@@ -303,11 +242,8 @@
                     </picture>
                     <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
                 </div>
-                <p class="text-sm text-slate-700">
-                    Scaling businesses through strategy, design, and automation. We help businesses scale online with
-                    measurable
-                    impact.
-                </p>
+                <p class="text-sm text-slate-700">Scaling businesses through strategy, design, and automation. We help
+                    businesses scale online with measurable impact.</p>
             </div>
 
             <div>
@@ -331,13 +267,11 @@
                 </div>
             </div>
         </div>
-        <div class="text-center text-slate-500 text-sm py-6 border-t border-slate-200/50">
-            © 2025 Lovoson Media. All Rights Reserved.
-        </div>
+        <div class="text-center text-slate-500 text-sm py-6 border-t border-slate-200/50">© 2025 Lovoson Media. All
+            Rights Reserved.</div>
     </footer>
 
     <!-- JS -->
-    <script src="js/script.js"></script>
     <script>
         const navToggle = document.getElementById('nav-toggle');
         const mobileNav = document.getElementById('mobile-nav');
@@ -348,10 +282,10 @@
             icon.classList.toggle('fa-xmark');
         });
 
-        window.addEventListener("scroll", function () {
-            const header = document.getElementById("main-header");
-            if (window.scrollY > 20) header.classList.add("scrolled");
-            else header.classList.remove("scrolled");
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 20) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
     </script>
 </body>

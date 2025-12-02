@@ -28,6 +28,46 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
+        /* Dynamic Header Styles (Matching Main Site) */
+        #main-header {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #main-header>div {
+            /* Changed selector to be more specific to direct child div */
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            max-width: 1100px;
+            /* Default width */
+            padding: 1rem 2rem;
+        }
+
+        #main-header.scrolled>div {
+            /* Changed selector */
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 1rem;
+            transform: scale(0.96);
+        }
+
+        /* Fix for Log Out button on scroll */
+        /* Explicitly forcing transparency and border to override any default white bg */
+        #main-header.scrolled .button-outline {
+            background-color: transparent !important;
+            border: 1px solid #d1d5db;
+            color: #111;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            box-shadow: none !important;
+            /* Remove any shadow that might look like a box */
+        }
+
+        #main-header.scrolled .button-outline:hover {
+            border-color: #000;
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+
         /* Accordion Styling */
         details>summary {
             list-style: none;
@@ -70,6 +110,24 @@
             cursor: not-allowed;
             filter: grayscale(1);
         }
+
+        /* CLEAN CARDS: Soften borders and ensure rounded corners */
+        .card {
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            /* Very subtle border */
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+            /* Softer shadow */
+            border-radius: 1.5rem;
+            /* Ensure rounded corners */
+        }
+
+        /* Inner items in Client Snapshot */
+        .card .bg-white\/50 {
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            /* Faint inner border */
+            border-radius: 1rem;
+            /* Rounded corners for inner items */
+        }
     </style>
 </head>
 
@@ -90,9 +148,13 @@
                 <span class="text-sm font-semibold text-slate-500 uppercase tracking-wide">Client Portal</span>
                 <a href="#" class="nav-link"><i class="fa-regular fa-circle-question mr-1"></i> Help</a>
             </nav>
-            <div class="hidden md:flex gap-3">
-                <a href="index.html" class="button-outline font-semibold py-2 px-4 text-sm">Log Out</a>
+
+            <!-- ISOLATED ACTION BUTTON CONTAINER (Matches index.html structure) -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="index.html" class="button-outline font-semibold py-2.5 px-5 text-sm hover:bg-white/50">Log
+                    Out</a>
             </div>
+
             <!-- Mobile Menu Toggle -->
             <button id="nav-toggle" class="md:hidden text-2xl text-black"><i class="fa-solid fa-bars"></i></button>
         </div>
@@ -103,7 +165,7 @@
 
         <!-- HERO SECTION -->
         <section class="text-center py-12 md:py-16">
-            <div class="liquid-glass rounded-3xl p-8 md:p-12 inline-block w-full max-w-4xl mx-auto">
+            <div class="liquid-glass rounded-3xl p-8 md:p-12 inline-block w-full max-w-4xl mx-auto border-none">
                 <p class="text-slate-500 uppercase tracking-widest text-sm font-semibold mb-2">Onboarding Dashboard</p>
                 <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">
                     Welcome, <span id="client-name-display"
@@ -119,19 +181,19 @@
         <section class="grid md:grid-cols-3 gap-8 mb-12">
 
             <!-- LEFT: Client Snapshot -->
-            <div class="card md:col-span-1 border border-white/50 h-full flex flex-col justify-between">
+            <div class="card md:col-span-1 h-full flex flex-col justify-between">
                 <div>
                     <h3 class="text-xl font-bold text-black mb-6 flex items-center gap-2">
                         <i class="fa-solid fa-id-card-clip text-slate-400"></i> Client Snapshot
                     </h3>
 
                     <div class="space-y-4">
-                        <div class="bg-white/50 p-4 rounded-xl border border-white/60">
+                        <div class="bg-white/50 p-4 rounded-xl">
                             <p class="text-xs text-slate-500 uppercase font-bold">Project</p>
                             <p class="text-black font-semibold">Full Service Scale System</p>
                         </div>
 
-                        <div class="bg-white/50 p-4 rounded-xl border border-white/60">
+                        <div class="bg-white/50 p-4 rounded-xl">
                             <p class="text-xs text-slate-500 uppercase font-bold">Current Status</p>
                             <span
                                 class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 mt-1">
@@ -140,7 +202,7 @@
                             </span>
                         </div>
 
-                        <div class="bg-white/50 p-4 rounded-xl border border-white/60">
+                        <div class="bg-white/50 p-4 rounded-xl">
                             <p class="text-xs text-slate-500 uppercase font-bold">Target Kickoff</p>
                             <p class="text-black font-semibold text-lg">TBD</p>
                         </div>
@@ -151,11 +213,11 @@
                     <p class="text-xs text-slate-500 mb-3 font-medium">QUICK LINKS (Active after Kickoff)</p>
                     <div class="flex gap-3">
                         <button
-                            class="flex-1 btn-disabled bg-slate-100 text-slate-400 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 border border-slate-200">
+                            class="flex-1 btn-disabled bg-slate-100 text-slate-400 py-3 rounded-xl font-semibold flex items-center justify-center gap-2">
                             <i class="fa-brands fa-slack"></i> Slack
                         </button>
                         <button
-                            class="flex-1 btn-disabled bg-slate-100 text-slate-400 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 border border-slate-200">
+                            class="flex-1 btn-disabled bg-slate-100 text-slate-400 py-3 rounded-xl font-semibold flex items-center justify-center gap-2">
                             <i class="fa-brands fa-google-drive"></i> Drive
                         </button>
                     </div>
@@ -165,7 +227,7 @@
             <!-- RIGHT: Progress Tracker & Introduction -->
             <div class="md:col-span-2 flex flex-col gap-8">
                 <!-- Progress Card -->
-                <div class="card border border-white/50">
+                <div class="card">
                     <div class="flex justify-between items-end mb-4">
                         <div>
                             <h3 class="text-xl font-bold text-black">Setup Progress</h3>
@@ -212,7 +274,7 @@
 
                 <!-- STEP 1: Welcome -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
                     open>
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
@@ -250,7 +312,7 @@
 
                 <!-- STEP 2: Contract -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
                             <label class="custom-checkbox relative flex items-center cursor-pointer"
@@ -302,7 +364,7 @@
 
                 <!-- STEP 3: Access Collection -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
                             <label class="custom-checkbox relative flex items-center cursor-pointer"
@@ -335,7 +397,7 @@
 
                 <!-- STEP 4: Intake Survey -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
                             <label class="custom-checkbox relative flex items-center cursor-pointer"
@@ -368,7 +430,7 @@
 
                 <!-- STEP 5: Schedule Kickoff -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
                             <label class="custom-checkbox relative flex items-center cursor-pointer"
@@ -405,7 +467,7 @@
 
                 <!-- STEP 6: Final Confirmation -->
                 <details
-                    class="group bg-white/60 backdrop-blur-md border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                    class="group bg-white/60 backdrop-blur-md rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
                     <summary class="flex items-center justify-between p-5 cursor-pointer select-none">
                         <div class="flex items-center gap-4">
                             <label class="custom-checkbox relative flex items-center cursor-pointer"
@@ -439,8 +501,7 @@
 
                 <!-- STEP 7: Completion -->
                 <div id="step-7-container" class="opacity-50 transition-all duration-500">
-                    <div
-                        class="bg-white/40 backdrop-blur-md border border-white/50 rounded-2xl p-5 flex items-center gap-4">
+                    <div class="bg-white/40 backdrop-blur-md rounded-2xl p-5 flex items-center gap-4">
                         <label class="custom-checkbox relative flex items-center cursor-pointer">
                             <input type="checkbox" class="step-checkbox sr-only" data-step="7" disabled>
                             <div
@@ -478,7 +539,14 @@
 
     <!-- PAGE LOGIC -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // Header Scroll Effect Logic
+        window.addEventListener("scroll", () => {
+            const header = document.getElementById("main-header");
+            if (window.scrollY > 20) header.classList.add("scrolled");
+            else header.classList.remove("scrolled");
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
             // ---------------------------------------------------------
             // 1. URL PARAMETER PARSING
             // ---------------------------------------------------------
@@ -502,26 +570,60 @@
                         if (iframe.src) iframe.src = newSrc;
                     }
                 });
+
+                // ---------------------------------------------------------
+                // 2. FETCH PROGRESS FROM BACKEND
+                // ---------------------------------------------------------
+                try {
+                    // Call the new endpoint we created in Step 5
+                    const response = await fetch(`/api/client-progress?client=${encodeURIComponent(formattedName)}`);
+                    if (response.ok) {
+                        const progressData = await response.json(); // returns { "1": true, "2": true }
+                        updateUI(progressData);
+                    } else {
+                        console.warn("Could not fetch progress:", response.statusText);
+                    }
+                } catch (err) {
+                    console.error("Network error fetching progress:", err);
+                }
             }
 
             // ---------------------------------------------------------
-            // 2. PROGRESS BAR & CHECKBOX LOGIC
+            // 3. UI UPDATE LOGIC
             // ---------------------------------------------------------
-            const checkboxes = document.querySelectorAll('.step-checkbox');
-            const progressBar = document.getElementById('progress-bar');
-            const progressText = document.getElementById('progress-text');
-            const stepsCount = document.getElementById('steps-count');
-            const totalSteps = 7;
-            const storageKey = `lovoson_onboarding_${clientName || 'default'}`;
+            function updateUI(progressMap) {
+                const checkboxes = document.querySelectorAll('.step-checkbox');
+                const progressBar = document.getElementById('progress-bar');
+                const progressText = document.getElementById('progress-text');
+                const stepsCount = document.getElementById('steps-count');
+                const totalSteps = 7;
 
-            // Load saved state
-            const savedState = JSON.parse(localStorage.getItem(storageKey)) || {};
+                let checkedCount = 0;
 
-            function updateProgress() {
-                const checkedCount = document.querySelectorAll('.step-checkbox:checked').length;
+                // Loop through all checkboxes and set state based on backend data
+                checkboxes.forEach(box => {
+                    const step = box.dataset.step;
+
+                    // If backend says true, check the box
+                    if (progressMap[step]) {
+                        box.checked = true;
+                        checkedCount++;
+
+                        // Optional: Open the *next* accordion step if this one is done
+                        // (Logic omitted for simplicity, but good for UX)
+                    } else {
+                        box.checked = false;
+                    }
+
+                    // Disable manual clicking for now (since we want the SERVER to control this via webhooks)
+                    // Or keep it enabled if you want manual override. For now, let's keep it read-only or manual?
+                    // Let's assume manual checking is allowed for prototyping, but eventually read-only.
+                });
+
+                // Calculate Progress
                 const percentage = Math.round((checkedCount / totalSteps) * 100);
 
-                // Update UI
+                // Update Visuals
                 progressBar.style.width = `${percentage}%`;
                 progressText.textContent = `${percentage}%`;
                 stepsCount.textContent = `Step ${checkedCount} of ${totalSteps} Complete`;
@@ -530,43 +632,17 @@
                 const step7Container = document.getElementById('step-7-container');
                 const step7Checkbox = document.querySelector('.step-checkbox[data-step="7"]');
 
-                if (checkedCount >= 6 && !step7Checkbox.checked) {
+                if (checkedCount >= 6) {
                     step7Container.classList.remove('opacity-50');
                     step7Checkbox.disabled = false;
-                    // Auto-check step 7 if user manually checks 6? 
-                    // No, let them have the satisfaction of clicking the final box.
                 }
 
                 if (checkedCount === totalSteps) {
                     // Celebration State
                     progressBar.classList.remove('bg-black');
                     progressBar.classList.add('bg-green-500');
-                    // Could trigger confetti here
                 }
             }
-
-            // Initialize Checkboxes
-            checkboxes.forEach(box => {
-                const step = box.dataset.step;
-
-                // Apply saved state
-                if (savedState[step]) {
-                    box.checked = true;
-                    // If checked, maybe open the next accordion? (Optional UX enhancement)
-                }
-
-                // Event Listener
-                box.addEventListener('change', (e) => {
-                    // Save to local storage
-                    savedState[step] = e.target.checked;
-                    localStorage.setItem(storageKey, JSON.stringify(savedState));
-
-                    updateProgress();
-                });
-            });
-
-            // Run once on load
-            updateProgress();
         });
     </script>
 </body>

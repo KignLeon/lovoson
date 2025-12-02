@@ -53,15 +53,16 @@
                     placeholder="••••••••">
             </div>
 
-            <button type="submit"
+            <button type="submit" id="submitBtn"
                 class="w-full bg-black text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition-all shadow-lg mt-4 flex justify-center items-center gap-2">
                 <span>Enter Portal</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </button>
         </form>
 
-        <p id="error-msg" class="text-red-500 text-sm mt-4 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i>
-            Invalid credentials</p>
+        <p id="error-msg" class="text-red-500 text-sm mt-4 hidden font-medium flex items-center justify-center gap-2">
+            <i class="fa-solid fa-circle-exclamation"></i> <span>Invalid credentials</span>
+        </p>
 
         <div class="mt-8 pt-6 border-t border-slate-200/50">
             <a href="mailto:support@lovosonmedia.com"
@@ -72,38 +73,53 @@
     <script>
         const form = document.getElementById('loginForm');
         const errorMsg = document.getElementById('error-msg');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorText = errorMsg.querySelector('span');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // UI Reset
+            errorMsg.classList.add('hidden');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-75');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Verifying...';
+
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // In a real scenario, fetch('/login', { method: 'POST', body: ... })
-            // For now, let's simulate the API call to your Java backend
-
             try {
+                // Send credentials to backend
                 const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    // Redirect to onboarding with token or secure session
-                    // We'll stick to the URL param for the prototype display, but now it's "authorized"
+                const data = await response.json();
+
+                if (response.ok && data.status === 'success') {
+                    // Success: Redirect to onboarding with client name
+                    // In a production app, the server would set a secure cookie here.
+                    // For this prototype, we pass the name to personalize the next page.
                     window.location.href = `onboarding.html?client=${encodeURIComponent(data.clientName)}`;
                 } else {
-                    throw new Error('Login failed');
+                    throw new Error(data.message || 'Login failed');
                 }
             } catch (err) {
-                // FALLBACK FOR DEMO ONLY (If backend isn't running yet)
-                if (password === "lovoson2025") {
-                    window.location.href = `onboarding.html?client=Demo%20Client`;
-                } else {
-                    errorMsg.classList.remove('hidden');
-                    form.querySelector('input[type="password"]').value = '';
-                }
+                // Error Handling
+                console.error("Login Error:", err);
+                errorText.textContent = err.message || "Connection failed. Please try again.";
+                errorMsg.classList.remove('hidden');
+
+                // Reset Button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-75');
+                submitBtn.innerHTML = originalBtnText;
+
+                // Clear password field
+                document.getElementById('password').value = '';
             }
         });
     </script>

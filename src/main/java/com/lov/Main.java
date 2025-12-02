@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
@@ -28,9 +30,8 @@ public class Main {
     static {
         // Client 1: Old School Boxing
         Client c1 = new Client("Old School Boxing", "client@oldschoolboxing.com", "boxer123");
-        // Simulate some progress: Steps 1 and 2 are done
+        // Simulate some progress: Steps 1 is done
         c1.setProgress("1", true);
-        c1.setProgress("2", true);
         clientDatabase.put(c1.email, c1);
 
         // Client 2: Demo
@@ -101,7 +102,7 @@ public class Main {
             }
         });
 
-        // 2. CLIENT PROGRESS ENDPOINT (New!)
+        // 2. CLIENT PROGRESS ENDPOINT
         get("/api/client-progress", (req, res) -> {
             res.type("application/json");
 
@@ -112,9 +113,6 @@ public class Main {
                 return "{\"status\":\"error\", \"message\":\"Missing client parameter\"}";
             }
 
-            // In a real app, we'd look up by ID/Email. Since we only have name passed from frontend for now,
-            // we will iterate to find the matching business name.
-            // (This is temporary logic for the prototype phase)
             Client foundClient = null;
             for (Client c : clientDatabase.values()) {
                 if (c.businessName.equalsIgnoreCase(clientName)) {
@@ -124,25 +122,112 @@ public class Main {
             }
 
             if (foundClient != null) {
-                // Return the progress map
                 return gson.toJson(foundClient.progress);
             } else {
-                // If not found, return empty object (no progress)
                 return "{}";
             }
         });
 
-        // 3. ENROLL FORM
+        // 3. TALLY WEBHOOK LISTENER (The Nervous System)
+        post("/api/webhook/tally", (req, res) -> {
+            res.type("application/json");
+            String payload = req.body();
+            LOGGER.info("Received Webhook: " + payload);
+
+            try {
+                JsonObject json = gson.fromJson(payload, JsonObject.class);
+
+                // Tally payload structure:
+                // { "data": { "fields": [ ... hidden fields ... ] } }
+                if (json.has("data")) {
+                    JsonObject data = json.getAsJsonObject("data");
+                    if (data.has("fields")) {
+                        JsonArray fields = data.getAsJsonArray("fields");
+
+                        String clientId = null;
+                        String stepId = null;
+
+                        // Iterate through fields to find our hidden 'client_id' and 'step'
+                        for (JsonElement fieldElement : fields) {
+                            JsonObject field = fieldElement.getAsJsonObject();
+                            if (field.has("key") && field.has("value")) {
+                                String key = field.get("key").getAsString();
+                                // Handle value being possibly null or not a string
+                                JsonElement valueElem = field.get("value");
+                                if (valueElem.isJsonNull()) {
+                                    continue;
+                                }
+
+                                String value = valueElem.getAsString();
+
+                                if ("client_id".equals(key)) {
+                                    clientId = value;
+                                }
+                                if ("step".equals(key)) {
+                                    stepId = value;
+                                }
+                            }
+                        }
+
+                        if (clientId != null && stepId != null) {
+                            LOGGER.info("Processing Update -> Client: " + clientId + ", Step: " + stepId);
+
+                            // Find client and update progress
+                            for (Client c : clientDatabase.values()) {
+                                if (c.businessName.equalsIgnoreCase(clientId)) {
+                                    // Map "step name" (e.g. "contract") to step ID (e.g. "2")
+                                    // Or simply rely on Tally passing "2" as the value for "step"
+                                    String numericStepId = mapStepToId(stepId);
+                                    c.setProgress(numericStepId, true);
+                                    LOGGER.info("Updated progress for " + c.businessName);
+                                    return "{\"status\":\"success\", \"message\":\"Progress updated\"}";
+                                }
+                            }
+                        }
+                    }
+                }
+
+                return "{\"status\":\"ignored\", \"message\":\"No matching client or step found\"}";
+
+            } catch (Exception e) {
+                LOGGER.error("Webhook Error", e);
+                res.status(500);
+                return "{\"status\":\"error\", \"message\":\"Webhook processing failed\"}";
+            }
+        });
+
+        // 4. ENROLL FORM
         post("/enroll", (req, res) -> {
             res.type("application/json");
             LOGGER.info("Enrollment Request: {}", req.body());
             return "{\"status\":\"success\", \"message\":\"Enrollment received!\"}";
         });
 
-        // 4. HEALTH CHECK
+        // 5. HEALTH CHECK
         get("/health", (req, res) -> "Server is running!");
 
         LOGGER.info("Lovoson Backend started on port " + getHerokuAssignedPort());
+    }
+
+    // Helper to map string steps (from Tally) to numeric IDs (for UI)
+    private static String mapStepToId(String stepName) {
+        if (stepName == null) {
+            return "0";
+        }
+        switch (stepName.toLowerCase()) {
+            case "contract":
+                return "2";
+            case "access":
+                return "3";
+            case "intake":
+                return "4";
+            case "kickoff":
+                return "5";
+            case "final":
+                return "6";
+            default:
+                return stepName; // Assume it's already a number "1", "2", etc.
+        }
     }
 
     static int getHerokuAssignedPort() {
@@ -160,7 +245,6 @@ public class Main {
         String businessName;
         String email;
         String password;
-        // Stores step ID ("1", "2") mapped to completion status (true/false)
         Map<String, Boolean> progress = new HashMap<>();
 
         public Client(String businessName, String email, String password) {

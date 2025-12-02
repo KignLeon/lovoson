@@ -1,97 +1,133 @@
 package com.lov;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
+import static spark.Spark.before;
+import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
 
-/**
- * File: Main.java
- * This is the main entry point for the FTI website's backend server.
- * It uses the SparkJava framework to serve the website and handle form submissions.
- */
 public class Main {
 
-    // A dedicated logger is better practice than System.out.println or printStackTrace
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final Gson gson = new Gson();
+    
+    // MOCK DATABASE (In production, replace this with SQL or NoSQL DB)
+    // Key: Email, Value: Access Code
+    private static final Map<String, String> userDatabase = new HashMap<>();
+    static {
+        userDatabase.put("client@oldschoolboxing.com", "boxer123");
+        userDatabase.put("demo@lovoson.com", "lovoson2025");
+    }
 
     public static void main(String[] args) {
 
-        // --- Server Configuration ---
-
-        // Set the port the server will run on. Use the PORT environment variable if set, otherwise default to 8080.
+        // --- Server Config ---
         port(getHerokuAssignedPort());
-
-        // Tell Spark where to find our static files (HTML, CSS, JS, images).
+        
+        // IMPORTANT: Set static file location. 
+        // You MUST move index.html, onboarding.html, css/, js/ etc. into 'src/main/resources/public'
         staticFiles.location("/public");
 
+        // --- Enable CORS (Cross-Origin Resource Sharing) ---
+        // This allows your frontend (e.g. running on local file or Live Server) to talk to this backend
+        options("/*", (request, response) -> {
+            String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
+            if (accessControlRequestHeaders != null) {
+                response.header("Access-Control-Allow-Headers", accessControlRequestHeaders);
+            }
 
-        // --- Routing ---
+            String accessControlRequestMethod = request.headers("Access-Control-Request-Method");
+            if (accessControlRequestMethod != null) {
+                response.header("Access-Control-Allow-Methods", accessControlRequestMethod);
+            }
 
-        // Define the POST endpoint for the enrollment form.
-        post("/enroll", (request, response) -> {
-            
-            response.type("application/json");
+            return "OK";
+        });
 
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+
+        // --- Root Route ---
+        // Redirect root URL to index.html if serving static files from this server
+        get("/", (req, res) -> {
+            res.redirect("/index.html");
+            return null;
+        });
+
+        // --- 1. LOGIN ENDPOINT ---
+        post("/api/login", (req, res) -> {
+            res.type("application/json");
             try {
-                String requestBody = request.body();
-                JsonObject submission = gson.fromJson(requestBody, JsonObject.class);
-
-                // Check for null values which might occur with malformed JSON
-                if (submission == null || submission.get("name") == null || submission.get("email") == null) {
-                    response.status(400); // Bad Request
-                    return "{\"status\":\"error\", \"message\":\"Malformed request. Name and email are required.\"}";
+                JsonObject body = gson.fromJson(req.body(), JsonObject.class);
+                
+                // Safety check for missing fields
+                if (body == null || !body.has("email") || !body.has("password")) {
+                    res.status(400);
+                    return "{\"status\":\"error\", \"message\":\"Missing email or password\"}";
                 }
 
-                // --- DATA HANDLING ---
-                // In a real application, you would save this to a database or send an email.
-                // For this example, we log it to confirm receipt.
-                LOGGER.info("=========================================");
-                LOGGER.info("===      NEW ENROLLMENT REQUEST      ===");
-                LOGGER.info("=========================================");
-                LOGGER.info("Name: {}", submission.get("name").getAsString());
-                LOGGER.info("Email: {}", submission.get("email").getAsString());
-                LOGGER.info("Phone: {}", submission.get("phone").getAsString());
-                LOGGER.info("Services: {}", submission.get("services").getAsString());
-                LOGGER.info("Wants Free Consultation: {}", submission.get("consultation").getAsBoolean());
-                LOGGER.info("=========================================");
+                String email = body.get("email").getAsString();
+                String pass = body.get("password").getAsString();
 
-                // Return a success message to the frontend.
-                return "{\"status\":\"success\", \"message\":\"Enrollment received!\"}";
-
-            } catch (JsonSyntaxException jsonEx) {
-                // This catches errors if the incoming data isn't valid JSON.
-                LOGGER.error("Error parsing JSON from request", jsonEx);
-                response.status(400); // Bad Request
-                return "{\"status\":\"error\", \"message\":\"Invalid data format.\"}";
+                if (userDatabase.containsKey(email) && userDatabase.get(email).equals(pass)) {
+                    // Success
+                    LOGGER.info("Login successful for: {}", email);
+                    return "{\"status\":\"success\", \"clientName\":\"" + email.split("@")[0] + "\"}";
+                } else {
+                    LOGGER.warn("Login failed for: {}", email);
+                    res.status(401);
+                    return "{\"status\":\"error\", \"message\":\"Invalid credentials\"}";
+                }
             } catch (Exception e) {
-                // This is a general catch-all for any other unexpected server errors.
-                LOGGER.error("An unexpected error occurred", e);
-                response.status(500); // Internal Server Error
-                return "{\"status\":\"error\", \"message\":\"An internal server error occurred.\"}";
+                LOGGER.error("Server Error in /api/login", e);
+                res.status(500);
+                return "{\"status\":\"error\", \"message\":\"Server error\"}";
             }
         });
 
-        LOGGER.info("FTI server started. Access at http://localhost:{}", getHerokuAssignedPort());
+        // --- 2. ENROLL FORM (Existing) ---
+        post("/enroll", (request, response) -> {
+            response.type("application/json");
+            LOGGER.info("Enrollment Request: {}", request.body());
+            return "{\"status\":\"success\", \"message\":\"Enrollment received!\"}";
+        });
+
+        // --- 3. WEBHOOK LISTENER (Connects to Tally/Make.com) ---
+        // When a Tally form is submitted, Tally calls this URL
+        post("/api/webhook/tally", (req, res) -> {
+            res.type("application/json");
+            
+            String payload = req.body();
+            LOGGER.info("Received Webhook from Tally: {}", payload);
+            
+            // Logic: Parse the JSON, find the 'client_id' and 'step' fields
+            // Update the database status for that client.
+            // ... (Add your DB update logic here) ...
+
+            return "{\"status\":\"received\"}";
+        });
+        
+        // --- 4. HEALTH CHECK ---
+        get("/health", (req, res) -> "Server is running!");
+
+        LOGGER.info("Lovoson Backend started on port " + getHerokuAssignedPort());
     }
 
-    /**
-     * A helper method to get the port from the environment variable.
-     * @return The port number.
-     */
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         String port = processBuilder.environment().get("PORT");
         if (port != null) {
             return Integer.parseInt(port);
         }
-        return 8080; // Default port
+        return 8080;
     }
 }

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Lovoson Media</title>
+
+    <!-- SEO META TAGS -->
+    <meta name="description"
+        content="Learn about Lovoson Media — a digital design and automation agency helping brands grow through data-driven marketing, automation, and web strategy.">
+    <meta name="keywords"
+        content="Lovoson Media, about Lovoson, web design agency, marketing automation, brand growth, San Diego marketing, creative studio, design and automation">
+    <meta name="author" content="Lovoson Media">
+    <link rel="canonical" href="https://www.lovosonmedia.com/about.html">
+
+    <!-- OPEN GRAPH / TWITTER -->
+    <meta property="og:title" content="About Lovoson Media | Design + Automation for Modern Brands">
+    <meta property="og:description"
+        content="Meet Lovoson Media — the creative and technical team behind automated systems that scale brands through design, marketing, and growth strategy.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
+    <meta property="og:url" content="https://www.lovosonmedia.com/about.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- FAVICON + STYLES -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #main-header {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #main-header div {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #main-header div {
+            max-width: 1100px;
+            padding: 1rem 2rem;
+        }
+
+        #main-header.scrolled div {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 1rem;
+            transform: scale(0.96);
+        }
+
+        /* Mobile dropdown */
+        #mobile-nav {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+            transition: all 0.4s ease-in-out;
+        }
+
+        #mobile-nav.active {
+            max-height: 45vh;
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width:768px) {
+            h1 {
+                font-size: 2.3rem !important;
+                line-height: 1.3;
+            }
+
+            h2 {
+                font-size: 1.8rem !important;
+                line-height: 1.35;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .button-glow,
+            .button-outline {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.95rem;
+            }
+
+            section {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
+            }
+        }
+
+        /* Carousel (Mobile Only) */
+        @media (max-width: 768px) {
+            .carousel {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 1.5rem;
+                padding: 1rem 0;
+            }
+
+            .carousel::-webkit-scrollbar {
+                display: none;
+            }
+
+            .carousel-item {
+                flex: 0 0 85%;
+                scroll-snap-align: center;
+                transition: transform 0.3s ease;
+            }
+
+            .carousel-item:hover {
+                transform: scale(1.03);
+            }
+
+            .team-grid {
+                display: none;
+            }
+        }
+
+        /* Desktop Grid */
+        @media (min-width: 769px) {
+            .carousel {
+                display: none;
+            }
+
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24">
+
+    <!-- HEADER -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div
+            class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md">
+            <a href="index.html" class="text-2xl font-bold text-black">Lovoson Media</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <a href="enroll.html" class="hidden md:inline-block button-glow font-semibold py-2.5 px-5">Get Started</a>
+            <button id="nav-toggle" class="md:hidden text-2xl text-black"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
+        <nav id="mobile-nav" class="md:hidden text-center px-8 py-6">
+            <div class="flex flex-col space-y-5">
+                <a href="index.html" class="text-lg font-medium text-black hover:underline">Home</a>
+                <a href="about.html" class="text-lg font-medium text-black hover:underline">About</a>
+                <a href="contact.html" class="text-lg font-medium text-black hover:underline">Contact</a>
+                <a href="enroll.html"
+                    class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
+                    Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <main class="max-w-7xl mx-auto px-8 md:px-12">
+        <section class="text-center py-20 md:py-28">
+            <h1 class="text-5xl md:text-6xl font-bold text-black mb-3">Lovoson Media</h1>
+            <p class="text-lg md:text-xl uppercase tracking-wide text-slate-600 mb-5">Who We Are</p>
+            <p class="max-w-4xl mx-auto text-slate-800 text-lg md:text-2xl leading-relaxed font-medium">
+                At Lovoson Media, our vision is to fuel your brand’s growth through powerful, data-driven automation and
+                purposeful design. We build systems that drive revenue and trust between brands and people.
+            </p>
+        </section>
+
+        <!-- METRICS -->
+        <section class="py-16 md:py-24">
+            <div
+                class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 flex flex-col md:flex-row justify-around text-center gap-10">
+                <div>
+                    <h3 class="text-5xl font-bold text-black">+72%</h3>
+                    <p class="text-slate-700 mt-2">Leads Generated</p>
+                </div>
+                <div>
+                    <h3 class="text-5xl font-bold text-black">8x</h3>
+                    <p class="text-slate-700 mt-2">Engagement Rate</p>
+                </div>
+                <div>
+                    <h3 class="text-5xl font-bold text-black">+45%</h3>
+                    <p class="text-slate-700 mt-2">Media Growth</p>
+                </div>
+                <div>
+                    <h3 class="text-5xl font-bold text-black">8×</h3>
+                    <p class="text-slate-700 mt-2">ROI</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEAM -->
+        <section class="py-20 md:py-28">
+            <div class="text-center max-w-4xl mx-auto mb-12">
+                <h2 class="text-5xl font-bold text-black">Meet the Team</h2>
+                <p class="mt-4 text-lg text-slate-700">Swipe through the people driving strategy, creativity, and
+                    execution.</p>
+            </div>
+
+            <div class="carousel px-4">
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
+                    <img src="https://placehold.co/300x300" alt="Leon" class="rounded-2xl mb-4 mx-auto" />
+                    <h3 class="text-xl font-semibold text-black">Leon</h3>
+                    <p class="text-slate-700 text-sm">Owner & Creative Director</p>
+                </div>
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
+                    <img src="https://placehold.co/300x300" alt="Ethan" class="rounded-2xl mb-4 mx-auto" />
+                    <h3 class="text-xl font-semibold text-black">Ethan</h3>
+                    <p class="text-slate-700 text-sm">Director of Client Success</p>
+                </div>
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
+                    <img src="https://placehold.co/300x300" alt="Juanzel" class="rounded-2xl mb-4 mx-auto" />
+                    <h3 class="text-xl font-semibold text-black">Juanzel</h3>
+                    <p class="text-slate-700 text-sm">Automation Engineer</p>
+                </div>
+                <div class="carousel-item bg-white/70 border border-white/40 rounded-3xl shadow-xl p-8 text-center">
+                    <img src="https://placehold.co/300x300" alt="Michael" class="rounded-2xl mb-4 mx-auto" />
+                    <h3 class="text-xl font-semibold text-black">Michael</h3>
+                    <p class="text-slate-700 text-sm">Design Specialist</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800">
+        <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+            <div class="pt-1">
+                <div class="flex items-center space-x-1 mb-3">
+                    <picture>
+                        <source
+                            srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821610/lovoson_icon_fmdiol.svg"
+                            type="image/svg+xml">
+                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
+                            alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
+                    </picture>
+                    <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
+                </div>
+                <p class="text-sm text-slate-700">Scaling businesses through strategy, design, and automation. We help
+                    businesses scale online with measurable impact.</p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
+                <p class="text-sm text-slate-700">Website Design & Management</p>
+                <p class="text-sm text-slate-700">Email & SMS Automation</p>
+                <p class="text-sm text-slate-700">Social Media Campaigns</p>
+                <p class="text-sm text-slate-700">Brand Strategy</p>
+                <p class="text-sm text-slate-700">Content Creation</p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
+                <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
+                <p class="text-sm text-slate-700 mb-4">Phone: (206) 806-3329</p>
+                <div class="flex space-x-5 text-2xl text-slate-700">
+                    <a href="mailto:contact@lovosonmedia.com" class="hover:text-black transition"><i
+                            class="fa-solid fa-envelope"></i></a>
+                    <a href="https://www.instagram.com/lovosonmedia" target="_blank"
+                        class="hover:text-black transition"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-slate-500 text-sm py-6 border-t border-slate-200/50">© 2025 Lovoson Media. All
+            Rights Reserved.</div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        navToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            const icon = navToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 20) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+    </script>
+</body>
+
+</html>

@@ -29,6 +29,7 @@ public class Main {
         userDatabase.put("demo@lovoson.com", "lovoson2025");
     }
 
+    @SuppressWarnings("UseSpecificCatch")
     public static void main(String[] args) {
 
         // --- Server Config ---

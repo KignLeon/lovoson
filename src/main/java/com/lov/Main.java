@@ -26,8 +26,16 @@ public class Main {
     private static final Map<String, Client> clientDatabase = new HashMap<>();
 
     static {
-        clientDatabase.put("client@oldschoolboxing.com", new Client("Old School Boxing", "client@oldschoolboxing.com", "boxer123"));
-        clientDatabase.put("demo@lovoson.com", new Client("Demo Client", "demo@lovoson.com", "lovoson2025"));
+        // Client 1: Old School Boxing
+        Client c1 = new Client("Old School Boxing", "client@oldschoolboxing.com", "boxer123");
+        // Simulate some progress: Steps 1 and 2 are done
+        c1.setProgress("1", true);
+        c1.setProgress("2", true);
+        clientDatabase.put(c1.email, c1);
+
+        // Client 2: Demo
+        Client c2 = new Client("Demo Client", "demo@lovoson.com", "lovoson2025");
+        clientDatabase.put(c2.email, c2);
     }
 
     public static void main(String[] args) {
@@ -84,23 +92,54 @@ public class Main {
 
             } catch (JsonSyntaxException e) {
                 LOGGER.error("JSON Syntax Error", e);
-                res.status(400); // Bad Request
+                res.status(400);
                 return "{\"status\":\"error\", \"message\":\"Invalid JSON format\"}";
             } catch (Exception e) {
                 LOGGER.error("Server Error", e);
-                res.status(500); // Internal Server Error
+                res.status(500);
                 return "{\"status\":\"error\", \"message\":\"Internal Server Error\"}";
             }
         });
 
-        // 2. ENROLL FORM
+        // 2. CLIENT PROGRESS ENDPOINT (New!)
+        get("/api/client-progress", (req, res) -> {
+            res.type("application/json");
+
+            String clientName = req.queryParams("client"); // e.g., "Old School Boxing"
+
+            if (clientName == null || clientName.isEmpty()) {
+                res.status(400);
+                return "{\"status\":\"error\", \"message\":\"Missing client parameter\"}";
+            }
+
+            // In a real app, we'd look up by ID/Email. Since we only have name passed from frontend for now,
+            // we will iterate to find the matching business name.
+            // (This is temporary logic for the prototype phase)
+            Client foundClient = null;
+            for (Client c : clientDatabase.values()) {
+                if (c.businessName.equalsIgnoreCase(clientName)) {
+                    foundClient = c;
+                    break;
+                }
+            }
+
+            if (foundClient != null) {
+                // Return the progress map
+                return gson.toJson(foundClient.progress);
+            } else {
+                // If not found, return empty object (no progress)
+                return "{}";
+            }
+        });
+
+        // 3. ENROLL FORM
         post("/enroll", (req, res) -> {
             res.type("application/json");
             LOGGER.info("Enrollment Request: {}", req.body());
             return "{\"status\":\"success\", \"message\":\"Enrollment received!\"}";
         });
 
-        // 3. HEALTH CHECK
+        // 4. HEALTH CHECK
         get("/health", (req, res) -> "Server is running!");
 
         LOGGER.info("Lovoson Backend started on port " + getHerokuAssignedPort());
@@ -121,6 +160,8 @@ public class Main {
         String businessName;
         String email;
         String password;
+        // Stores step ID ("1", "2") mapped to completion status (true/false)
+        Map<String, Boolean> progress = new HashMap<>();
 
         public Client(String businessName, String email, String password) {
             this.businessName = businessName;
@@ -128,8 +169,10 @@ public class Main {
             this.password = password;
         }
 
-        // Getter to silence "unused variable" warning if strictly needed,
-        // though usually not necessary until used.
+        public void setProgress(String stepId, boolean isComplete) {
+            this.progress.put(stepId, isComplete);
+        }
+
         public String getEmail() {
             return email;
         }

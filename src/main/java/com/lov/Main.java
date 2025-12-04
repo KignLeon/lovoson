@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -28,9 +27,9 @@ public class Main {
     private static final Map<String, Client> clientDatabase = new HashMap<>();
 
     static {
-        // Client 1: Old School Boxing
+        // Client 1: Old School Boxing (Pre-loaded for testing)
         Client c1 = new Client("Old School Boxing", "client@oldschoolboxing.com", "boxer123");
-        // Simulate some progress: Steps 1 is done
+        // Simulate some progress: Step 1 (Welcome) is done by default
         c1.setProgress("1", true);
         clientDatabase.put(c1.email, c1);
 
@@ -41,10 +40,13 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Use Render's PORT or default to 8080
         port(getHerokuAssignedPort());
+
+        // Serve static files (HTML/CSS)
         staticFiles.location("/public");
 
-        // --- CORS ---
+        // --- CORS (Allow frontend access) ---
         options("/*", (request, response) -> {
             String accessControlRequestHeaders = request.headers("Access-Control-Request-Headers");
             if (accessControlRequestHeaders != null) {
@@ -60,6 +62,7 @@ public class Main {
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
         // --- ROUTING ---
+        // Root redirects to index
         get("/", (req, res) -> {
             res.redirect("/index.html");
             return null;
@@ -91,28 +94,24 @@ public class Main {
                 res.status(401);
                 return "{\"status\":\"error\", \"message\":\"Invalid credentials\"}";
 
-            } catch (JsonSyntaxException e) {
-                LOGGER.error("JSON Syntax Error", e);
-                res.status(400);
-                return "{\"status\":\"error\", \"message\":\"Invalid JSON format\"}";
             } catch (Exception e) {
-                LOGGER.error("Server Error", e);
+                LOGGER.error("Login Error", e);
                 res.status(500);
-                return "{\"status\":\"error\", \"message\":\"Internal Server Error\"}";
+                return "{\"status\":\"error\", \"message\":\"Server error\"}";
             }
         });
 
         // 2. CLIENT PROGRESS ENDPOINT
         get("/api/client-progress", (req, res) -> {
             res.type("application/json");
-
-            String clientName = req.queryParams("client"); // e.g., "Old School Boxing"
+            String clientName = req.queryParams("client");
 
             if (clientName == null || clientName.isEmpty()) {
                 res.status(400);
                 return "{\"status\":\"error\", \"message\":\"Missing client parameter\"}";
             }
 
+            // Find client by name (Mock logic - acceptable for MVP)
             Client foundClient = null;
             for (Client c : clientDatabase.values()) {
                 if (c.businessName.equalsIgnoreCase(clientName)) {
@@ -128,7 +127,7 @@ public class Main {
             }
         });
 
-        // 3. TALLY WEBHOOK LISTENER (The Nervous System)
+        // 3. TALLY WEBHOOK LISTENER (THE NEW LOGIC)
         post("/api/webhook/tally", (req, res) -> {
             res.type("application/json");
             String payload = req.body();
@@ -137,8 +136,7 @@ public class Main {
             try {
                 JsonObject json = gson.fromJson(payload, JsonObject.class);
 
-                // Tally payload structure:
-                // { "data": { "fields": [ ... hidden fields ... ] } }
+                // Parse Tally Structure: { data: { fields: [ {key:..., value:...} ] } }
                 if (json.has("data")) {
                     JsonObject data = json.getAsJsonObject("data");
                     if (data.has("fields")) {
@@ -152,12 +150,11 @@ public class Main {
                             JsonObject field = fieldElement.getAsJsonObject();
                             if (field.has("key") && field.has("value")) {
                                 String key = field.get("key").getAsString();
-                                // Handle value being possibly null or not a string
                                 JsonElement valueElem = field.get("value");
+
                                 if (valueElem.isJsonNull()) {
                                     continue;
                                 }
-
                                 String value = valueElem.getAsString();
 
                                 if ("client_id".equals(key)) {
@@ -175,14 +172,14 @@ public class Main {
                             // Find client and update progress
                             for (Client c : clientDatabase.values()) {
                                 if (c.businessName.equalsIgnoreCase(clientId)) {
-                                    // Map "step name" (e.g. "contract") to step ID (e.g. "2")
-                                    // Or simply rely on Tally passing "2" as the value for "step"
+                                    // Convert "contract" -> "2", "intake" -> "4"
                                     String numericStepId = mapStepToId(stepId);
                                     c.setProgress(numericStepId, true);
-                                    LOGGER.info("Updated progress for " + c.businessName);
+                                    LOGGER.info("Updated progress for " + c.businessName + " (Step " + numericStepId + ")");
                                     return "{\"status\":\"success\", \"message\":\"Progress updated\"}";
                                 }
                             }
+                            LOGGER.warn("Client not found: " + clientId);
                         }
                     }
                 }
@@ -196,20 +193,20 @@ public class Main {
             }
         });
 
-        // 4. ENROLL FORM
+        // 4. GENERAL ENROLL FORM
         post("/enroll", (req, res) -> {
             res.type("application/json");
             LOGGER.info("Enrollment Request: {}", req.body());
             return "{\"status\":\"success\", \"message\":\"Enrollment received!\"}";
         });
 
-        // 5. HEALTH CHECK
+        // 5. HEALTH CHECK (For Render)
         get("/health", (req, res) -> "Server is running!");
 
         LOGGER.info("Lovoson Backend started on port " + getHerokuAssignedPort());
     }
 
-    // Helper to map string steps (from Tally) to numeric IDs (for UI)
+    // Helper: Maps Tally's string values to the numeric step IDs used in the UI
     private static String mapStepToId(String stepName) {
         if (stepName == null) {
             return "0";
@@ -225,8 +222,9 @@ public class Main {
                 return "5";
             case "final":
                 return "6";
+            // Allow passing raw numbers if Tally is configured that way
             default:
-                return stepName; // Assume it's already a number "1", "2", etc.
+                return stepName;
         }
     }
 

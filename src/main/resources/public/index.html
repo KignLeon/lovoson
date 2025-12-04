@@ -62,19 +62,30 @@
       overflow: hidden;
       opacity: 0;
       transform: translateY(-10px);
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.95);
+      /* Increased opacity for visibility */
       backdrop-filter: blur(14px);
       border-top: 1px solid rgba(255, 255, 255, 0.4);
       border-bottom-left-radius: 1.5rem;
       border-bottom-right-radius: 1.5rem;
       transition: all 0.4s ease-in-out;
+      position: absolute;
+      /* ensure it sits below header */
+      top: 100%;
+      /* position right below the header bar */
+      left: 0;
+      right: 0;
+      z-index: 40;
     }
 
     #mobile-nav.active {
-      max-height: 45vh;
+      max-height: 100vh;
+      /* Allow enough height */
       opacity: 1;
       transform: translateY(0);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding-bottom: 2rem;
+      /* Add padding when open */
     }
 
     @media (max-width:768px) {
@@ -114,7 +125,8 @@
   <!-- HEADER -->
   <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
     <div
-      class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md">
+      class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md relative z-50">
+      <!-- Added relative z-50 -->
       <a href="/" class="text-2xl font-bold text-black">Lovoson Media</a>
       <nav class="hidden md:flex items-center space-x-6">
         <a href="/" class="nav-link active">Home</a>
@@ -128,12 +140,13 @@
         <a href="/enroll/" class="button-glow font-semibold py-2.5 px-5 text-sm">Get Started</a>
       </div>
 
-      <button id="nav-toggle" class="md:hidden text-2xl text-black"><i class="fa-solid fa-bars"></i></button>
+      <button id="nav-toggle" class="md:hidden text-2xl text-black focus:outline-none p-2"><i
+          class="fa-solid fa-bars"></i></button>
     </div>
 
     <!-- Mobile Nav -->
-    <nav id="mobile-nav" class="md:hidden text-center px-8 py-6">
-      <div class="flex flex-col space-y-5">
+    <nav id="mobile-nav" class="md:hidden text-center px-8">
+      <div class="flex flex-col space-y-5 py-6">
         <a href="/" class="text-lg font-medium text-black hover:underline">Home</a>
         <a href="/about/" class="text-lg font-medium text-black hover:underline">About</a>
         <a href="/contact/" class="text-lg font-medium text-black hover:underline">Contact</a>
@@ -331,19 +344,48 @@
   <!-- JS -->
   <script src="/css/js/script.js"></script>
   <script>
-    const navToggle = document.getElementById('nav-toggle');
-    const mobileNav = document.getElementById('mobile-nav');
-    navToggle.addEventListener('click', () => {
-      mobileNav.classList.toggle('active');
-      const icon = navToggle.querySelector('i');
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-xmark');
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.getElementById('nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+
+      if (navToggle && mobileNav) {
+        navToggle.addEventListener('click', (e) => {
+          e.stopPropagation(); // Prevent event bubbling
+          mobileNav.classList.toggle('active');
+
+          // Toggle Icon
+          const icon = navToggle.querySelector('i');
+          if (icon) {
+            if (mobileNav.classList.contains('active')) {
+              icon.classList.remove('fa-bars');
+              icon.classList.add('fa-xmark');
+            } else {
+              icon.classList.remove('fa-xmark');
+              icon.classList.add('fa-bars');
+            }
+          }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (mobileNav.classList.contains('active') && !mobileNav.contains(e.target) && !navToggle.contains(e.target)) {
+            mobileNav.classList.remove('active');
+            const icon = navToggle.querySelector('i');
+            if (icon) {
+              icon.classList.remove('fa-xmark');
+              icon.classList.add('fa-bars');
+            }
+          }
+        });
+      }
     });
 
     window.addEventListener("scroll", () => {
       const header = document.getElementById("main-header");
-      if (window.scrollY > 20) header.classList.add("scrolled");
-      else header.classList.remove("scrolled");
+      if (header) {
+        if (window.scrollY > 20) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      }
     });
   </script>
 </body>

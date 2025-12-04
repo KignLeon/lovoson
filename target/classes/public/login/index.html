@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -91,8 +91,6 @@
 
             try {
                 // Send credentials to backend
-                // OLD: const response = await fetch('/api/login', {
-                // NEW: Point to Render backend
                 const response = await fetch('https://lovoson.onrender.com/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -105,7 +103,7 @@
                     // Success: Redirect to onboarding with client name
                     // In a production app, the server would set a secure cookie here.
                     // For this prototype, we pass the name to personalize the next page.
-                    window.location.href = `onboarding.html?client=${encodeURIComponent(data.clientName)}`;
+                    window.location.href = `/onboarding/?client=${encodeURIComponent(data.clientName)}`;
                 } else {
                     throw new Error(data.message || 'Login failed');
                 }

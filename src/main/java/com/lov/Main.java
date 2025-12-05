@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -29,8 +30,7 @@ public class Main {
     static {
         // Client 1: Old School Boxing (Pre-loaded for testing)
         Client c1 = new Client("Old School Boxing", "client@oldschoolboxing.com", "boxer123");
-        // Simulate some progress: Step 1 (Welcome) is done by default
-        c1.setProgress("1", true);
+        c1.setProgress("1", true); // Step 1 starts as completed
         clientDatabase.put(c1.email, c1);
 
         // Client 2: Demo
@@ -131,12 +131,15 @@ public class Main {
         post("/api/webhook/tally", (req, res) -> {
             res.type("application/json");
             String payload = req.body();
-            LOGGER.info("Received Webhook: " + payload);
+
+            // DEBUG LOG: Print the exact payload from Tally
+            System.out.println("DEBUG: Received Webhook Payload: " + payload);
 
             try {
                 JsonObject json = gson.fromJson(payload, JsonObject.class);
 
-                // Parse Tally Structure: { data: { fields: [ {key:..., value:...} ] } }
+                // Tally payload structure:
+                // { "data": { "fields": [ ... hidden fields ... ] } }
                 if (json.has("data")) {
                     JsonObject data = json.getAsJsonObject("data");
                     if (data.has("fields")) {
@@ -167,7 +170,7 @@ public class Main {
                         }
 
                         if (clientId != null && stepId != null) {
-                            LOGGER.info("Processing Update -> Client: " + clientId + ", Step: " + stepId);
+                            System.out.println("DEBUG: Processing Update -> Client: " + clientId + ", Step: " + stepId);
 
                             // Find client and update progress
                             for (Client c : clientDatabase.values()) {
@@ -175,19 +178,21 @@ public class Main {
                                     // Convert "contract" -> "2", "intake" -> "4"
                                     String numericStepId = mapStepToId(stepId);
                                     c.setProgress(numericStepId, true);
-                                    LOGGER.info("Updated progress for " + c.businessName + " (Step " + numericStepId + ")");
+                                    System.out.println("DEBUG: Updated progress for " + c.businessName + " (Step " + numericStepId + ")");
                                     return "{\"status\":\"success\", \"message\":\"Progress updated\"}";
                                 }
                             }
-                            LOGGER.warn("Client not found: " + clientId);
+                            System.out.println("DEBUG: Client not found: " + clientId);
+                        } else {
+                            System.out.println("DEBUG: Missing client_id or step in fields.");
                         }
                     }
                 }
 
                 return "{\"status\":\"ignored\", \"message\":\"No matching client or step found\"}";
 
-            } catch (Exception e) {
-                LOGGER.error("Webhook Error", e);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace(); // Print full error to logs
                 res.status(500);
                 return "{\"status\":\"error\", \"message\":\"Webhook processing failed\"}";
             }
@@ -222,7 +227,6 @@ public class Main {
                 return "5";
             case "final":
                 return "6";
-            // Allow passing raw numbers if Tally is configured that way
             default:
                 return stepName;
         }

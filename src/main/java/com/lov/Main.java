@@ -126,12 +126,12 @@ public class Main {
             }
         });
 
-        // 3. TALLY WEBHOOK LISTENER (FIXED LOGIC: Uses 'label' instead of 'key')
+        // 3. TALLY WEBHOOK LISTENER (FIXED: Checks 'label' instead of 'key')
         post("/api/webhook/tally", (req, res) -> {
             res.type("application/json");
             String payload = req.body();
 
-            // DEBUG LOG: Print the exact payload from Tally
+            // DEBUG LOG: crucial for verifying incoming data
             System.out.println("DEBUG: Received Webhook Payload: " + payload);
 
             try {
@@ -147,22 +147,32 @@ public class Main {
                         String clientId = null;
                         String stepId = null;
 
-                        // Iterate through fields to find our hidden 'client_id' and 'step'
+                        // Iterate through fields
                         for (JsonElement fieldElement : fields) {
                             JsonObject field = fieldElement.getAsJsonObject();
 
-                            // Tally puts the human-readable name in "label", not "key"
-                            if (field.has("label") && field.has("value")) {
+                            // Check 'label' field for our hidden field names
+                            if (field.has("label")) {
                                 String label = field.get("label").getAsString();
-                                JsonElement valueElem = field.get("value");
 
-                                if (valueElem.isJsonNull()) {
-                                    continue;
+                                // Extract value safely (it might be null or missing)
+                                String value = null;
+                                if (field.has("value") && !field.get("value").isJsonNull()) {
+                                    // Tally values can be strings or arrays (checkboxes). 
+                                    // For hidden fields, it's usually a string/primitive.
+                                    JsonElement valueElem = field.get("value");
+                                    if (valueElem.isJsonPrimitive()) {
+                                        value = valueElem.getAsString();
+                                    } else {
+                                        // Fallback for array types if needed, though unlikely for hidden fields
+                                        value = valueElem.toString();
+                                    }
                                 }
-                                String value = valueElem.getAsString();
 
+                                // Debug log for every field found
                                 System.out.println("DEBUG: Found Field -> Label: " + label + ", Value: " + value);
 
+                                // Match labels (case-insensitive for safety)
                                 if ("client_id".equalsIgnoreCase(label)) {
                                     clientId = value;
                                 }
@@ -178,9 +188,7 @@ public class Main {
                             // Find client and update progress
                             boolean updated = false;
                             for (Client c : clientDatabase.values()) {
-                                // Simple string matching (ignoring case)
                                 if (c.businessName.equalsIgnoreCase(clientId)) {
-                                    // Convert "contract" -> "2", "intake" -> "4"
                                     String numericStepId = mapStepToId(stepId);
                                     c.setProgress(numericStepId, true);
                                     System.out.println("DEBUG: Updated progress for " + c.businessName + " (Step " + numericStepId + ")");
@@ -196,7 +204,7 @@ public class Main {
                                 return "{\"status\":\"ignored\", \"message\":\"Client not found\"}";
                             }
                         } else {
-                            System.out.println("DEBUG: Missing client_id or step in fields.");
+                            System.out.println("DEBUG: Missing client_id or step. Found client_id=" + clientId + ", step=" + stepId);
                         }
                     }
                 }
@@ -204,7 +212,7 @@ public class Main {
                 return "{\"status\":\"ignored\", \"message\":\"No matching client or step found\"}";
 
             } catch (Exception e) {
-                e.printStackTrace(); // Print full error to logs
+                e.printStackTrace(); // Print full error stack trace to logs
                 res.status(500);
                 return "{\"status\":\"error\", \"message\":\"Webhook processing failed\"}";
             }
@@ -240,7 +248,7 @@ public class Main {
             case "final":
                 return "6";
             default:
-                return stepName;
+                return stepName; // fallback if it's already a number
         }
     }
 

@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import static spark.Spark.before;
 import static spark.Spark.get;
@@ -127,7 +126,7 @@ public class Main {
             }
         });
 
-        // 3. TALLY WEBHOOK LISTENER (THE NEW LOGIC)
+        // 3. TALLY WEBHOOK LISTENER (FIXED LOGIC: Uses 'label' instead of 'key')
         post("/api/webhook/tally", (req, res) -> {
             res.type("application/json");
             String payload = req.body();
@@ -151,8 +150,10 @@ public class Main {
                         // Iterate through fields to find our hidden 'client_id' and 'step'
                         for (JsonElement fieldElement : fields) {
                             JsonObject field = fieldElement.getAsJsonObject();
-                            if (field.has("key") && field.has("value")) {
-                                String key = field.get("key").getAsString();
+
+                            // Tally puts the human-readable name in "label", not "key"
+                            if (field.has("label") && field.has("value")) {
+                                String label = field.get("label").getAsString();
                                 JsonElement valueElem = field.get("value");
 
                                 if (valueElem.isJsonNull()) {
@@ -160,10 +161,12 @@ public class Main {
                                 }
                                 String value = valueElem.getAsString();
 
-                                if ("client_id".equals(key)) {
+                                System.out.println("DEBUG: Found Field -> Label: " + label + ", Value: " + value);
+
+                                if ("client_id".equalsIgnoreCase(label)) {
                                     clientId = value;
                                 }
-                                if ("step".equals(key)) {
+                                if ("step".equalsIgnoreCase(label)) {
                                     stepId = value;
                                 }
                             }
@@ -173,16 +176,25 @@ public class Main {
                             System.out.println("DEBUG: Processing Update -> Client: " + clientId + ", Step: " + stepId);
 
                             // Find client and update progress
+                            boolean updated = false;
                             for (Client c : clientDatabase.values()) {
+                                // Simple string matching (ignoring case)
                                 if (c.businessName.equalsIgnoreCase(clientId)) {
                                     // Convert "contract" -> "2", "intake" -> "4"
                                     String numericStepId = mapStepToId(stepId);
                                     c.setProgress(numericStepId, true);
                                     System.out.println("DEBUG: Updated progress for " + c.businessName + " (Step " + numericStepId + ")");
-                                    return "{\"status\":\"success\", \"message\":\"Progress updated\"}";
+                                    updated = true;
+                                    break;
                                 }
                             }
-                            System.out.println("DEBUG: Client not found: " + clientId);
+
+                            if (updated) {
+                                return "{\"status\":\"success\", \"message\":\"Progress updated\"}";
+                            } else {
+                                System.out.println("DEBUG: Client not found in DB: " + clientId);
+                                return "{\"status\":\"ignored\", \"message\":\"Client not found\"}";
+                            }
                         } else {
                             System.out.println("DEBUG: Missing client_id or step in fields.");
                         }
@@ -191,7 +203,7 @@ public class Main {
 
                 return "{\"status\":\"ignored\", \"message\":\"No matching client or step found\"}";
 
-            } catch (JsonSyntaxException e) {
+            } catch (Exception e) {
                 e.printStackTrace(); // Print full error to logs
                 res.status(500);
                 return "{\"status\":\"error\", \"message\":\"Webhook processing failed\"}";

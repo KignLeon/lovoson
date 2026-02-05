@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Work | Lovoson Media</title>
+
+    <!-- SEO META TAGS -->
+    <meta name="description"
+        content="See the results. Explore case studies and success stories from brands we've helped scale through web design, automation, and digital marketing.">
+    <meta name="keywords"
+        content="Lovoson Media, case studies, portfolio, client work, web design, digital marketing, brand growth, success stories">
+    <meta name="author" content="Lovoson Media">
+    <link rel="canonical" href="https://www.lovoson.com/clients/">
+
+    <!-- OPEN GRAPH / TWITTER -->
+    <meta property="og:title" content="Our Work | Lovoson Media">
+    <meta property="og:description"
+        content="Explore case studies and proven results from brands we've helped scale through strategy, design, and automation.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
+    <meta property="og:url" content="https://www.lovoson.com/clients/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- FAVICON + STYLES -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #main-header {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #main-header div {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #main-header div {
+            max-width: 1100px;
+            padding: 1rem 2rem;
+        }
+
+        #main-header.scrolled div {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem 1rem;
+            transform: scale(0.96);
+        }
+
+        /* Mobile dropdown */
+        #mobile-nav {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom-left-radius: 1.5rem;
+            border-bottom-right-radius: 1.5rem;
+            transition: all 0.4s ease-in-out;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 40;
+        }
+
+        #mobile-nav.active {
+            max-height: 100vh;
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            padding-bottom: 2rem;
+        }
+
+        /* Case Study Accordion */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details[open] summary~* {
+            animation: accordion-open 0.3s ease-in-out;
+        }
+
+        @keyframes accordion-open {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.3rem !important;
+                line-height: 1.3;
+            }
+
+            h2 {
+                font-size: 1.8rem !important;
+            }
+
+            section {
+                padding-top: 4rem !important;
+                padding-bottom: 4rem !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24">
+    <!-- HEADER -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
+        <div
+            class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md relative z-50">
+            <a href="/" class="text-2xl font-bold text-black">Lovoson Media</a>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/about/" class="nav-link">About</a>
+                <a href="/clients/" class="nav-link active">Clients</a>
+                <a href="/contact/" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- DESKTOP ACTIONS -->
+            <div class="hidden md:flex items-center gap-3">
+                <a href="/login/" class="button-outline font-semibold py-2.5 px-5 text-sm hover:bg-white/50">Log In</a>
+                <a href="/enroll/" class="button-glow font-semibold py-2.5 px-5 text-sm">Get Started</a>
+            </div>
+
+            <button id="nav-toggle" class="md:hidden text-2xl text-black focus:outline-none p-2"><i
+                    class="fa-solid fa-bars"></i></button>
+        </div>
+
+        <!-- Mobile Nav -->
+        <nav id="mobile-nav" class="md:hidden text-center px-8">
+            <div class="flex flex-col space-y-5 py-6">
+                <a href="/" class="text-lg font-medium text-black hover:underline">Home</a>
+                <a href="/about/" class="text-lg font-medium text-black hover:underline">About</a>
+                <a href="/clients/" class="text-lg font-medium text-black hover:underline">Clients</a>
+                <a href="/contact/" class="text-lg font-medium text-black hover:underline">Contact</a>
+                <a href="/login/" class="text-lg font-medium text-black hover:underline">Client Login</a>
+                <a href="/enroll/"
+                    class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
+                    Started</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <main class="max-w-7xl mx-auto px-8 md:px-12">
+        <section class="text-center py-20 md:py-28">
+            <h1 class="text-5xl md:text-6xl font-bold leading-tight shimmer-text mb-4">
+                Our Work
+            </h1>
+            <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto">
+                Real brands. Real results. See how we've helped businesses scale through design, automation, and
+                performance marketing.
+            </p>
+        </section>
+
+        <!-- CLIENT HIGHLIGHTS GRID -->
+        <section class="py-16 md:py-24">
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-black">Client Highlights</h2>
+                <p class="mt-4 text-lg text-slate-700">Featured success stories from brands we've partnered with.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Client Card 1: Old School Boxing -->
+                <div class="glass-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+                            alt="Old School Boxing" class="w-16 h-16 rounded-full object-cover border border-white/40">
+                        <div>
+                            <h3 class="text-xl font-bold text-black">Old School Boxing & Fitness</h3>
+                            <p class="text-slate-600 text-sm">Fitness & Wellness</p>
+                        </div>
+                    </div>
+
+                    <p class="text-slate-700 mb-6">Complete digital rebrand including website redesign and social media
+                        strategy that drove massive engagement growth.</p>
+
+                    <div class="grid grid-cols-4 gap-4 mb-6">
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-black">+4k</p>
+                            <p class="text-xs text-slate-500 uppercase">Followers</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-black">5x</p>
+                            <p class="text-xs text-slate-500 uppercase">Engagement</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-black">+72%</p>
+                            <p class="text-xs text-slate-500 uppercase">Inquiries</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-2xl font-bold text-black">8x</p>
+                            <p class="text-xs text-slate-500 uppercase">ROI</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded-full">Web
+                            Design</span>
+                        <span class="px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded-full">Social
+                            Strategy</span>
+                        <span
+                            class="px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 rounded-full">Content</span>
+                    </div>
+
+                    <a href="https://oldschoolboxingandfitnesscenter.com" target="_blank"
+                        class="button-glow font-semibold py-2.5 px-6 text-sm inline-block rounded-xl">
+                        View Site →
+                    </a>
+                </div>
+
+                <!-- Client Card 2: Placeholder -->
+                <div
+                    class="glass-card p-8 flex flex-col items-center justify-center text-center min-h-[400px] border-dashed border-2 border-slate-300/50">
+                    <i class="fa-solid fa-plus text-4xl text-slate-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-slate-500 mb-2">Your Brand Here</h3>
+                    <p class="text-slate-400 mb-6">Ready to join our portfolio of success stories?</p>
+                    <a href="/enroll/" class="button-outline font-semibold py-2.5 px-6 text-sm rounded-xl">Get
+                        Started</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE STUDY SECTION -->
+        <section class="py-16 md:py-24">
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-black">Case Studies</h2>
+                <p class="mt-4 text-lg text-slate-700">Dive deeper into how we achieved these results.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto space-y-4">
+                <!-- Case Study 1 -->
+                <details class="glass-card group">
+                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
+                        <div class="flex items-center gap-4">
+                            <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+                                alt="Old School Boxing" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <h3 class="font-bold text-black text-lg">Old School Boxing & Fitness</h3>
+                                <p class="text-slate-600 text-sm">Website Redesign + Social Strategy</p>
+                            </div>
+                        </div>
+                        <i
+                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-300"></i>
+                    </summary>
+                    <div class="px-6 pb-6 border-t border-slate-100/50 pt-6">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-bold text-black mb-3">The Challenge</h4>
+                                <p class="text-slate-700 text-sm mb-4">Old School Boxing needed to establish a stronger
+                                    online presence and attract new members. Their existing site was outdated and they
+                                    had minimal social media engagement.</p>
+
+                                <h4 class="font-bold text-black mb-3">Our Solution</h4>
+                                <p class="text-slate-700 text-sm">We redesigned their website with a conversion-focused
+                                    layout and built a TikTok content strategy showcasing training sessions, gym
+                                    culture, and member transformations.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-black mb-3">Results</h4>
+                                <ul class="space-y-2 text-sm text-slate-700">
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        Grew TikTok following by 4,000+ in weeks
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        5x increase in social engagement
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        72% increase in website inquiries
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-500"></i>
+                                        8x ROI on marketing investment
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- CLIENT REVIEWS (PLACEHOLDER) -->
+        <section class="py-16 md:py-24">
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-black">What Clients Say</h2>
+                <p class="mt-4 text-lg text-slate-700">Hear directly from brands we've helped grow.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="glass-card p-8 md:p-12 text-center">
+                    <div class="star-rating justify-center mb-4">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <blockquote class="text-xl md:text-2xl text-slate-800 font-medium mb-6">
+                        "Lovoson completely transformed our online presence. The results speak for themselves — we've
+                        seen consistent growth since day one."
+                    </blockquote>
+                    <div class="flex items-center justify-center gap-3">
+                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+                            alt="Coach Ernest" class="w-12 h-12 rounded-full object-cover">
+                        <div class="text-left">
+                            <p class="font-bold text-black">Coach Ernest</p>
+                            <p class="text-slate-600 text-sm">Old School Boxing & Fitness</p>
+                        </div>
+                        <span class="verified-badge ml-2">
+                            <i class="fa-solid fa-circle-check"></i> Verified
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM CTA -->
+        <section class="py-24 md:py-32 max-w-7xl mx-auto text-center px-6">
+            <div class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-16 md:p-20">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
+                        Ready to Be Our Next Success Story?
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-700 mb-10">
+                        Let's build systems that grow your business — through design, automation, and strategy.
+                    </p>
+                    <div class="flex flex-col md:flex-row justify-center gap-6">
+                        <a href="/enroll/"
+                            class="button-glow animate-glow font-bold py-4 px-12 text-lg rounded-full inline-block">
+                            Get Started →
+                        </a>
+                        <a href="/contact/"
+                            class="button-outline font-semibold py-4 px-12 text-lg rounded-full inline-block">
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+
+            <div class="pt-1">
+                <div class="flex items-center space-x-1 mb-3">
+                    <picture>
+                        <source
+                            srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821610/lovoson_icon_fmdiol.svg"
+                            type="image/svg+xml">
+                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
+                            alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
+                    </picture>
+                    <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
+                </div>
+                <p class="text-sm text-slate-700">
+                    Scaling businesses through strategy, design, and automation. We help businesses scale online with
+                    measurable impact.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
+                <p class="text-sm text-slate-700">Website Design & Management</p>
+                <p class="text-sm text-slate-700">Email & SMS Automation</p>
+                <p class="text-sm text-slate-700">Social Media Campaigns</p>
+                <p class="text-sm text-slate-700">Brand Strategy</p>
+                <p class="text-sm text-slate-700">Content Creation</p>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
+                <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
+                <p class="text-sm text-slate-700 mb-4">Phone: (206) 806-3329</p>
+                <div class="flex space-x-5 text-2xl text-slate-700">
+                    <a href="mailto:contact@lovosonmedia.com" class="hover:text-black transition">
+                        <i class="fa-solid fa-envelope"></i>
+                    </a>
+                    <a href="https://www.instagram.com/lovosonmedia" target="_blank"
+                        class="hover:text-black transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="text-center text-slate-500 text-sm py-6 border-t border-slate-200/50 flex flex-col md:flex-row justify-between items-center px-8">
+            <p>© <span id="year">2025</span> Lovoson Media. All Rights Reserved.</p>
+            <div class="mt-2 md:mt-0 space-x-4">
+                <a href="/terms/" class="hover:text-black transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="/css/js/script.js"></script>
+</body>
+
+</html>

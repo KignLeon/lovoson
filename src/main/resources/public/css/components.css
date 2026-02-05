@@ -1,0 +1,483 @@
+/* ======================================================================= */
+/* FILE: components.css - Enterprise Design System for Lovoson Media       */
+/* Premium Frosted Glass + Flow Animation System                           */
+/* ======================================================================= */
+
+/* =========================== CSS VARIABLES ============================= */
+:root {
+  /* Color Palette - Premium Black/Gray with Subtle Warmth */
+  --color-black: #111111;
+  --color-gray-900: #1f2937;
+  --color-gray-700: #374151;
+  --color-gray-500: #6b7280;
+  --color-gray-300: #d1d5db;
+  --color-gray-100: #f3f4f6;
+  --color-white: #ffffff;
+  
+  /* Glass Effects */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-bg-solid: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-blur: 18px;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --glass-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
+  
+  /* Typography Scale */
+  --text-hero: clamp(3rem, 8vw, 5rem);
+  --text-h1: clamp(2.5rem, 6vw, 4rem);
+  --text-h2: clamp(2rem, 5vw, 3rem);
+  --text-h3: clamp(1.5rem, 3vw, 2rem);
+  --text-h4: clamp(1.25rem, 2.5vw, 1.5rem);
+  --text-body: 1.125rem;
+  --text-small: 0.875rem;
+  
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  
+  /* Animation Timing */
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+  
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+}
+
+/* =========================== ANIMATIONS ================================ */
+
+/* Shine Sweep - For Hero Text */
+@keyframes shine-sweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Glow Pulse - For CTA Buttons */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(17, 17, 17, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(17, 17, 17, 0.3);
+  }
+}
+
+/* Subtle Float - For Cards on Hover */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Frost Shift - Background Blur Movement */
+@keyframes frost-shift {
+  0%, 100% {
+    filter: blur(18px) brightness(1.02);
+  }
+  50% {
+    filter: blur(22px) brightness(1.05);
+  }
+}
+
+/* Flow Gradient - Subtle Background Flow */
+@keyframes flow-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Fade In Up - Entry Animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo Peek - Micro Parallax */
+@keyframes logo-peek {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+/* =========================== GLASS COMPONENTS ========================== */
+
+/* Enhanced Liquid Glass */
+.glass-card {
+  background: var(--glass-bg-solid);
+  backdrop-filter: blur(var(--glass-blur)) brightness(1.02);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) brightness(1.02);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-shadow);
+  transition: transform var(--duration-normal) var(--ease-smooth),
+              box-shadow var(--duration-normal) var(--ease-smooth);
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--glass-shadow-lg);
+}
+
+/* Glass Header Variant */
+.glass-header {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Glass Header - Scrolled State */
+.glass-header.scrolled {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================== TEXT EFFECTS ============================== */
+
+/* Shimmer Text - Hero Headlines */
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-black) 0%,
+    var(--color-black) 40%,
+    rgba(100, 100, 100, 0.9) 50%,
+    var(--color-black) 60%,
+    var(--color-black) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 4s ease-in-out infinite;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-black) 0%, var(--color-gray-700) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =========================== BUTTON ENHANCEMENTS ======================= */
+
+/* Primary CTA with Glow */
+.btn-glow {
+  position: relative;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 2rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  transition: all var(--duration-normal) var(--ease-smooth);
+  overflow: hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.2) 50%, 
+    transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.btn-glow:hover {
+  background-color: #2b2b2b;
+  transform: translateY(-2px);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.btn-glow:hover::before {
+  transform: translateX(100%);
+}
+
+/* Secondary Button Enhanced */
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--color-gray-300);
+  color: var(--color-black);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 2rem;
+  font-weight: 600;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-black);
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* =========================== CARD EFFECTS ============================== */
+
+/* Service Card with Enhanced Hover */
+.service-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.service-icon {
+  transition: all var(--duration-normal) var(--ease-bounce);
+}
+
+/* =========================== LOGO INTERACTIONS ========================= */
+
+/* Logo Hover State */
+.logo-interactive {
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.logo-interactive:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* Logo Micro Parallax */
+.logo-parallax {
+  animation: logo-peek 6s ease-in-out infinite;
+}
+
+/* =========================== TEAM SECTION ============================== */
+
+/* Team Grid - Desktop */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    display: none;
+  }
+}
+
+/* Team Card */
+.team-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.team-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.team-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-md);
+}
+
+.team-card:hover .team-card-overlay {
+  opacity: 1;
+}
+
+/* Team Carousel - Mobile */
+.team-carousel {
+  display: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  scrollbar-width: none;
+}
+
+.team-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .team-carousel {
+    display: flex;
+  }
+}
+
+.team-carousel-item {
+  flex: 0 0 85%;
+  scroll-snap-align: center;
+}
+
+/* =========================== REVIEW SYSTEM ============================= */
+
+/* Star Rating Display */
+.star-rating {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star-rating .star {
+  color: #fbbf24;
+  font-size: 1.25rem;
+}
+
+.star-rating .star.empty {
+  color: var(--color-gray-300);
+}
+
+/* Review Card */
+.review-card {
+  background: var(--glass-bg-solid);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Verified Badge */
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* =========================== UTILITY ANIMATIONS ======================== */
+
+/* Fade In Variants */
+.animate-fade-in {
+  animation: fade-in-up 0.6s var(--ease-smooth) forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fade-in-up 0.6s var(--ease-smooth) 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in-up 0.6s var(--ease-smooth) 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fade-in-up 0.6s var(--ease-smooth) 0.3s forwards;
+  opacity: 0;
+}
+
+/* =========================== ACCESSIBILITY ============================= */
+
+/* Motion Reduction */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .shimmer-text {
+    animation: none;
+    background: var(--color-black);
+    -webkit-text-fill-color: var(--color-black);
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* =========================== RESPONSIVE TYPOGRAPHY ===================== */
+
+@media (max-width: 768px) {
+  :root {
+    --text-hero: 2.5rem;
+    --text-h1: 2.25rem;
+    --text-h2: 1.875rem;
+    --text-h3: 1.5rem;
+    --text-body: 1rem;
+  }
+}

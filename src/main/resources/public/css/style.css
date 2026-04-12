@@ -188,6 +188,7 @@ a {
     background: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(14px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-silver-border);
     padding: 0.6rem 1.5rem;
 }
 
@@ -201,6 +202,7 @@ section {
 footer {
     background: linear-gradient(to top, #f3f4f6, #fafafa);
     color: #6b7280;
+    border-top-color: var(--color-silver-border) !important;
 }
 
 footer a:hover {

@@ -10,4 +10,4 @@ Disallow: /js/
 Disallow: /css/
 
 # Sitemap location
-Sitemap: https://www.lovosonmedia.com/sitemap.xml
+Sitemap: https://www.lovoson.com/sitemap.xml

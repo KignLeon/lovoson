@@ -2529,8 +2529,6 @@ select:focus {
   background: var(--accent) !important;
 }
 
-/* =========================== PREFERS REDUCED MOTION ====================== */
-
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -2547,4 +2545,90 @@ select:focus {
     transform: none !important;
     filter: none !important;
   }
+}
+
+/* =========================== VIDEO PLACEHOLDER ============================= */
+
+[data-theme="dark"] .vsl-placeholder {
+  background: rgba(20, 22, 30, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .vsl-placeholder p {
+  color: #9ca3af !important;
+}
+
+[data-theme="dark"] .vsl-placeholder i {
+  color: #9ca3af !important;
+}
+
+.vsl-placeholder:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14) !important;
+}
+
+/* =========================== CARD STACK CENTERING FIX ==================== */
+
+.card-stack-stage {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-stack-dots {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure client card grid is centered */
+.max-w-5xl {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================== CTA FOOTER ALIGNMENT FIX ==================== */
+
+/* Ensure CTA sections are properly bounded and aligned */
+.cta-prism {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.cta-shader-wrap {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Consistent CTA section padding across all pages */
+section.cta-prism,
+section > .cta-shader-wrap {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================== NAV PILL OVERFLOW SAFEGUARD ================== */
+
+/* Prevent pill from being too narrow and clipping on medium screens */
+@media (min-width: 768px) and (max-width: 1100px) {
+  #main-header > div {
+    max-width: 95vw !important;
+  }
+  
+  #main-header.scrolled > div {
+    max-width: 85vw !important;
+  }
+  
+  #main-header nav a {
+    font-size: 0.875rem;
+    padding: 6px 10px;
+  }
+  
+  .btn-offer {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* Ensure nav pill content never overflows */
+.nav-pill {
+  overflow: visible !important;
 }

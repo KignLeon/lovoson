@@ -55,11 +55,30 @@
 <body
     class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24 flex flex-col min-h-screen">
 
+    <!-- Liquid Glass SVG Filter -->
+    <svg style="display:none">
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+            <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence"/>
+            <feComponentTransfer in="turbulence" result="mapped">
+                <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"/>
+                <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"/>
+                <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5"/>
+            </feComponentTransfer>
+            <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap"/>
+            <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
+                <fePointLight x="-200" y="-200" z="300"/>
+            </feSpecularLighting>
+            <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage"/>
+            <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+    </svg>
+
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
-        <div
-            class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md">
-            <a href="/" class="text-2xl font-bold text-black flex items-center gap-2">
-                <span>Lovoson Media</span>
+        <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-5xl relative z-50">
+            <a href="/" class="logo-svg-wrap" id="logo-link">
+                <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+                    alt="Lovoson" />
+                <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
             </a>
             <nav class="hidden md:flex items-center space-x-6">
                 <a href="/" class="nav-link">Home</a>
@@ -68,20 +87,24 @@
                 <a href="/contact/" class="nav-link">Contact</a>
             </nav>
 
+            <!-- DESKTOP ACTIONS -->
             <div class="hidden md:flex items-center gap-3">
-                <a href="/login/" class="button-outline font-semibold py-2.5 px-5 text-sm hover:bg-white/50">Log In</a>
+                <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
             </div>
 
-            <button id="nav-toggle" class="md:hidden text-2xl text-black"><i class="fa-solid fa-bars"></i></button>
+            <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2"><i
+                    class="fa-solid fa-bars"></i></button>
         </div>
 
-        <nav id="mobile-nav" class="md:hidden text-center px-8 py-6">
-            <div class="flex flex-col space-y-5">
-                <a href="/" class="text-lg font-medium text-black hover:underline">Home</a>
-                <a href="/about/" class="text-lg font-medium text-black hover:underline">About</a>
-                <a href="/clients/" class="text-lg font-medium text-black hover:underline">Clients</a>
-                <a href="/contact/" class="text-lg font-medium text-black hover:underline">Contact</a>
-                <a href="/login/" class="text-lg font-medium text-black hover:underline">Client Login</a>
+        <nav id="mobile-nav" class="md:hidden text-center px-8">
+            <div class="flex flex-col space-y-5 py-6">
+                <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
+                <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
+                <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
+                <a href="/contact/" class="text-lg font-medium mobile-nav-link hover:underline">Contact</a>
+                <a href="/enroll/"
+                    class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
+                    Started</a>
             </div>
         </nav>
     </header>

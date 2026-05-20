@@ -45,6 +45,21 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
+    #main-header > div {
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      max-width: 1100px;
+      padding: 1rem 2rem;
+    }
+    #main-header.scrolled > div {
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+    }
+
     @media (max-width:768px) {
       h1 {
         font-size: 2.3rem !important;
@@ -185,7 +200,7 @@
     <section class="py-20 md:py-24">
       <div class="text-center max-w-4xl mx-auto mb-16 reveal">
         <h2 class="text-5xl font-bold text-black">Lovoson Client Highlight</h2>
-        <p class="mt-4 text-lg text-slate-700">Real results. Real growth. Real engagement.</p>
+        <p class="mt-4 text-lg text-slate-700">Real systems. Real results. Built for the trades.</p>
       </div>
       <div
         class="client-highlight-card max-w-7xl mx-auto grid md:grid-cols-5 gap-8 items-center reveal reveal-d1 page-reveal-target">
@@ -198,9 +213,7 @@
         <div class="md:col-span-4 text-center md:text-left">
           <h3 class="text-3xl md:text-4xl font-bold text-black mb-3">Integrity Electrical</h3>
           <p class="text-base md:text-lg text-slate-600 leading-relaxed mb-8">
-            Lovoson built a conversion-optimized website and local SEO strategy that transformed Integrity Electrical's
-            digital presence — driving consistent lead flow from Google and
-            <span class="font-bold text-black">+287%</span> web traffic growth in the first quarter.
+            Lovoson built a conversion-optimized website, AI-powered lead follow-up system, and missed-call text-back automation for Integrity Electrical — so they never lose another customer to slow response times. Every new lead is followed up within 60 seconds, reviews are collected on autopilot, and their Google profile grows without lifting a finger. The result: <span class="font-bold text-black">+287% organic traffic</span> and a full pipeline in the first quarter.
           </p>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
             <div class="stat-block">
@@ -208,8 +221,8 @@
               <span class="stat-desc">Organic Traffic Lift</span>
             </div>
             <div class="stat-block">
-              <span class="stat-num">−41%</span>
-              <span class="stat-desc">Avg Lead Cost</span>
+              <span class="stat-num">&lt;60s</span>
+              <span class="stat-desc">Avg Lead Response</span>
             </div>
             <div class="stat-block">
               <span class="stat-num">+63%</span>

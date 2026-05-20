@@ -131,9 +131,7 @@
 }
 
 /* Header animation */
-#main-header {
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+/* Navbar scroll rules live in each page's inline <style> block. Do NOT add them here. */
 
 #main-header.header-hidden {
     transform: translateY(-150%);
@@ -178,19 +176,7 @@ a {
 }
 
 /* Smooth shrink effect + blur on scroll */
-#main-header {
-    transition: all 0.3s ease;
-}
-
-#main-header.scrolled div {
-    max-width: 4xl;
-    /* even slimmer when scrolled */
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-silver-border);
-    padding: 0.6rem 1.5rem;
-}
+/* Navbar scroll rules live in each page's inline <style> block. Do NOT add them here. */
 
 /* Sections */
 section {

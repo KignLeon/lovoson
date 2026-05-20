@@ -1,0 +1,14 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Skills directory (not part of the website)
+skills/
+
+# Java build artifacts
+target/
+*.class
+
+# IDE
+.vscode/
+.idea/

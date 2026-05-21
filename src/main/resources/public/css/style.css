@@ -70,17 +70,63 @@
     color: #111111;
 }
 
-/* Footer logo — larger, same dark-mode inversion as navbar */
-.footer-logo-img {
-    height: 5rem;   /* 80px */
-    width: 5rem;
-    object-fit: contain;
-    flex-shrink: 0;
-    transition: filter 0.3s ease;
+/* ===== SCROLLED NAV: prevent overflow / distortion ===== */
+/* Override components.css 700px — full nav needs more room */
+#main-header.scrolled > div {
+    max-width: 900px !important;
+    padding: 0.4rem 1.2rem !important;
 }
 
-[data-theme="dark"] .footer-logo-img {
-    filter: invert(1) brightness(2);
+/* Hide brand label text in scrolled state (keep icon only) */
+#main-header.scrolled .nav-brand-text {
+    display: none;
+}
+
+/* Collapse btn-offer to icon-only in scrolled state */
+#main-header.scrolled .btn-offer .btn-offer-label {
+    display: none;
+}
+#main-header.scrolled .btn-offer {
+    padding: 0.5rem 0.75rem;
+    min-width: unset;
+}
+
+/* ===== CTA PRISM: visible in light mode, rounded corners ===== */
+.cta-prism {
+    border-radius: 2rem !important;
+    margin: 0 1rem;
+    background: rgba(10, 10, 15, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Strong visible stripes in BOTH modes */
+.cta-prism::before {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(255, 255, 255, 0.07) 7px,
+            rgba(255, 255, 255, 0.14) 8px,
+            rgba(255, 255, 255, 0.07) 9px,
+            transparent 10px,
+            transparent 18px
+        ) !important;
+    opacity: 0.8 !important;
+    width: 100% !important;
+}
+
+/* Force dark background even in light mode */
+:root:not([data-theme="dark"]) .cta-prism {
+    background: rgba(10, 10, 15, 0.90) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+:root:not([data-theme="dark"]) .cta-prism h2,
+:root:not([data-theme="dark"]) .cta-prism p {
+    color: #f3f4f6 !important;
+}
+:root:not([data-theme="dark"]) .cta-prism .font-semibold {
+    color: #ffffff !important;
 }
 
 /* Primary button (black base) */

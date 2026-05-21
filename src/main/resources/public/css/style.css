@@ -70,6 +70,41 @@
     color: #111111;
 }
 
+/* ===== NAV PILL LAYOUT: prevent wrapping / clipping ===== */
+/* Logo must never shrink or wrap */
+.logo-svg-wrap {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    min-width: 0;
+}
+
+.nav-brand-text {
+    white-space: nowrap !important;
+}
+
+/* Desktop nav links — never wrap, never shrink */
+#main-header nav {
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+#main-header nav a {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Action buttons group — never shrink below its natural width */
+#main-header > div > div.hidden.md\:flex:last-of-type {
+    flex-shrink: 0;
+}
+
+/* The outer pill row itself must never wrap */
+#main-header > div {
+    flex-wrap: nowrap !important;
+}
+
+
 /* ===== SCROLLED NAV: prevent overflow / distortion ===== */
 /* Override components.css 700px — full nav needs more room */
 #main-header.scrolled > div {

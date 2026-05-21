@@ -39,15 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let lastScroll = 0;
   let ticking = false;
 
-  if (header && window.scrollY > 20) {
-    header.classList.add("scrolled");
-  }
+  // NOTE: 'scrolled' class intentionally NOT toggled — navbar stays full-size always
 
   const updateHeader = () => {
     const st = window.scrollY;
-    if (st > 20) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
-
+    // Auto-hide on scroll down, reveal on scroll up
     if (st > lastScroll && st > 120) header.classList.add("header-hidden");
     else header.classList.remove("header-hidden");
 

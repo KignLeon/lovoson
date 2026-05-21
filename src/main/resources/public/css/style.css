@@ -38,12 +38,12 @@
     position: relative;
     padding: 8px 16px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700;
     color: #374151;
-    /* slate-700 (darker, readable) */
     transition: color 0.3s ease;
 }
 
+/* Pill/circle — hover only, NOT on active */
 .nav-link::before {
     content: '';
     position: absolute;
@@ -61,16 +61,13 @@
     opacity: 1;
 }
 
-.nav-link:hover {
-    color: #111111;
+/* No pill on the active link — underline only */
+.nav-link.active::before {
+    display: none !important;
 }
 
-/* Kill the sliding underline on hover and active — pill only */
-.nav-link::after,
-.nav-link:hover::after,
-.nav-link.active::after,
-[data-theme="dark"] .nav-link.active::after {
-    display: none !important;
+.nav-link:hover {
+    color: #111111;
 }
 
 /* Primary button (black base) */

@@ -44,102 +44,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <style>
-        @media (max-width:768px) {
-            h1 {
-                font-size: 2.3rem !important;
-                line-height: 1.3;
-            }
+  <style>
+    #main-header > div {
+      transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+      max-width: 1100px;
+      padding: 1rem 2rem;
+    }
+    #main-header.scrolled > div {
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+    }
 
-            h2 {
-                font-size: 1.8rem !important;
-                line-height: 1.35;
-            }
+    /* Mobile dropdown */
+    #mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+    #mobile-nav.active {
+      max-height: 100vh;
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding-bottom: 2rem;
+    }
 
-            h3 {
-                font-size: 1.3rem;
-            }
+    @media (max-width:768px) {
+      h1 { font-size: 2.3rem !important; line-height: 1.3; }
+      h2 { font-size: 1.8rem !important; line-height: 1.35; }
+      h3 { font-size: 1.3rem; }
+      p { font-size: 0.95rem; }
+      .button-glow, .button-outline { padding: 0.75rem 1.5rem; font-size: 0.95rem; }
+      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+    }
 
-            p {
-                font-size: 0.95rem;
-            }
+    /* Team Carousel (Mobile Only) */
+    @media (max-width: 768px) {
+      .team-carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1.5rem;
+        padding: 1rem 0;
+        scrollbar-width: none;
+      }
+      .team-carousel::-webkit-scrollbar { display: none; }
+      .team-carousel-item {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        transition: transform 0.3s ease;
+      }
+      .team-carousel-item:hover { transform: scale(1.02); }
+      .team-grid { display: none; }
+    }
 
-            .button-glow,
-            .button-outline {
-                padding: 0.75rem 1.5rem;
-                font-size: 0.95rem;
-            }
-
-            section {
-                padding-top: 4rem !important;
-                padding-bottom: 4rem !important;
-            }
-        }
-
-        /* Team Carousel (Mobile Only) */
-        @media (max-width: 768px) {
-            .team-carousel {
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                gap: 1.5rem;
-                padding: 1rem 0;
-                scrollbar-width: none;
-            }
-
-            .team-carousel::-webkit-scrollbar {
-                display: none;
-            }
-
-            .team-carousel-item {
-                flex: 0 0 85%;
-                scroll-snap-align: center;
-                transition: transform 0.3s ease;
-            }
-
-            .team-carousel-item:hover {
-                transform: scale(1.02);
-            }
-
-            .team-grid {
-                display: none;
-            }
-        }
-
-        /* Team Grid (Desktop) */
-        @media (min-width: 769px) {
-            .team-carousel {
-                display: none;
-            }
-
-            .team-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 2rem;
-            }
-        }
-    </style>
+    /* Team Grid (Desktop) */
+    @media (min-width: 769px) {
+      .team-carousel { display: none; }
+      .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    }
+  </style>
 </head>
 
 <body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24">
-    <!-- Liquid Glass SVG Filter -->
-    <svg style="display:none">
-        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-            <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence"/>
-            <feComponentTransfer in="turbulence" result="mapped">
-                <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"/>
-                <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"/>
-                <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5"/>
-            </feComponentTransfer>
-            <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap"/>
-            <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
-                <fePointLight x="-200" y="-200" z="300"/>
-            </feSpecularLighting>
-            <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage"/>
-            <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-    </svg>
 
     <!-- HEADER -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
@@ -172,8 +157,7 @@
                     </div>
                 </div>
                 <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-                <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy
-                    Call</button>
+                <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy Call</button>
                 <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
             </div>
 
@@ -187,7 +171,7 @@
                 <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
                 <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
                 <a href="/contact/" class="text-lg font-medium mobile-nav-link hover:underline">Contact</a>
-
+                <button class="btn-offer mx-auto" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy Call</button>
                 <a href="/enroll/"
                     class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
                     Started</a>
@@ -197,18 +181,18 @@
 
     <!-- HERO -->
     <main class="max-w-7xl mx-auto px-8 md:px-12">
-        <section class="text-center py-20 md:py-28">
-            <h1 class="text-5xl md:text-6xl font-bold text-black mb-3 reveal">Lovoson Media</h1>
-            <p class="text-lg md:text-xl uppercase tracking-wide text-slate-600 mb-5 reveal reveal-d1">Who We Are</p>
+        <section class="text-center py-12 md:py-16">
+            <h1 class="text-5xl md:text-6xl font-bold text-black mb-3">Lovoson Media</h1>
+            <p class="text-lg md:text-xl uppercase tracking-wide text-slate-600 mb-5">Who We Are</p>
             <p
-                class="max-w-4xl mx-auto text-slate-800 text-lg md:text-2xl leading-relaxed font-medium reveal reveal-d2">
+                class="max-w-4xl mx-auto text-slate-800 text-lg md:text-2xl leading-relaxed font-medium">
                 At Lovoson Media, our vision is to fuel your brand’s growth through powerful, data-driven automation and
                 purposeful design. We build systems that drive revenue and trust between brands and people.
             </p>
         </section>
 
         <!-- VIDEO PLACEHOLDER -->
-        <section class="py-10 md:py-16 reveal reveal-d2">
+        <section class="py-4 md:py-8">
             <div class="max-w-4xl mx-auto">
                 <div class="vsl-placeholder" style="
                     position: relative;
@@ -246,32 +230,47 @@
             </div>
         </section>
 
-        <!-- METRICS -->
-        <section class="py-16 md:py-24">
-            <div
-                class="bg-white/70 backdrop-blur-lg border border-silver rounded-3xl shadow-xl p-12 flex flex-col md:flex-row justify-around text-center gap-10 reveal">
-                <div>
-                    <h3 class="text-5xl font-bold text-black">+72%</h3>
-                    <p class="text-slate-700 mt-2">Leads Generated</p>
-                </div>
-                <div>
-                    <h3 class="text-5xl font-bold text-black">8x</h3>
-                    <p class="text-slate-700 mt-2">Engagement Rate</p>
-                </div>
-                <div>
-                    <h3 class="text-5xl font-bold text-black">+45%</h3>
-                    <p class="text-slate-700 mt-2">Media Growth</p>
-                </div>
-                <div>
-                    <h3 class="text-5xl font-bold text-black">8×</h3>
-                    <p class="text-slate-700 mt-2">ROI</p>
+        <!-- SERVICES BAR -->
+        <section class="py-6 md:py-10">
+            <div class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-8 md:p-10 max-w-5xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-content-center" style="display:flex;align-items:center;justify-content:center;">
+                            <i class="fa-solid fa-laptop-code text-xl text-black"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800 leading-tight">High Converting Website</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 bg-black/5 rounded-2xl" style="display:flex;align-items:center;justify-content:center;">
+                            <i class="fa-solid fa-magnifying-glass-chart text-xl text-black"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800 leading-tight">SEO Support</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 bg-black/5 rounded-2xl" style="display:flex;align-items:center;justify-content:center;">
+                            <i class="fa-solid fa-robot text-xl text-black"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800 leading-tight">AI-Powered Lead Capture</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 bg-black/5 rounded-2xl" style="display:flex;align-items:center;justify-content:center;">
+                            <i class="fa-solid fa-chart-bar text-xl text-black"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800 leading-tight">Monthly Reports</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="w-12 h-12 bg-black/5 rounded-2xl" style="display:flex;align-items:center;justify-content:center;">
+                            <i class="fa-solid fa-star text-xl text-black"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-slate-800 leading-tight">Google Review Automation</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- TEAM -->
         <section class="py-20 md:py-28">
-            <div class="text-center max-w-4xl mx-auto mb-12 reveal">
+            <div class="text-center max-w-4xl mx-auto mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold text-black">Meet the Team</h2>
                 <p class="mt-4 text-lg text-slate-700">The people driving strategy, creativity, and execution.</p>
             </div>
@@ -379,16 +378,10 @@
     <!-- FOOTER -->
     <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
-
             <div class="pt-1">
-                <div class="flex items-center space-x-1 mb-3">
-                    <picture>
-                        <source
-                            srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821610/lovoson_icon_fmdiol.svg"
-                            type="image/svg+xml">
-                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
-                            alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
-                    </picture>
+                <div class="flex items-center space-x-2 mb-3">
+                    <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+                        alt="Lovoson Media Logo" class="h-10 w-10 object-contain" />
                     <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
                 </div>
                 <p class="text-sm text-slate-700">
@@ -396,16 +389,14 @@
                     measurable impact.
                 </p>
             </div>
-
             <div>
                 <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
-                <p class="text-sm text-slate-700">Website Design & Management</p>
-                <p class="text-sm text-slate-700">Email & SMS Automation</p>
+                <p class="text-sm text-slate-700">Website Design &amp; Management</p>
+                <p class="text-sm text-slate-700">Email &amp; SMS Automation</p>
                 <p class="text-sm text-slate-700">Social Media Campaigns</p>
                 <p class="text-sm text-slate-700">Brand Strategy</p>
                 <p class="text-sm text-slate-700">Content Creation</p>
             </div>
-
             <div>
                 <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
                 <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
@@ -414,22 +405,44 @@
                     <a href="mailto:contact@lovoson.com" class="hover:text-black transition">
                         <i class="fa-solid fa-envelope"></i>
                     </a>
-                    <a href="https://www.instagram.com/lovosonmedia" target="_blank"
-                        class="hover:text-black transition">
+                    <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
             </div>
         </div>
-
-        <div
-            class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
-            <p>© 2025 Lovoson Media. All Rights Reserved.</p>
+        <div class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
+            <p>&copy; 2025 Lovoson Media. All Rights Reserved.</p>
             <div class="mt-2 md:mt-0 space-x-4">
                 <a href="/terms/" class="hover:text-black transition-colors">Terms of Service</a>
             </div>
         </div>
     </footer>
+
+    <!-- FREE OFFER MODAL -->
+    <div class="offer-modal-backdrop" id="offer-backdrop"></div>
+    <div class="offer-modal" id="offer-modal" style="position:fixed;">
+        <button class="offer-close-btn" id="offer-modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        <div class="offer-modal-inner">
+            <h2>Free 15-Minute Growth Strategy Call</h2>
+            <p class="offer-subtitle">Zero fluff. Real insights for your business in 15 minutes.</p>
+            <ul class="offer-benefits">
+                <li><i class="fa-solid fa-check-circle"></i> Identify your #1 conversion bottleneck</li>
+                <li><i class="fa-solid fa-check-circle"></i> Get a custom growth roadmap built for your niche</li>
+                <li><i class="fa-solid fa-check-circle"></i> Learn the exact ad + SEO system behind +340% traffic results</li>
+            </ul>
+            <div class="offer-tally-wrap">
+                <iframe data-tally-src="https://tally.so/embed/rjy6kp?hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                    loading="lazy" title="Book a Free Call" height="320"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- GHL Chat Widget -->
+    <script src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="6a0dfffb60140c84c19c01f6"
+        data-source="WEB_USER"></script>
 
     <!-- JS -->
     <script src="/css/js/script.js"></script>

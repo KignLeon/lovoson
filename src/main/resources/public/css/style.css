@@ -36,6 +36,8 @@
 /* Navigation links */
 .nav-link {
     position: relative;
+    padding: 8px 16px;
+    font-size: 1rem;
     font-weight: 500;
     color: #374151;
     /* slate-700 (darker, readable) */
@@ -61,7 +63,14 @@
 
 .nav-link:hover {
     color: #111111;
-    /* pure black */
+}
+
+/* Kill the sliding underline on hover and active — pill only */
+.nav-link::after,
+.nav-link:hover::after,
+.nav-link.active::after,
+[data-theme="dark"] .nav-link.active::after {
+    display: none !important;
 }
 
 /* Primary button (black base) */

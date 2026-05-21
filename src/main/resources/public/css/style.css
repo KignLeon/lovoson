@@ -70,6 +70,19 @@
     color: #111111;
 }
 
+/* Footer logo — larger, same dark-mode inversion as navbar */
+.footer-logo-img {
+    height: 5rem;   /* 80px */
+    width: 5rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .footer-logo-img {
+    filter: invert(1) brightness(2);
+}
+
 /* Primary button (black base) */
 .button-glow {
     background-color: #111111;

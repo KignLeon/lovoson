@@ -2,606 +2,455 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Our Work | Lovoson Media</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Results | Lovoson Media</title>
 
-    <!-- Anti-FOUC: Apply theme before paint -->
-    <script>
-        (function () {
-            var t = localStorage.getItem('lovoson-theme');
-            if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-            var a = localStorage.getItem('lovoson-accent');
-            if (a) document.documentElement.style.setProperty('--accent-h', a);
-            document.documentElement.classList.add('theme-loaded');
-        })();
-    </script>
+  <!-- Anti-FOUC -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('lovoson-theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+      var a = localStorage.getItem('lovoson-accent');
+      if (a) document.documentElement.style.setProperty('--accent-h', a);
+      document.documentElement.classList.add('theme-loaded');
+    })();
+  </script>
 
-    <!-- SEO META TAGS -->
-    <meta name="description"
-        content="See the results. Explore case studies and success stories from brands we've helped scale through web design, automation, and digital marketing.">
-    <meta name="keywords"
-        content="Lovoson Media, case studies, portfolio, client work, web design, digital marketing, brand growth, success stories">
-    <meta name="author" content="Lovoson Media">
-    <link rel="canonical" href="https://www.lovoson.com/clients/">
+  <!-- SEO -->
+  <meta name="description" content="Real results from real service businesses. See how Lovoson Media builds websites and AI systems that fill calendars and stop leads from slipping away.">
+  <meta name="keywords" content="Lovoson Media, client results, case studies, AI lead follow-up, high converting website, service business marketing">
+  <meta name="author" content="Lovoson Media">
+  <link rel="canonical" href="https://www.lovoson.com/clients/">
+  <meta property="og:title" content="Client Results | Lovoson Media">
+  <meta property="og:description" content="Real systems. Real results. See how we've helped service businesses stop losing leads and start filling their calendars.">
+  <meta property="og:url" content="https://www.lovoson.com/clients/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
 
-    <!-- OPEN GRAPH / TWITTER -->
-    <meta property="og:title" content="Our Work | Lovoson Media">
-    <meta property="og:description"
-        content="Explore case studies and proven results from brands we've helped scale through strategy, design, and automation.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
-    <meta property="og:url" content="https://www.lovoson.com/clients/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
+  <!-- STYLES -->
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- FAVICON + STYLES -->
-    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Navbar stays full-size — no shrink effect */
+    #mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+    #mobile-nav.active {
+      max-height: 100vh;
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding-bottom: 2rem;
+    }
 
-    <style>
-        /* Case Study Accordion */
-        details>summary {
-            list-style: none;
-        }
+    /* Accordion */
+    details summary { list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    details[open] summary ~ * {
+      animation: slide-down 0.3s ease;
+    }
+    @keyframes slide-down {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-        details>summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details[open] summary~* {
-            animation: accordion-open 0.3s ease-in-out;
-        }
-
-        @keyframes accordion-open {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.3rem !important;
-                line-height: 1.3;
-            }
-
-            h2 {
-                font-size: 1.8rem !important;
-            }
-
-            section {
-                padding-top: 4rem !important;
-                padding-bottom: 4rem !important;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      h1 { font-size: 2.3rem !important; line-height: 1.3; }
+      h2 { font-size: 1.8rem !important; }
+      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+    }
+  </style>
 </head>
 
-<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24">
-    <!-- Liquid Glass SVG Filter -->
-    <svg style="display:none">
-        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-            <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence"/>
-            <feComponentTransfer in="turbulence" result="mapped">
-                <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"/>
-                <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"/>
-                <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5"/>
-            </feComponentTransfer>
-            <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap"/>
-            <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
-                <fePointLight x="-200" y="-200" z="300"/>
-            </feSpecularLighting>
-            <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage"/>
-            <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-    </svg>
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24">
 
-    <!-- HEADER -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
-        <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-5xl relative z-50">
-            <a href="/" class="logo-svg-wrap" id="logo-link">
-                <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
-                    alt="Lovoson" />
-                <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
-            </a>
-            <nav class="hidden md:flex items-center space-x-6">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/about/" class="nav-link">About</a>
-                <a href="/clients/" class="nav-link active">Clients</a>
-                <a href="/contact/" class="nav-link">Contact</a>
-            </nav>
-
-            <!-- DESKTOP ACTIONS -->
-            <div class="hidden md:flex items-center gap-3">
-                <div class="color-picker-wrap" id="color-picker-wrap">
-                    <button id="color-picker-btn" aria-label="Change accent color">
-                        <i class="fa-solid fa-palette"></i>
-                    </button>
-                    <div class="color-picker-popover" id="color-picker-popover">
-                        <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
-                        <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
-                        <button data-accent-h="340" class="color-dot" style="background:#f43f5e" title="Rose"></button>
-                        <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
-                        <button data-accent-h="30" class="color-dot" style="background:#f97316" title="Orange"></button>
-                        <button data-accent-h="0" class="color-dot" style="background:#111111" title="Neutral"></button>
-                    </div>
-                </div>
-                <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-                <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy
-                    Call</button>
-                <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
-            </div>
-
-            <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2"><i
-                    class="fa-solid fa-bars"></i></button>
+  <!-- HEADER -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
+    <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-5xl relative z-50">
+      <a href="/" class="logo-svg-wrap" id="logo-link">
+        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg" alt="Lovoson" />
+        <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/clients/" class="nav-link active">Clients</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <div class="color-picker-wrap" id="color-picker-wrap">
+          <button id="color-picker-btn" aria-label="Change accent color"><i class="fa-solid fa-palette"></i></button>
+          <div class="color-picker-popover" id="color-picker-popover">
+            <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
+            <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
+            <button data-accent-h="340" class="color-dot" style="background:#f43f5e" title="Rose"></button>
+            <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
+            <button data-accent-h="30"  class="color-dot" style="background:#f97316" title="Orange"></button>
+            <button data-accent-h="0"   class="color-dot" style="background:#111111" title="Neutral"></button>
+          </div>
         </div>
+        <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+        <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+    <nav id="mobile-nav" class="md:hidden text-center px-8">
+      <div class="flex flex-col space-y-5 py-6">
+        <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
+        <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
+        <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
+        <a href="/contact/" class="text-lg font-medium mobile-nav-link hover:underline">Contact</a>
+        <button class="btn-offer mx-auto" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+        <a href="/enroll/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get Started</a>
+      </div>
+    </nav>
+  </header>
 
-        <!-- Mobile Nav -->
-        <nav id="mobile-nav" class="md:hidden text-center px-8">
-            <div class="flex flex-col space-y-5 py-6">
-                <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
-                <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
-                <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
-                <a href="/contact/" class="text-lg font-medium mobile-nav-link hover:underline">Contact</a>
-
-                <a href="/enroll/"
-                    class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
-                    Started</a>
-            </div>
-        </nav>
-    </header>
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-8 md:px-12">
 
     <!-- HERO -->
-    <main class="max-w-7xl mx-auto px-8 md:px-12">
-        <section class="text-center py-20 md:py-28">
-            <h1 class="text-5xl md:text-6xl font-bold leading-tight shimmer-text mb-4 reveal">
-                Our Work
-            </h1>
-            <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto reveal reveal-d1">
-                Real brands. Real results. See how we've helped businesses scale through design, automation, and
-                performance marketing.
+    <section class="text-center py-20 md:py-28">
+      <p class="text-sm font-semibold uppercase tracking-widest text-slate-500 mb-4">Proof Over Promises</p>
+      <h1 class="text-5xl md:text-7xl font-bold leading-tight text-black mb-6">
+        Real Systems.<br>Real Results.
+      </h1>
+      <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto">
+        Every client you see here had the same problem — leads slipping away, missed calls going cold, and slow response times costing them jobs. Here's what happened when we fixed that.
+      </p>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="py-10 md:py-16">
+      <div class="max-w-5xl mx-auto space-y-6">
+
+        <!-- Integrity Electrical -->
+        <details class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-lg group overflow-hidden">
+          <summary class="flex items-center justify-between p-8 cursor-pointer select-none">
+            <div class="flex items-center gap-5">
+              <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1769529588/integrity_electrical_logo_1769449336717-fotor-bg-remover-2026012775937_abxbgn.png"
+                alt="Integrity Electrical" class="w-14 h-14 rounded-full object-contain bg-white p-1 border border-white/60 shadow-sm flex-shrink-0" />
+              <div>
+                <h2 class="text-xl font-bold text-black">Integrity Electrical</h2>
+                <p class="text-slate-500 text-sm mt-0.5">Electrical Contracting · Arizona · Website + AI Systems</p>
+              </div>
+            </div>
+            <i class="fa-solid fa-plus text-slate-400 group-open:hidden text-lg"></i>
+            <i class="fa-solid fa-minus text-slate-400 hidden group-open:block text-lg"></i>
+          </summary>
+          <div class="px-8 pb-8 border-t border-white/40 pt-6">
+            <p class="text-slate-700 text-base leading-relaxed mb-8 max-w-3xl">
+              Integrity Electrical had no website and relied entirely on word-of-mouth. Every missed call was a lost job. Lovoson built a high-converting website, AI follow-up system, and missed call text-back — so every lead gets a response in under 60 seconds. Reviews now collect automatically without lifting a finger.
             </p>
-        </section>
-
-        <!-- CLIENT HIGHLIGHTS GRID -->
-        <section class="py-16 md:py-24">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-black">Our Clients</h2>
-                <p class="mt-4 text-lg text-slate-700">Real brands we've built, launched, and scaled.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+287%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Organic Traffic</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">&lt;60s</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Lead Response</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+63%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Conversions</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">3.2x</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">ROAS</p>
+              </div>
             </div>
+            <a href="https://www.integrityelectricalaz.com" target="_blank"
+              class="button-glow font-semibold py-2.5 px-7 text-sm inline-block">View Live Site →</a>
+          </div>
+        </details>
 
-            <div class="max-w-5xl mx-auto">
-                <!-- Card Stack Stage -->
-                <div class="card-stack-stage" id="card-stack" tabindex="0">
-                    <!-- Card 1: Integrity Electrical -->
-                    <div class="stack-card is-active" data-index="0" data-href="https://www.integrityelectricalaz.com">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: integrity_electrical.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>Integrity Electrical</h3>
-                            <span class="card-niche">Electrical Contracting · Arizona</span>
-                            <p class="card-desc">Full website build with SEO-optimized service pages, online booking, and Google Business Profile strategy.</p>
-                        </div>
-                    </div>
-                    <!-- Card 2: Higher Praise CF -->
-                    <div class="stack-card" data-index="1" data-href="https://www.higherpraisecf.org">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: higher_praise.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>Higher Praise CF</h3>
-                            <span class="card-niche">Faith & Community</span>
-                            <p class="card-desc">Digital home for the ministry — event calendars, sermon archives, donations, and community engagement.</p>
-                        </div>
-                    </div>
-                    <!-- Card 3: Joe Smith Official -->
-                    <div class="stack-card" data-index="2" data-href="https://www.joesmithofficial.com">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: joe_smith.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>Joe Smith Official</h3>
-                            <span class="card-niche">Music & Entertainment</span>
-                            <p class="card-desc">Premium artist website with streaming links, tour dates, and merch store — elevating brand presence.</p>
-                        </div>
-                    </div>
-                    <!-- Card 4: TrueLife Peptides -->
-                    <div class="stack-card" data-index="3" data-href="https://github.com/KignLeon/truelife-peptides">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: truelife.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>TrueLife Peptides</h3>
-                            <span class="card-niche">Health & Wellness</span>
-                            <p class="card-desc">E-commerce website for a peptide supplement brand — product pages, educational content, and checkout.</p>
-                        </div>
-                    </div>
-                    <!-- Card 5: Pure Peptides -->
-                    <div class="stack-card" data-index="4" data-href="https://github.com/KignLeon/pure-peptides">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: pure_peptides.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>Pure Peptides</h3>
-                            <span class="card-niche">Health & Supplements</span>
-                            <p class="card-desc">Clean supplement storefront with product filtering, educational blog, and subscription-ready architecture.</p>
-                        </div>
-                    </div>
-                    <!-- Card 6: Gathering of the Watchmen -->
-                    <div class="stack-card" data-index="5" data-href="https://github.com/KignLeon/Gathering-of-the-Watchmen-Website">
-                        <div class="stack-card-bg no-image"><!-- Drop screenshot: watchmen.jpg --></div>
-                        <div class="stack-card-overlay"></div>
-                        <div class="stack-card-content">
-                            <h3>Gathering of the Watchmen</h3>
-                            <span class="card-niche">Ministry & Outreach</span>
-                            <p class="card-desc">Multi-page ministry site with sermon archives, event registration, and premium luxury aesthetic.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Dots -->
-                <div class="card-stack-dots" id="card-stack-dots">
-                    <button class="stack-dot is-active" data-go="0" aria-label="Go to Integrity Electrical"></button>
-                    <button class="stack-dot" data-go="1" aria-label="Go to Higher Praise CF"></button>
-                    <button class="stack-dot" data-go="2" aria-label="Go to Joe Smith Official"></button>
-                    <button class="stack-dot" data-go="3" aria-label="Go to TrueLife Peptides"></button>
-                    <button class="stack-dot" data-go="4" aria-label="Go to Pure Peptides"></button>
-                    <button class="stack-dot" data-go="5" aria-label="Go to Gathering of the Watchmen"></button>
-                    <a href="#" class="stack-link" id="stack-external-link" target="_blank" rel="noreferrer" aria-label="Open project">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                    </a>
-                </div>
+        <!-- Old School Boxing -->
+        <details class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-lg group overflow-hidden">
+          <summary class="flex items-center justify-between p-8 cursor-pointer select-none">
+            <div class="flex items-center gap-5">
+              <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+                alt="Old School Boxing" class="w-14 h-14 rounded-full object-cover border border-white/60 shadow-sm flex-shrink-0" />
+              <div>
+                <h2 class="text-xl font-bold text-black">Old School Boxing &amp; Fitness</h2>
+                <p class="text-slate-500 text-sm mt-0.5">Fitness · San Diego · Website Redesign + Social Strategy</p>
+              </div>
             </div>
-        </section>
-
-        <!-- CASE STUDY SECTION -->
-        <section class="py-16 md:py-24">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-black">Case Studies</h2>
-                <p class="mt-4 text-lg text-slate-700">Dive deeper into how we achieved these results.</p>
+            <i class="fa-solid fa-plus text-slate-400 group-open:hidden text-lg"></i>
+            <i class="fa-solid fa-minus text-slate-400 hidden group-open:block text-lg"></i>
+          </summary>
+          <div class="px-8 pb-8 border-t border-white/40 pt-6">
+            <p class="text-slate-700 text-base leading-relaxed mb-8 max-w-3xl">
+              Old School Boxing had an outdated site and near-zero social presence. We redesigned their website with a conversion-focused layout and built a TikTok content strategy showcasing training sessions, gym culture, and member transformations — turning casual viewers into booked members.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">4,000+</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">TikTok Followers</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">5x</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Social Engagement</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+72%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Website Inquiries</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">8x</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Marketing ROI</p>
+              </div>
             </div>
+          </div>
+        </details>
 
-            <div class="max-w-4xl mx-auto space-y-4">
-
-                <!-- Case Study: Integrity Electrical -->
-                <details class="glass-card group reveal">
-                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
-                        <div class="flex items-center gap-4">
-                            <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1769529635/integrityelectricalaz-logo-fotor-bg-remover-202601278024_fjdpvj.png"
-                                alt="Integrity Electrical" class="w-12 h-12 rounded-full object-contain bg-white p-1">
-                            <div>
-                                <h3 class="font-bold text-black text-lg">Integrity Electrical</h3>
-                                <p class="text-slate-600 text-sm">Website Build + Local SEO + Lead Generation</p>
-                            </div>
-                        </div>
-                        <i
-                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-300"></i>
-                    </summary>
-                    <div class="px-6 pb-6 border-t border-slate-100/50 pt-6">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h4 class="font-bold text-black mb-3">The Challenge</h4>
-                                <p class="text-slate-700 text-sm mb-4">Integrity Electrical needed a professional web
-                                    presence to compete in the Arizona residential and commercial electrical market.
-                                    They
-                                    had no website and relied entirely on word-of-mouth referrals.</p>
-
-                                <h4 class="font-bold text-black mb-3">Our Solution</h4>
-                                <p class="text-slate-700 text-sm">We built a conversion-optimized website featuring
-                                    service area pages, emergency call CTAs, online scheduling, Google Business Profile
-                                    optimization, and review management — creating a complete digital lead funnel.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-black mb-3">Results</h4>
-                                <ul class="space-y-2 text-sm text-slate-700">
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        340% increase in organic web traffic
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        12x return on marketing investment
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        85% increase in qualified lead conversions
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        24/7 online booking enabled, reducing missed calls
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Case Study: Old School Boxing -->
-                <details class="glass-card group reveal">
-                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
-                        <div class="flex items-center gap-4">
-                            <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
-                                alt="Old School Boxing" class="w-12 h-12 rounded-full object-cover">
-                            <div>
-                                <h3 class="font-bold text-black text-lg">Old School Boxing & Fitness</h3>
-                                <p class="text-slate-600 text-sm">Website Redesign + Social Strategy</p>
-                            </div>
-                        </div>
-                        <i
-                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-300"></i>
-                    </summary>
-                    <div class="px-6 pb-6 border-t border-slate-100/50 pt-6">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h4 class="font-bold text-black mb-3">The Challenge</h4>
-                                <p class="text-slate-700 text-sm mb-4">Old School Boxing needed to establish a stronger
-                                    online presence and attract new members. Their existing site was outdated and they
-                                    had minimal social media engagement.</p>
-
-                                <h4 class="font-bold text-black mb-3">Our Solution</h4>
-                                <p class="text-slate-700 text-sm">We redesigned their website with a conversion-focused
-                                    layout and built a TikTok content strategy showcasing training sessions, gym
-                                    culture, and member transformations.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-black mb-3">Results</h4>
-                                <ul class="space-y-2 text-sm text-slate-700">
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        Grew TikTok following by 4,000+ in weeks
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        5x increase in social engagement
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        72% increase in website inquiries
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        8x ROI on marketing investment
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Case Study: Joe Smith Official -->
-                <details class="glass-card group reveal">
-                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-600 flex items-center justify-center text-white text-sm font-bold">
-                                JS</div>
-                            <div>
-                                <h3 class="font-bold text-black text-lg">Joe Smith Official</h3>
-                                <p class="text-slate-600 text-sm">Artist Website + Brand Identity + Social</p>
-                            </div>
-                        </div>
-                        <i
-                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-300"></i>
-                    </summary>
-                    <div class="px-6 pb-6 border-t border-slate-100/50 pt-6">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h4 class="font-bold text-black mb-3">The Challenge</h4>
-                                <p class="text-slate-700 text-sm mb-4">Joe Smith needed a professional digital presence
-                                    to consolidate streaming links, tour info, and merchandise into one cohesive brand
-                                    hub that matched his music's aesthetic.</p>
-
-                                <h4 class="font-bold text-black mb-3">Our Solution</h4>
-                                <p class="text-slate-700 text-sm">We designed a premium artist website with embedded
-                                    streaming integrations, an automated merch store, social feed aggregation, and a
-                                    newsletter signup — creating a single destination for fans.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-black mb-3">Results</h4>
-                                <ul class="space-y-2 text-sm text-slate-700">
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        2,500+ monthly website visitors within 60 days
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        3x increase in streaming engagement from site referrals
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        60% increase in merchandise sales
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        Established consistent brand identity across platforms
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
-
-                <!-- Case Study: Higher Praise CF -->
-                <details class="glass-card group reveal">
-                    <summary class="flex items-center justify-between p-6 cursor-pointer select-none">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-600 to-amber-400 flex items-center justify-center text-white text-sm font-bold">
-                                HP</div>
-                            <div>
-                                <h3 class="font-bold text-black text-lg">Higher Praise CF</h3>
-                                <p class="text-slate-600 text-sm">Ministry Website + Community Engagement</p>
-                            </div>
-                        </div>
-                        <i
-                            class="fa-solid fa-chevron-down text-slate-400 group-open:rotate-180 transition-transform duration-300"></i>
-                    </summary>
-                    <div class="px-6 pb-6 border-t border-slate-100/50 pt-6">
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h4 class="font-bold text-black mb-3">The Challenge</h4>
-                                <p class="text-slate-700 text-sm mb-4">Higher Praise Christian Fellowship needed to
-                                    modernize their digital presence, enable online giving, and create a central hub for
-                                    event management and sermon access for their growing congregation.</p>
-
-                                <h4 class="font-bold text-black mb-3">Our Solution</h4>
-                                <p class="text-slate-700 text-sm">We built a welcoming, mobile-first website featuring
-                                    integrated event calendars, secure online donation capabilities, sermon archive with
-                                    embedded media, and community group sign-ups — making it easy for members to stay
-                                    connected.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-black mb-3">Results</h4>
-                                <ul class="space-y-2 text-sm text-slate-700">
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        180% increase in online engagement and reach
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        5x increase in event RSVP and attendance
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        90% increase in online donations
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i class="fa-solid fa-circle-check text-green-500"></i>
-                                        Strengthened community connection and member retention
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </details>
+        <!-- Joe Smith Official -->
+        <details class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-lg group overflow-hidden">
+          <summary class="flex items-center justify-between p-8 cursor-pointer select-none">
+            <div class="flex items-center gap-5">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-slate-800 to-slate-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">JS</div>
+              <div>
+                <h2 class="text-xl font-bold text-black">Joe Smith Official</h2>
+                <p class="text-slate-500 text-sm mt-0.5">Music &amp; Entertainment · Artist Website + Brand Identity</p>
+              </div>
             </div>
-        </section>
-
-        <!-- CLIENT REVIEWS -->
-        <section class="py-16 md:py-24">
-            <div class="text-center max-w-4xl mx-auto mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-black">What Clients Say</h2>
-                <p class="mt-4 text-lg text-slate-700">Hear directly from brands we've helped grow.</p>
+            <i class="fa-solid fa-plus text-slate-400 group-open:hidden text-lg"></i>
+            <i class="fa-solid fa-minus text-slate-400 hidden group-open:block text-lg"></i>
+          </summary>
+          <div class="px-8 pb-8 border-t border-white/40 pt-6">
+            <p class="text-slate-700 text-base leading-relaxed mb-8 max-w-3xl">
+              Joe needed one destination for fans — streaming, merch, tour dates, and newsletter. We built a premium artist site with embedded streaming integrations, automated merch store, and social feed aggregation. One brand, one URL, everything in sync.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">2,500+</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Monthly Visitors</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">3x</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Streaming Referrals</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+60%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Merch Sales</p>
+              </div>
             </div>
+          </div>
+        </details>
 
-            <div class="max-w-4xl mx-auto reveal">
-                <div class="glass-card p-8 md:p-12 text-center">
-                    <div class="star-rating justify-center mb-4">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                    </div>
-                    <blockquote class="text-xl md:text-2xl text-slate-800 font-medium mb-6">
-                        "Lovoson completely transformed our online presence. The results speak for themselves — we've
-                        seen consistent growth since day one."
-                    </blockquote>
-                    <div class="flex items-center justify-center gap-3">
-                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
-                            alt="Coach Ernest" class="w-12 h-12 rounded-full object-cover">
-                        <div class="text-left">
-                            <p class="font-bold text-black">Coach Ernest</p>
-                            <p class="text-slate-600 text-sm">Old School Boxing & Fitness</p>
-                        </div>
-                        <span class="verified-badge ml-2">
-                            <i class="fa-solid fa-circle-check"></i> Verified
-                        </span>
-                    </div>
-                </div>
+        <!-- Higher Praise CF -->
+        <details class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-lg group overflow-hidden">
+          <summary class="flex items-center justify-between p-8 cursor-pointer select-none">
+            <div class="flex items-center gap-5">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-600 to-amber-400 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">HP</div>
+              <div>
+                <h2 class="text-xl font-bold text-black">Higher Praise CF</h2>
+                <p class="text-slate-500 text-sm mt-0.5">Faith &amp; Community · Ministry Website + Community Engagement</p>
+              </div>
             </div>
-        </section>
-
-        <!-- BOTTOM CTA -->
-        <section class="py-24 md:py-32 max-w-7xl mx-auto text-center px-6">
-            <div
-                class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-16 md:p-20 cta-shader-wrap reveal">
-                <div class="shader-bg"></div>
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
-                        Ready to Be Our Next Success Story?
-                    </h2>
-                    <p class="text-lg md:text-xl text-slate-700 mb-10">
-                        Let's build systems that grow your business — through design, automation, and strategy.
-                    </p>
-                    <div class="flex flex-col md:flex-row justify-center gap-6">
-                        <a href="/enroll/"
-                            class="button-glow animate-glow font-bold py-4 px-12 text-lg rounded-full inline-block">
-                            Get Started →
-                        </a>
-                        <a href="/contact/"
-                            class="button-outline font-semibold py-4 px-12 text-lg rounded-full inline-block">
-                            Contact Us
-                        </a>
-                    </div>
-                </div>
+            <i class="fa-solid fa-plus text-slate-400 group-open:hidden text-lg"></i>
+            <i class="fa-solid fa-minus text-slate-400 hidden group-open:block text-lg"></i>
+          </summary>
+          <div class="px-8 pb-8 border-t border-white/40 pt-6">
+            <p class="text-slate-700 text-base leading-relaxed mb-8 max-w-3xl">
+              Higher Praise needed a modern digital home for their growing congregation — online giving, event registration, sermon archives, and community sign-ups. We built a welcoming mobile-first site that made every service and event accessible, anywhere.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+180%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Online Engagement</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">5x</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Event RSVPs</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">+90%</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Online Donations</p>
+              </div>
+              <div class="service-card p-5 rounded-2xl text-center">
+                <p class="text-2xl font-bold text-black">↑</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Member Retention</p>
+              </div>
             </div>
-        </section>
-    </main>
+          </div>
+        </details>
 
-    <!-- Footer -->
-    <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+      </div>
+    </section>
 
-            <div class="pt-1">
-                <div class="flex items-center space-x-1 mb-3">
-                    <picture>
-                        <source
-                            srcset="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821610/lovoson_icon_fmdiol.svg"
-                            type="image/svg+xml">
-                        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1762821446/lovoson_icon_aegpww.png"
-                            alt="Lovoson Media Logo" class="h-16 w-auto object-contain -mr-2">
-                    </picture>
-                    <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
-                </div>
-                <p class="text-sm text-slate-700">
-                    Scaling businesses through strategy, design, and automation. We help businesses scale online with
-                    measurable impact.
-                </p>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
-                <p class="text-sm text-slate-700">Website Design & Management</p>
-                <p class="text-sm text-slate-700">Email & SMS Automation</p>
-                <p class="text-sm text-slate-700">Social Media Campaigns</p>
-                <p class="text-sm text-slate-700">Brand Strategy</p>
-                <p class="text-sm text-slate-700">Content Creation</p>
-            </div>
-
-            <div>
-                <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
-                <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
-                <p class="text-sm text-slate-700 mb-4">Phone: (206) 806-3329</p>
-                <div class="flex space-x-5 text-2xl text-slate-700">
-                    <a href="mailto:contact@lovoson.com" class="hover:text-black transition">
-                        <i class="fa-solid fa-envelope"></i>
-                    </a>
-                    <a href="https://www.instagram.com/lovosonmedia" target="_blank"
-                        class="hover:text-black transition">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
+    <!-- TESTIMONIAL -->
+    <section class="py-10 md:py-14">
+      <div class="max-w-3xl mx-auto bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-10 md:p-14 text-center">
+        <div class="flex justify-center mb-5 text-yellow-400 text-2xl gap-1">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
         </div>
-
-        <div
-            class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
-            <p>© <span id="year">2025</span> Lovoson Media. All Rights Reserved.</p>
-            <div class="mt-2 md:mt-0 space-x-4">
-                <a href="/terms/" class="hover:text-black transition-colors">Terms of Service</a>
-            </div>
+        <blockquote class="text-xl md:text-2xl font-medium text-black leading-relaxed mb-8">
+          "Lovoson completely transformed our online presence. The results speak for themselves — we've seen consistent growth since day one."
+        </blockquote>
+        <div class="flex items-center justify-center gap-4">
+          <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1759370294/san-diego-boxing-gym-coach-ernest_h3dfg7.jpg"
+            alt="Coach Ernest" class="w-12 h-12 rounded-full object-cover border border-white/60 shadow-sm" />
+          <div class="text-left">
+            <p class="font-bold text-black">Coach Ernest</p>
+            <p class="text-slate-500 text-sm">Old School Boxing &amp; Fitness</p>
+          </div>
+          <span class="ml-2 text-xs font-semibold bg-black text-white px-3 py-1 rounded-full"><i class="fa-solid fa-circle-check mr-1"></i>Verified</span>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- JS -->
-    <script src="/css/js/script.js"></script>
+    <!-- BRIDGE → ABOUT PAGE -->
+    <section class="py-16 md:py-24">
+      <div class="max-w-5xl mx-auto bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-10 md:p-14">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-widest text-slate-500 mb-3">Want to Know How We Do It?</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-black mb-5">
+              Every one of these results started with a 15-minute call.
+            </h2>
+            <p class="text-slate-700 leading-relaxed mb-8">
+              We don't guess — we pull up your business live, find exactly where leads are slipping away, and show you the systems that fix it. No pitch. No pressure. Just real strategy built for your niche.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/about/" class="button-glow font-semibold py-3 px-8 text-base inline-block">Learn How It Works →</a>
+              <button class="btn-offer" data-offer-trigger style="font-size:1rem;padding:0.75rem 1.5rem;">
+                <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book a Free Call</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="service-card p-6 rounded-2xl text-center">
+              <i class="fa-solid fa-laptop-code text-3xl text-black mb-3"></i>
+              <p class="text-sm font-semibold text-slate-800">High-Converting Website</p>
+            </div>
+            <div class="service-card p-6 rounded-2xl text-center">
+              <i class="fa-solid fa-robot text-3xl text-black mb-3"></i>
+              <p class="text-sm font-semibold text-slate-800">AI Lead Follow-Up</p>
+            </div>
+            <div class="service-card p-6 rounded-2xl text-center">
+              <i class="fa-solid fa-star text-3xl text-black mb-3"></i>
+              <p class="text-sm font-semibold text-slate-800">Review Automation</p>
+            </div>
+            <div class="service-card p-6 rounded-2xl text-center">
+              <i class="fa-solid fa-chart-bar text-3xl text-black mb-3"></i>
+              <p class="text-sm font-semibold text-slate-800">Monthly Reports</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA PRISM -->
+    <section class="cta-prism py-24 md:py-36">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
+          Ready to Stop Losing Leads and Start Filling Your Calendar?
+        </h2>
+        <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto" style="color:#d1d5db;">
+          We'll pull up your online presence live, show you exactly where you're leaving money on the table, and walk you through how the system works — no pitch, no pressure. 15 minutes.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-6">
+          <button class="btn-offer" data-offer-trigger style="font-size:1.1rem;padding:1rem 2.5rem;">
+            <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book Your Free Call →</span>
+          </button>
+          <a href="/about/" class="button-outline font-semibold py-4 px-10 text-lg rounded-full inline-block" style="border-color:rgba(255,255,255,0.3);color:#f3f4f6;">See How It Works</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+      <div class="pt-1">
+        <div class="flex items-center space-x-2 mb-3">
+          <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+            alt="Lovoson Media Logo" class="h-10 w-10 object-contain" />
+          <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
+        </div>
+        <p class="text-sm text-slate-700">
+          We build the website, the follow-up, and the automation — so service businesses never lose another customer to slow response times.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
+        <p class="text-sm text-slate-700">High-Converting Websites</p>
+        <p class="text-sm text-slate-700">AI Lead Follow-Up Systems</p>
+        <p class="text-sm text-slate-700">Missed Call Text-Back</p>
+        <p class="text-sm text-slate-700">Google Review Automation</p>
+        <p class="text-sm text-slate-700">Monthly Performance Reports</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
+        <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
+        <p class="text-sm text-slate-700 mb-4">Phone: (206) 806-3329</p>
+        <div class="flex space-x-5 text-2xl text-slate-700">
+          <a href="mailto:contact@lovoson.com" class="hover:text-black transition"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" class="hover:text-black transition"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" target="_blank" class="hover:text-black transition"><i class="fab fa-facebook"></i></a>
+          <a href="#" target="_blank" class="hover:text-black transition"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
+      <p>© <span id="year">2025</span> Lovoson Media. All Rights Reserved.</p>
+      <div class="mt-2 md:mt-0 space-x-4">
+        <a href="/terms/" class="hover:text-black transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GHL BOOKING MODAL -->
+  <div class="offer-modal-backdrop" id="offer-backdrop"></div>
+  <div class="offer-modal" id="offer-modal" style="position:fixed;max-width:680px;">
+    <button class="offer-close-btn" id="offer-modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="offer-modal-inner" style="padding:1.5rem 1.25rem;">
+      <h2 style="font-size:1.5rem;margin-bottom:0.25rem;">Book Your Free Strategy Call</h2>
+      <p class="offer-subtitle">15 minutes. We'll pull up your business live and show you exactly where leads are slipping away.</p>
+      <div style="margin-top:1rem;border-radius:1rem;overflow:hidden;">
+        <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
+          style="width:100%;border:none;overflow:hidden;min-height:580px;" scrolling="no"
+          id="Px6mbV1JQxmcE1WApcLM_clients"></iframe>
+      </div>
+    </div>
+  </div>
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+
+  <!-- GHL Chat Widget -->
+  <script src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="6a0dfffb60140c84c19c01f6"
+    data-source="WEB_USER"></script>
+
+  <script src="/css/js/script.js"></script>
 </body>
 
 </html>

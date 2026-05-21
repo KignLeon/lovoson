@@ -6,17 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lovoson Media | Website Design + Digital Marketing</title>
 
-  <!-- Anti-FOUC: Apply theme before paint -->
-  <script>
-    (function () {
-      var t = localStorage.getItem('lovoson-theme');
-      if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-      var a = localStorage.getItem('lovoson-accent');
-      if (a) document.documentElement.style.setProperty('--accent-h', a);
-      document.documentElement.classList.add('theme-loaded');
-    })();
-  </script>
-
   <!-- SEO META TAGS -->
   <meta name="description"
     content="Lovoson Media builds and automates growth systems for brands through web design, marketing, and performance strategy.">
@@ -60,6 +49,38 @@
       border-radius: 9999px;
     }
 
+    /* Mobile dropdown */
+    #mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+
+    #mobile-nav.active {
+      max-height: 100vh;
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding-bottom: 2rem;
+    }
+
+    /* Remove active underline */
+    .nav-link.active {
+      text-decoration: none;
+    }
+
     @media (max-width:768px) {
       h1 {
         font-size: 2.3rem !important;
@@ -93,33 +114,13 @@
   </style>
 </head>
 
-<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24">
-  <!-- Liquid Glass SVG Filter -->
-  <svg style="display:none">
-    <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
-      <feTurbulence type="fractalNoise" baseFrequency="0.001 0.005" numOctaves="1" seed="17" result="turbulence"/>
-      <feComponentTransfer in="turbulence" result="mapped">
-        <feFuncR type="gamma" amplitude="1" exponent="10" offset="0.5"/>
-        <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"/>
-        <feFuncB type="gamma" amplitude="0" exponent="1" offset="0.5"/>
-      </feComponentTransfer>
-      <feGaussianBlur in="turbulence" stdDeviation="3" result="softMap"/>
-      <feSpecularLighting in="softMap" surfaceScale="5" specularConstant="1" specularExponent="100" lighting-color="white" result="specLight">
-        <fePointLight x="-200" y="-200" z="300"/>
-      </feSpecularLighting>
-      <feComposite in="specLight" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="litImage"/>
-      <feDisplacementMap in="SourceGraphic" in2="softMap" scale="200" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-24">
 
   <!-- HEADER -->
   <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
-    <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-5xl relative z-50">
-      <a href="/" class="logo-svg-wrap" id="logo-link">
-        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
-          alt="Lovoson" />
-        <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
-      </a>
+    <div
+      class="mx-auto flex justify-between items-center px-6 py-3 rounded-3xl liquid-glass max-w-7xl shadow-md bg-white/40 backdrop-blur-md relative z-50">
+      <a href="/" class="text-2xl font-bold text-black">Lovoson Media</a>
       <nav class="hidden md:flex items-center space-x-6">
         <a href="/" class="nav-link active">Home</a>
         <a href="/about/" class="nav-link">About</a>
@@ -129,81 +130,53 @@
 
       <!-- DESKTOP ACTIONS -->
       <div class="hidden md:flex items-center gap-3">
-        <div class="color-picker-wrap" id="color-picker-wrap">
-          <button id="color-picker-btn" aria-label="Change accent color">
-            <i class="fa-solid fa-palette"></i>
-          </button>
-          <div class="color-picker-popover" id="color-picker-popover">
-            <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
-            <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
-            <button data-accent-h="340" class="color-dot" style="background:#f43f5e" title="Rose"></button>
-            <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
-            <button data-accent-h="30" class="color-dot" style="background:#f97316" title="Orange"></button>
-            <button data-accent-h="0" class="color-dot" style="background:#111111" title="Neutral"></button>
-          </div>
-        </div>
-        <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-        <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy Call</button>
-        <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
+        <a href="/enroll/" class="button-glow font-semibold py-2.5 px-5 text-sm">Get Started</a>
       </div>
 
-      <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2"><i
+      <button id="nav-toggle" class="md:hidden text-2xl text-black focus:outline-none p-2"><i
           class="fa-solid fa-bars"></i></button>
     </div>
 
     <!-- Mobile Nav -->
     <nav id="mobile-nav" class="md:hidden text-center px-8">
       <div class="flex flex-col space-y-5 py-6">
-        <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
-        <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
-        <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
-        <a href="/contact/" class="text-lg font-medium mobile-nav-link hover:underline">Contact</a>
-
-        <button class="btn-offer mx-auto" data-offer-trigger><i class="fa-solid fa-phone"></i> Free Strategy Call</button>
-        <a href="/enroll/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get Started</a>
+        <a href="/" class="text-lg font-medium text-black hover:underline">Home</a>
+        <a href="/about/" class="text-lg font-medium text-black hover:underline">About</a>
+        <a href="/clients/" class="text-lg font-medium text-black hover:underline">Clients</a>
+        <a href="/contact/" class="text-lg font-medium text-black hover:underline">Contact</a>
+        <a href="/enroll/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
+          Started</a>
       </div>
     </nav>
   </header>
 
   <!-- HERO -->
   <main class="max-w-7xl mx-auto px-8 md:px-12">
-    <section class="grid md:grid-cols-2 gap-12 md:gap-16 items-center py-20 md:py-28 hero-aurora-wrap">
-      <div class="hero-gradient-wave"></div>
-      <!-- Hero Image (LEFT on desktop) -->
-      <div class="hidden md:flex justify-center items-center reveal reveal-d1 md:order-1">
-        <div class="hero-image-wrap">
-          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80&auto=format&fit=crop"
-            alt="Modern workspace" class="hero-img" />
-        </div>
-      </div>
-      <!-- Hero Content (RIGHT on desktop) -->
-      <div class="text-center md:text-left page-reveal-hero md:order-2">
-        <button class="offer-hero-pill" data-offer-trigger>
-          <span class="pill-dot"></span>
-          Free 15-Min Growth Strategy Call — Book Now
-          <i class="fa-solid fa-arrow-right text-xs"></i>
-        </button>
-        <h1 class="text-5xl md:text-7xl font-bold leading-tight shimmer-text reveal">
+    <section class="grid md:grid-cols-2 gap-16 items-center py-20 md:py-28">
+      <div class="text-center md:text-left animate-fade-in">
+        <h1 class="text-5xl md:text-7xl font-bold leading-tight shimmer-text">
           Scaling brands through design and automation
         </h1>
-        <p class="mt-6 text-lg md:text-xl text-slate-600 max-w-xl mx-auto md:mx-0 reveal reveal-d1">
+        <p class="mt-6 text-lg md:text-xl text-slate-700 max-w-xl mx-auto md:mx-0">
           Lovoson builds high-converting websites and the ad systems that drive traffic into them.
         </p>
-        <div class="mt-10 flex flex-wrap gap-4 justify-center md:justify-start reveal reveal-d2">
-          <a href="/enroll/" class="button-glow animate-glow font-bold py-4 px-10 text-lg rounded-full inline-block">Get Started →</a>
-          <button class="button-outline font-semibold py-4 px-8 text-base rounded-full" data-offer-trigger>Free Call</button>
-        </div>
+        <a href="/enroll/"
+          class="mt-10 inline-block button-glow animate-glow font-bold py-4 px-10 text-lg rounded-xl">Get Started</a>
+      </div>
+      <div class="hidden md:block">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984"
+          alt="Creative workspace with digital marketing tools" class="rounded-3xl shadow-xl object-cover w-full" />
       </div>
     </section>
 
     <!-- CLIENT HIGHLIGHT -->
     <section class="py-20 md:py-24">
-      <div class="text-center max-w-4xl mx-auto mb-16 reveal">
+      <div class="text-center max-w-4xl mx-auto mb-16">
         <h2 class="text-5xl font-bold text-black">Lovoson Client Highlight</h2>
         <p class="mt-4 text-lg text-slate-700">Real systems. Real results. Built for the trades.</p>
       </div>
       <div
-        class="client-highlight-card max-w-7xl mx-auto grid md:grid-cols-5 gap-8 items-center reveal reveal-d1 page-reveal-target">
+        class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-12 md:p-16 max-w-7xl mx-auto grid md:grid-cols-5 gap-10 items-center hover:shadow-2xl transition-all">
         <div class="flex justify-center md:justify-start md:col-span-1">
           <img
             src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1769529588/integrity_electrical_logo_1769449336717-fotor-bg-remover-2026012775937_abxbgn.png"
@@ -212,25 +185,29 @@
         </div>
         <div class="md:col-span-4 text-center md:text-left">
           <h3 class="text-3xl md:text-4xl font-bold text-black mb-3">Integrity Electrical</h3>
-          <p class="text-base md:text-lg text-slate-600 leading-relaxed mb-8">
-            Lovoson built a conversion-optimized website, AI-powered lead follow-up system, and missed-call text-back automation for Integrity Electrical — so they never lose another customer to slow response times. Every new lead is followed up within 60 seconds, reviews are collected on autopilot, and their Google profile grows without lifting a finger. The result: <span class="font-bold text-black">+287% organic traffic</span> and a full pipeline in the first quarter.
+          <p class="text-base md:text-lg text-slate-800 leading-relaxed mb-8">
+            Lovoson built a conversion-optimized website, AI-powered lead follow-up system, and missed-call text-back
+            automation for Integrity Electrical — so they never lose another customer to slow response times. Every new
+            lead is followed up within 60 seconds, reviews are collected on autopilot, and their Google profile grows
+            without lifting a finger. The result: <span class="font-bold text-black">+287% organic traffic</span> and a
+            full pipeline in the first quarter.
           </p>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-            <div class="stat-block">
-              <span class="stat-num">+287%</span>
-              <span class="stat-desc">Organic Traffic Lift</span>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+            <div>
+              <p class="text-3xl font-bold text-black">+287%</p>
+              <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Organic Traffic Lift</p>
             </div>
-            <div class="stat-block">
-              <span class="stat-num">&lt;60s</span>
-              <span class="stat-desc">Avg Lead Response</span>
+            <div>
+              <p class="text-3xl font-bold text-black">&lt;60s</p>
+              <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Avg Lead Response</p>
             </div>
-            <div class="stat-block">
-              <span class="stat-num">+63%</span>
-              <span class="stat-desc">Conversion Rate</span>
+            <div>
+              <p class="text-3xl font-bold text-black">+63%</p>
+              <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Conversion Rate</p>
             </div>
-            <div class="stat-block">
-              <span class="stat-num">3.2x</span>
-              <span class="stat-desc">Avg ROAS</span>
+            <div>
+              <p class="text-3xl font-bold text-black">3.2x</p>
+              <p class="text-xs text-slate-500 uppercase tracking-wide mt-1">Avg ROAS</p>
             </div>
           </div>
           <a href="https://www.integrityelectricalaz.com" target="_blank"
@@ -241,28 +218,28 @@
 
     <!-- SERVICES -->
     <section class="py-20 md:py-28">
-      <div class="text-center max-w-4xl mx-auto mb-16 reveal">
+      <div class="text-center max-w-4xl mx-auto mb-16">
         <h2 class="text-4xl md:text-5xl font-bold text-black">Everything You Need to Grow Online</h2>
         <p class="mt-4 text-lg text-slate-700">Lovoson Media builds, automates, and scales your business with smart
           digital systems that convert.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-10 text-center max-w-7xl mx-auto">
         <div
-          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl reveal reveal-d1">
+          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl">
           <i class="fa-solid fa-display text-5xl text-black mb-6 service-icon"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Web Design & Management</h3>
           <p class="text-slate-700">Websites that work while you don't — optimized, mobile-ready, and designed to
             convert visitors into customers.</p>
         </div>
         <div
-          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl reveal reveal-d2">
+          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl">
           <i class="fa-solid fa-envelope-open-text text-5xl text-black mb-6 service-icon"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Email & SMS Automation</h3>
           <p class="text-slate-700">Automate engagement, capture leads, and drive consistent growth with smart systems
             that convert.</p>
         </div>
         <div
-          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl reveal reveal-d3">
+          class="service-card p-10 rounded-3xl border border-white/30 bg-white/20 backdrop-blur-xl shadow-xl">
           <i class="fa-solid fa-bullhorn text-5xl text-black mb-6 service-icon"></i>
           <h3 class="text-2xl font-semibold text-black mb-4">Ads & Campaigns</h3>
           <p class="text-slate-700">Turn scrolls into sales with high-impact campaigns that attract attention and drive
@@ -271,8 +248,8 @@
       </div>
     </section>
 
-    <!-- IMMERSIVE CTA / PRISM SECTION -->
-    <section class="cta-prism py-24 md:py-40 reveal">
+    <!-- CTA SECTION -->
+    <section class="cta-prism py-24 md:py-40">
       <div class="max-w-4xl mx-auto px-6">
         <h2 class="text-4xl md:text-6xl font-bold text-black leading-tight mb-6">
           Ready to Scale Your Business With Lovoson Media?
@@ -291,41 +268,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Shader Modal (existing) -->
-  <div class="shader-modal-backdrop"></div>
-  <div class="shader-modal">
-    <div class="shader-bg"></div>
-    <button class="shader-modal-close" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
-    <div class="shader-modal-content">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Build Something Great</h2>
-      <p class="text-lg opacity-80 mb-8 max-w-md mx-auto">We design, automate, and scale — so you can focus on what you
-        do best.</p>
-      <a href="/enroll/"
-        class="inline-block bg-white text-black font-bold py-3 px-10 rounded-full text-lg hover:bg-gray-100 transition">Get
-        Started →</a>
-    </div>
-  </div>
-
-  <!-- FREE OFFER MODAL -->
-  <div class="offer-modal-backdrop" id="offer-backdrop"></div>
-  <div class="offer-modal" id="offer-modal" style="position:fixed;">
-    <button class="offer-close-btn" id="offer-modal-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-    <div class="offer-modal-inner">
-      <h2>Free 15-Minute Growth Strategy Call</h2>
-      <p class="offer-subtitle">Zero fluff. Real insights for your business in 15 minutes.</p>
-      <ul class="offer-benefits">
-        <li><i class="fa-solid fa-check-circle"></i> Identify your #1 conversion bottleneck</li>
-        <li><i class="fa-solid fa-check-circle"></i> Get a custom growth roadmap built for your niche</li>
-        <li><i class="fa-solid fa-check-circle"></i> Learn the exact ad + SEO system behind +340% traffic results</li>
-      </ul>
-      <div class="offer-tally-wrap">
-        <iframe data-tally-src="https://tally.so/embed/rjy6kp?hideTitle=1&transparentBackground=1&dynamicHeight=1"
-          loading="lazy" title="Book a Free Call" height="320">
-        </iframe>
-      </div>
-    </div>
-  </div>
 
   <!-- Footer -->
   <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
@@ -369,19 +311,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- WhatsApp Floating Button -->
-  <a id="whatsapp-float"
-    href="https://wa.me/12068063329?text=Hi+Leon%2C+I%27m+interested+in+working+with+Lovoson+Media!"
-    target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp"
-    style="position:fixed;bottom:5.5rem;right:2rem;z-index:999;width:3.5rem;height:3.5rem;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:1.6rem;box-shadow:0 4px 20px rgba(37,211,102,0.45);text-decoration:none;transition:all 0.3s ease;">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-  <style>
-    #whatsapp-float::before{content:'';position:absolute;width:100%;height:100%;border-radius:50%;background:rgba(37,211,102,0.35);animation:wa-pulse 2s ease-out infinite;}
-    #whatsapp-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,0.6);}
-    @keyframes wa-pulse{0%{transform:scale(1);opacity:0.7;}100%{transform:scale(1.7);opacity:0;}}
-  </style>
 
   <!-- GHL Chat Widget -->
   <script src="https://widgets.leadconnectorhq.com/loader.js"

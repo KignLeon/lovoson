@@ -38,10 +38,21 @@
     position: relative;
     padding: 8px 16px;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 700 !important;
     color: #374151;
     transition: color 0.3s ease;
 }
+
+/* Force bold on ALL nav text — desktop + mobile */
+.mobile-nav-link,
+#mobile-nav a,
+#mobile-nav button,
+.nav-brand-text,
+#main-header nav a,
+.button-glow {
+    font-weight: 700 !important;
+}
+
 
 /* Pill/circle — hover only, NOT on active */
 .nav-link::before {

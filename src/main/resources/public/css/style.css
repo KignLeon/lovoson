@@ -5,6 +5,15 @@
 /* Import Design System Components */
 @import url('./components.css');
 
+/* ======================================================================= */
+/* GLOBAL ZOOM — desktop only (feels like 115% browser zoom)                */
+/* ======================================================================= */
+@media (min-width: 768px) {
+    html {
+        zoom: 1.15;
+    }
+}
+
 /* --- Reusable UI Component Classes --- */
 
 /* Core Liquid Glass effect */

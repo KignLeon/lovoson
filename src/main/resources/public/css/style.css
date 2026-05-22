@@ -153,6 +153,128 @@
     min-width: unset;
 }
 
+/* ======================================================================= */
+/* DARK MODE — CARD & CONTAINER LEGIBILITY                                  */
+/* ======================================================================= */
+
+/* Service cards (stat tiles, service feature cards) */
+[data-theme="dark"] .service-card {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.09) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+[data-theme="dark"] .service-card:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Force light text inside service cards in dark mode */
+[data-theme="dark"] .service-card p,
+[data-theme="dark"] .service-card span,
+[data-theme="dark"] .service-card h3,
+[data-theme="dark"] .service-card h4,
+[data-theme="dark"] .service-card i {
+    color: #e5e7eb !important;
+}
+
+[data-theme="dark"] .service-card .text-black,
+[data-theme="dark"] .service-card .text-slate-800,
+[data-theme="dark"] .service-card .text-slate-700 {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .service-card .text-slate-500,
+[data-theme="dark"] .service-card .text-slate-600 {
+    color: #9ca3af !important;
+}
+
+/* Inline Tailwind glass containers (bg-white/70, bg-white/60 etc.) */
+[data-theme="dark"] .bg-white\/70,
+[data-theme="dark"] .bg-white\/60,
+[data-theme="dark"] .bg-white\/50,
+[data-theme="dark"] .bg-white\/40,
+[data-theme="dark"] .bg-white\/20,
+[data-theme="dark"] .bg-white\/10 {
+    background: rgba(18, 20, 28, 0.80) !important;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Text inside Tailwind glass containers in dark mode */
+[data-theme="dark"] .bg-white\/70 p,
+[data-theme="dark"] .bg-white\/70 li,
+[data-theme="dark"] .bg-white\/70 span:not(.btn-offer-label):not(.card-niche),
+[data-theme="dark"] .bg-white\/60 p,
+[data-theme="dark"] .bg-white\/50 p,
+[data-theme="dark"] .bg-white\/20 p {
+    color: #d1d5db !important;
+}
+
+[data-theme="dark"] .bg-white\/70 h2,
+[data-theme="dark"] .bg-white\/70 h3,
+[data-theme="dark"] .bg-white\/70 h4,
+[data-theme="dark"] .bg-white\/60 h2,
+[data-theme="dark"] .bg-white\/60 h3,
+[data-theme="dark"] .bg-white\/50 h2,
+[data-theme="dark"] .bg-white\/50 h3 {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-black,
+[data-theme="dark"] .bg-white\/70 .text-slate-800,
+[data-theme="dark"] .bg-white\/60 .text-black,
+[data-theme="dark"] .bg-white\/50 .text-black {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-slate-700,
+[data-theme="dark"] .bg-white\/70 .text-slate-600,
+[data-theme="dark"] .bg-white\/60 .text-slate-700,
+[data-theme="dark"] .bg-white\/50 .text-slate-700 {
+    color: #9ca3af !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-slate-500,
+[data-theme="dark"] .bg-white\/60 .text-slate-500 {
+    color: #6b7280 !important;
+}
+
+/* Accordion case study cards in dark mode */
+[data-theme="dark"] details.bg-white\/70,
+[data-theme="dark"] details[class*="bg-white"] {
+    background: rgba(18, 20, 28, 0.82) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] details summary h2,
+[data-theme="dark"] details summary p {
+    color: #e5e7eb !important;
+}
+
+/* Social placeholder cards */
+[data-theme="dark"] .aspect-square.bg-white\/60 {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ======================================================================= */
+/* SITE-WIDE ALIGNMENT — consistent max-width and centering                 */
+/* ======================================================================= */
+
+/* Standardize all main page content to the same horizontal rhythm */
+main > section {
+    width: 100%;
+}
+
+/* Consistent grid column alignment — prevent lone cards drifting left */
+.grid.md\:grid-cols-3 > *:last-child:nth-child(3n+1) {
+    grid-column: 1;
+}
+
+/* Ensure the page body never causes horizontal scroll */
+body {
+    overflow-x: hidden;
+}
 
 /* ===== CTA PRISM: visible in light mode, rounded corners ===== */
 .cta-prism {

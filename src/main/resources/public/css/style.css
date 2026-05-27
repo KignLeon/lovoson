@@ -477,46 +477,49 @@ footer a:hover {
 /* ENGAGEMENT POPUP SYSTEM                                                  */
 /* ======================================================================= */
 
-/* ---- Corner Toast (bottom-left slide-up) ---- */
+/* ---- Corner Toast (bottom-right slide-up) ---- */
 #lv-toast {
     position: fixed;
-    bottom: -220px;
-    left: 1.25rem;
+    bottom: -240px;
+    right: 1.5rem;
+    left: auto;
     z-index: 9000;
-    width: 320px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px) saturate(1.2);
-    -webkit-backdrop-filter: blur(20px) saturate(1.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 340px;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: 1.5rem;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
-    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.13), 0 4px 16px rgba(0,0,0,0.06);
+    padding: 1.375rem;
     transition: bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
 }
 
 #lv-toast.active {
-    bottom: 1.5rem;
+    bottom: 1.75rem;
     pointer-events: all;
 }
 
 [data-theme="dark"] #lv-toast {
-    background: rgba(20, 20, 28, 0.96);
-    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 26, 0.97);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
 }
 
 .lv-toast-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
 }
 
 .lv-toast-icon {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     line-height: 1;
     flex-shrink: 0;
+    margin-top: 0.1rem;
 }
 
 .lv-toast-text {
@@ -524,35 +527,44 @@ footer a:hover {
 }
 
 .lv-toast-title {
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 800;
     color: #111;
-    margin: 0 0 0.25rem;
+    margin: 0 0 0.3rem;
     line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
 [data-theme="dark"] .lv-toast-title { color: #f3f4f6; }
 
 .lv-toast-body {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: #6b7280;
-    line-height: 1.5;
+    line-height: 1.55;
     margin: 0;
 }
 
+[data-theme="dark"] .lv-toast-body { color: #9ca3af; }
+
 .lv-toast-close {
-    background: none;
+    background: rgba(0,0,0,0.05);
     border: none;
+    border-radius: 50%;
     cursor: pointer;
     color: #9ca3af;
-    font-size: 1rem;
-    padding: 0;
-    line-height: 1;
+    font-size: 0.8rem;
+    width: 1.625rem;
+    height: 1.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
-    transition: color 0.2s;
+    transition: background 0.2s, color 0.2s;
 }
 
-.lv-toast-close:hover { color: #111; }
+.lv-toast-close:hover { background: rgba(0,0,0,0.1); color: #111; }
+[data-theme="dark"] .lv-toast-close { background: rgba(255,255,255,0.06); color: #6b7280; }
+[data-theme="dark"] .lv-toast-close:hover { background: rgba(255,255,255,0.12); color: #e5e7eb; }
 
 .lv-toast-cta {
     display: block;
@@ -561,28 +573,32 @@ footer a:hover {
     color: #fff;
     border: none;
     border-radius: 0.875rem;
-    padding: 0.7rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
     text-align: center;
-    margin-top: 0.75rem;
+    margin-top: 0.875rem;
+    font-family: inherit;
+    letter-spacing: 0.01em;
 }
 
 .lv-toast-cta:hover {
-    background: #2d2d2d;
+    background: #2a2a2a;
     transform: translateY(-1px);
 }
 
 /* Progress bar auto-dismiss */
 .lv-toast-progress {
-    height: 3px;
-    background: rgba(0,0,0,0.08);
+    height: 2px;
+    background: rgba(0,0,0,0.07);
     border-radius: 9999px;
-    margin-top: 0.75rem;
+    margin-top: 0.875rem;
     overflow: hidden;
 }
+
+[data-theme="dark"] .lv-toast-progress { background: rgba(255,255,255,0.08); }
 
 .lv-toast-progress-bar {
     height: 100%;
@@ -592,6 +608,8 @@ footer a:hover {
     transform-origin: left;
     transition: transform linear;
 }
+
+[data-theme="dark"] .lv-toast-progress-bar { background: rgba(255,255,255,0.5); }
 
 /* ---- Full Offer Modal (centre overlay) ---- */
 #lv-offer-modal {
@@ -604,7 +622,7 @@ footer a:hover {
     padding: 1.5rem;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
 }
 
 #lv-offer-modal.active {
@@ -615,24 +633,25 @@ footer a:hover {
 #lv-offer-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 #lv-offer-box {
     position: relative;
-    background: rgba(255, 255, 255, 0.97);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 2rem;
-    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
-    padding: 2.5rem 2rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.18), 0 8px 32px rgba(0,0,0,0.08);
+    padding: 2.75rem 2.25rem 2rem;
     max-width: 520px;
     width: 100%;
-    transform: translateY(24px) scale(0.97);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(28px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
     max-height: 90vh;
     overflow-y: auto;
+    scrollbar-width: thin;
 }
 
 #lv-offer-modal.active #lv-offer-box {
@@ -640,72 +659,106 @@ footer a:hover {
 }
 
 [data-theme="dark"] #lv-offer-box {
-    background: rgba(16, 16, 22, 0.98);
-    border-color: rgba(255, 255, 255, 0.08);
+    background: #13131a;
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+}
+
+/* Badge pill (e.g. "Free — No Commitment") */
+.lv-offer-badge {
+    display: inline-block;
+    background: rgba(17, 17, 17, 0.07);
+    color: #374151;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 0.3rem 0.875rem;
+    margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .lv-offer-badge {
+    background: rgba(255,255,255,0.08);
+    color: #9ca3af;
 }
 
 .lv-offer-close {
     position: absolute;
     top: 1.25rem;
     right: 1.25rem;
-    background: rgba(0,0,0,0.06);
+    background: rgba(0,0,0,0.05);
     border: none;
     border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
+    width: 2.25rem;
+    height: 2.25rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    color: #6b7280;
+    font-size: 0.85rem;
+    color: #9ca3af;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background 0.2s, color 0.2s;
 }
 
-.lv-offer-close:hover { background: rgba(0,0,0,0.12); color: #111; }
-
-.lv-offer-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    display: block;
-    text-align: center;
-}
+.lv-offer-close:hover { background: rgba(0,0,0,0.1); color: #111; }
+[data-theme="dark"] .lv-offer-close { background: rgba(255,255,255,0.06); }
+[data-theme="dark"] .lv-offer-close:hover { background: rgba(255,255,255,0.12); color: #e5e7eb; }
 
 .lv-offer-title {
-    font-size: 1.6rem;
+    font-size: 1.65rem;
     font-weight: 800;
     color: #111;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    line-height: 1.25;
+    margin: 0 0 0.625rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 [data-theme="dark"] .lv-offer-title { color: #f3f4f6; }
 
 .lv-offer-sub {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #6b7280;
-    text-align: center;
-    margin-bottom: 1.75rem;
-    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
 }
+
+[data-theme="dark"] .lv-offer-sub { color: #9ca3af; }
+
+/* Booking embed wrapper */
+.lv-booking-embed-wrap {
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 1.25rem 0 0;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .lv-booking-embed-wrap { border-color: rgba(255,255,255,0.06); }
 
 .lv-offer-input {
     width: 100%;
-    padding: 0.875rem 1.25rem;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 1rem;
-    font-size: 0.95rem;
-    background: rgba(255,255,255,0.85);
-    margin-bottom: 0.875rem;
+    padding: 0.9rem 1.25rem;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 0.875rem;
+    font-size: 0.92rem;
+    background: rgba(248,248,250,1);
+    margin-bottom: 0.75rem;
     box-sizing: border-box;
     font-family: inherit;
-    transition: border-color 0.2s;
+    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .lv-offer-input:focus {
     outline: none;
     border-color: #111;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .lv-offer-input {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    color: #f3f4f6;
 }
 
 .lv-offer-btn-primary {
@@ -714,31 +767,34 @@ footer a:hover {
     background: #111;
     color: #fff;
     border: none;
-    border-radius: 1rem;
+    border-radius: 0.875rem;
     padding: 1rem;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 700;
     cursor: pointer;
     transition: background 0.2s, transform 0.15s;
     font-family: inherit;
+    letter-spacing: 0.01em;
+    margin-top: 0.25rem;
 }
 
 .lv-offer-btn-primary:hover {
-    background: #2d2d2d;
+    background: #2a2a2a;
     transform: translateY(-1px);
 }
 
 .lv-offer-dismiss {
     display: block;
     text-align: center;
-    margin-top: 1rem;
-    font-size: 0.8rem;
+    margin-top: 1.125rem;
+    font-size: 0.77rem;
     color: #9ca3af;
     cursor: pointer;
     background: none;
     border: none;
     font-family: inherit;
     width: 100%;
+    transition: color 0.2s;
 }
 
 .lv-offer-dismiss:hover { color: #6b7280; }
@@ -747,177 +803,86 @@ footer a:hover {
     list-style: none;
     padding: 0;
     margin: 0 0 1.5rem;
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
 }
 
 .lv-offer-checklist li {
     display: flex;
     align-items: flex-start;
-    gap: 0.625rem;
-    font-size: 0.9rem;
+    gap: 0.6rem;
+    font-size: 0.875rem;
     color: #374151;
-    margin-bottom: 0.625rem;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .lv-offer-checklist li i {
     color: #111;
-    margin-top: 0.1rem;
+    font-size: 0.85rem;
+    margin-top: 0.17rem;
     flex-shrink: 0;
 }
+
+.lv-offer-checklist li span { flex: 1; }
 
 [data-theme="dark"] .lv-offer-checklist li { color: #d1d5db; }
+[data-theme="dark"] .lv-offer-checklist li i { color: #e5e7eb; }
 
 /* ======================================================================= */
-/* TOP BANNER FLASH                                                          */
+/* TOP BANNER & FOOTER FLASH — removed (v4 system uses toast + modal only)  */
 /* ======================================================================= */
 
-#lv-banner {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 10000;
-    transform: translateY(-110%);
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-    background: linear-gradient(90deg, #7c3aed 0%, #4f46e5 60%, #7c3aed 100%);
-    background-size: 200% 100%;
-    animation: lv-banner-shimmer 3s linear infinite;
-    color: #fff;
-    padding: 0.7rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    box-shadow: 0 4px 24px rgba(124,58,237,0.45);
-}
-
-@keyframes lv-banner-shimmer {
-    0%   { background-position: 0% 0; }
-    100% { background-position: 200% 0; }
-}
-
-#lv-banner.active { transform: translateY(0); }
-
-#lv-banner-text {
-    flex: 1;
-    text-align: center;
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-#lv-banner-text strong { font-weight: 800; }
-
-#lv-banner-cta {
-    background: #fff;
-    color: #7c3aed;
-    border: none;
-    border-radius: 999px;
-    padding: 0.42rem 1.25rem;
-    font-weight: 800;
-    cursor: pointer;
-    font-size: 0.82rem;
-    white-space: nowrap;
-    transition: background 0.2s, transform 0.15s;
-    flex-shrink: 0;
-    font-family: inherit;
-}
-
-#lv-banner-cta:hover { background: #f3f0ff; transform: scale(1.04); }
-
-#lv-banner-close {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.65);
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0.25rem;
-    flex-shrink: 0;
-    transition: color 0.2s;
-}
-
-#lv-banner-close:hover { color: #fff; }
-
 /* ======================================================================= */
-/* FOOTER FLASH BAR                                                          */
+/* MOBILE & DEVICE FRIENDLINESS POLISH                                      */
 /* ======================================================================= */
 
-#lv-footer-flash {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 9998;
-    transform: translateY(110%);
-    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-    background: linear-gradient(90deg, #0f1117 0%, #1a1d2a 100%);
-    color: #fff;
-    padding: 1rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    border-top: 1px solid rgba(124,58,237,0.35);
-    box-shadow: 0 -6px 40px rgba(0,0,0,0.45);
+/* ---- Toast: center-bottom on mobile (easier to tap) ---- */
+@media (max-width: 540px) {
+    #lv-toast {
+        right: auto;
+        left: 50%;
+        bottom: -260px;
+        width: calc(100vw - 2rem);
+        max-width: 380px;
+        transform: translateX(-50%);
+        transition: bottom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #lv-toast.active {
+        bottom: 1rem;
+        transform: translateX(-50%);
+    }
+
+    .lv-toast-cta { padding: 0.85rem 1rem; font-size: 0.875rem; }
+
+    /* ---- Offer / booking modal: bottom-sheet on mobile ---- */
+    #lv-offer-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    #lv-offer-box {
+        max-width: 100%;
+        width: 100%;
+        border-radius: 1.75rem 1.75rem 0 0;
+        padding: 2rem 1.375rem 2.5rem;
+        max-height: 93dvh;
+    }
+
+    #lv-offer-box iframe { min-height: 380px !important; }
+
+    .lv-offer-title { font-size: 1.4rem; }
+    .lv-offer-sub   { font-size: 0.86rem; margin-bottom: 1.25rem; }
 }
 
-#lv-footer-flash.active { transform: translateY(0); }
-
-.lv-ff-left { flex: 1; min-width: 0; }
-
-.lv-ff-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #a78bfa;
-    margin-bottom: 0.25rem;
-}
-
-.lv-ff-headline {
-    font-size: 1rem;
-    font-weight: 800;
-    color: #f3f4f6;
-    line-height: 1.3;
-}
-
-.lv-ff-sub {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 0.2rem;
-}
-
-#lv-ff-cta {
-    background: linear-gradient(135deg, #7c3aed, #4f46e5);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 0.75rem 2rem;
-    font-weight: 800;
-    cursor: pointer;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    box-shadow: 0 4px 18px rgba(124,58,237,0.5);
-    transition: transform 0.2s, box-shadow 0.2s;
-    font-family: inherit;
-    flex-shrink: 0;
-}
-
-#lv-ff-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,58,237,0.6); }
-
-#lv-ff-close {
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.4);
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0.25rem;
-    flex-shrink: 0;
-    transition: color 0.2s;
-}
-
-#lv-ff-close:hover { color: rgba(255,255,255,0.8); }
-
-@media (max-width: 640px) {
-    #lv-footer-flash { padding: 0.875rem 1rem; gap: 0.75rem; }
-    .lv-ff-headline { font-size: 0.88rem; }
-    #lv-ff-cta { padding: 0.65rem 1.25rem; font-size: 0.82rem; }
-    #lv-banner-text { font-size: 0.78rem; }
+/* ---- Touch: fast tap on all interactive popup elements ---- */
+#lv-toast,
+#lv-offer-modal,
+.lv-toast-cta,
+.lv-toast-close,
+.lv-offer-close,
+.lv-offer-btn-primary,
+.lv-offer-dismiss {
+    touch-action: manipulation;
 }

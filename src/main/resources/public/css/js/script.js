@@ -101,8 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Cinematic Page Reveal ---
   initPageReveal();
 
-  // --- Free Offer Modal ---
-  initOfferModal();
+  // --- Free Offer Modal (data-offer-trigger → smart booking modal) ---
+  // Handled inside initEngagementSystem() below
 
   // --- Shader Lines Effect (Three.js) ---
   const shaderContainers = document.querySelectorAll('.shader-bg');
@@ -163,57 +163,60 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mark theme as loaded (anti-FOUC release)
   document.documentElement.classList.add('theme-loaded');
 });
-
 // ==========================================================================
-// ENGAGEMENT POPUP SYSTEM  (v2 — Banner, Footer Flash, Exit-Intent, Return)
+// ENGAGEMENT POPUP SYSTEM  (v4 — One-at-a-time, High-Converting, Clean)
 // ==========================================================================
 
 function initEngagementSystem() {
-  const toast      = document.getElementById('lv-toast');
+  const toast    = document.getElementById('lv-toast');
   const offerModal = document.getElementById('lv-offer-modal');
   const offerBox   = document.getElementById('lv-offer-box');
   const offerBd    = document.getElementById('lv-offer-backdrop');
   if (!toast || !offerModal) return;
 
-  // --- Inject banner + footer-flash HTML dynamically ---
-  if (!document.getElementById('lv-banner')) {
-    document.body.insertAdjacentHTML('afterbegin', `
-      <div id="lv-banner">
-        <span id="lv-banner-text"></span>
-        <button id="lv-banner-cta"></button>
-        <button id="lv-banner-close" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
-      </div>`);
-  }
-  if (!document.getElementById('lv-footer-flash')) {
-    document.body.insertAdjacentHTML('beforeend', `
-      <div id="lv-footer-flash">
-        <div class="lv-ff-left">
-          <div class="lv-ff-label" id="lv-ff-label"></div>
-          <div class="lv-ff-headline" id="lv-ff-headline"></div>
-          <div class="lv-ff-sub" id="lv-ff-sub"></div>
-        </div>
-        <button id="lv-ff-cta"></button>
-        <button id="lv-ff-close" aria-label="Dismiss"><i class="fa-solid fa-xmark"></i></button>
-      </div>`);
-  }
+  // ---- Track page visits in session ----
+  const sessionKey   = 'lv:session-pages';
+  const sessionPages = parseInt(sessionStorage.getItem(sessionKey) || '0') + 1;
+  sessionStorage.setItem(sessionKey, String(sessionPages));
 
-  const banner     = document.getElementById('lv-banner');
-  const footerBar  = document.getElementById('lv-footer-flash');
-
-  const now = Date.now();
-  const getStored  = k => parseInt(localStorage.getItem(k) || '0');
+  // ---- localStorage helpers ----
+  const now        = Date.now();
+  const getStored  = k  => parseInt(localStorage.getItem(k) || '0');
   const setStored  = (k, v) => localStorage.setItem(k, String(v));
-  const hoursSince = k => (now - getStored(k)) / 3600000;
+  const hoursSince = k  => (now - getStored(k)) / 3_600_000;
   const canShow    = (k, h) => hoursSince(k) > h;
 
-  // ---------- TOAST ----------
-  let toastQueue = [];
-  let toastBusy  = false;
+  // ---- STRICT one-at-a-time, one per session guard ----
+  let popupActive  = false;
+  let popupsShown  = 0;
+  const MAX_POPUPS = 1; // only ONE auto-popup per page load
+
+  function acquireSlot() {
+    if (popupActive || popupsShown >= MAX_POPUPS) return false;
+    popupActive = true;
+    popupsShown++;
+    return true;
+  }
+  function releaseSlot() {
+    // 60s cooldown before anything else can appear
+    setTimeout(() => { popupActive = false; }, 60_000);
+  }
+
+  // ---- Wire ALL [data-offer-trigger] buttons ----
+  document.querySelectorAll('[data-offer-trigger]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      showBookingModal(true);
+    });
+  });
+
+  // ============================================================
+  // TOAST  (bottom-right, unobtrusive)
+  // ============================================================
   let progressTimer = null;
 
   function showToast(cfg) {
-    if (toastBusy) { toastQueue.push(cfg); return; }
-    toastBusy = true;
+    if (!acquireSlot()) return;
     document.getElementById('lv-toast-icon').textContent  = cfg.icon;
     document.getElementById('lv-toast-title').textContent = cfg.title;
     document.getElementById('lv-toast-body').textContent  = cfg.body;
@@ -225,307 +228,164 @@ function initEngagementSystem() {
     bar.style.transform  = 'scaleX(1)';
     toast.classList.add('active');
     requestAnimationFrame(() => {
-      bar.style.transition = `transform ${cfg.duration || 12000}ms linear`;
+      bar.style.transition = `transform ${cfg.duration || 14000}ms linear`;
       bar.style.transform  = 'scaleX(0)';
     });
-    progressTimer = setTimeout(dismissToast, cfg.duration || 12000);
+    progressTimer = setTimeout(dismissToast, cfg.duration || 14000);
   }
 
   function dismissToast() {
     clearTimeout(progressTimer);
     toast.classList.remove('active');
-    toastBusy = false;
-    setTimeout(() => { if (toastQueue.length) showToast(toastQueue.shift()); }, 700);
+    releaseSlot();
   }
   document.getElementById('lv-toast-close').addEventListener('click', dismissToast);
 
-  // ---------- TOP BANNER ----------
-  let bannerTimer = null;
-  function showBanner(cfg) {
-    document.getElementById('lv-banner-text').innerHTML = cfg.text;
-    const cta = document.getElementById('lv-banner-cta');
-    cta.textContent = cfg.cta;
-    cta.onclick = () => { cfg.action(); hideBanner(); };
-    document.getElementById('lv-banner-close').onclick = hideBanner;
-    banner.classList.add('active');
-    bannerTimer = setTimeout(hideBanner, cfg.duration || 18000);
-  }
-  function hideBanner() {
-    clearTimeout(bannerTimer);
-    banner.classList.remove('active');
-  }
+  // ============================================================
+  // BOOKING MODAL (primary CTA — always available on-demand)
+  // ============================================================
+  function showBookingModal(fromTrigger) {
+    if (!fromTrigger && !acquireSlot()) return;
+    // If already open, do nothing
+    if (offerModal.classList.contains('active')) return;
 
-  // ---------- FOOTER FLASH ----------
-  let ffTimer = null;
-  function showFooterFlash(cfg) {
-    document.getElementById('lv-ff-label').textContent    = cfg.label || '⚡ Limited Offer';
-    document.getElementById('lv-ff-headline').textContent = cfg.headline;
-    document.getElementById('lv-ff-sub').textContent      = cfg.sub || '';
-    const cta = document.getElementById('lv-ff-cta');
-    cta.textContent = cfg.cta;
-    cta.onclick = () => { cfg.action(); hideFooterFlash(); };
-    document.getElementById('lv-ff-close').onclick = hideFooterFlash;
-    footerBar.classList.add('active');
-    ffTimer = setTimeout(hideFooterFlash, cfg.duration || 16000);
-  }
-  function hideFooterFlash() {
-    clearTimeout(ffTimer);
-    footerBar.classList.remove('active');
-  }
+    offerBox.innerHTML = `
+      <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="lv-offer-badge">Free — No Commitment</div>
+      <h2 class="lv-offer-title">Book Your Free Strategy Call</h2>
+      <p class="lv-offer-sub">15 minutes. We pull up your business live and show you exactly where leads are slipping — then hand you the fix.</p>
+      <ul class="lv-offer-checklist">
+        <li><i class="fa-solid fa-circle-check"></i><span>Your #1 lead-loss bottleneck identified</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>A custom 3-step growth roadmap</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>Live AI follow-up system demo</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>Zero pitch. Zero pressure.</span></li>
+      </ul>
+      <div class="lv-booking-embed-wrap">
+        <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
+          style="width:100%;display:block;border:none;min-height:480px;" scrolling="no" loading="lazy"></iframe>
+      </div>
+      <button class="lv-offer-dismiss">I'll figure it out on my own.</button>`;
 
-  // ---------- FULL MODAL ----------
-  function showOfferModal(cfg) {
-    if (!cfg || !cfg.html) return;
-    offerBox.innerHTML = cfg.html;
     offerModal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    offerBox.querySelector('.lv-offer-close')?.addEventListener('click', closeOfferModal);
-    offerBox.querySelector('.lv-offer-dismiss')?.addEventListener('click', closeOfferModal);
+    offerBox.querySelector('.lv-offer-close').addEventListener('click', closeOfferModal);
+    offerBox.querySelector('.lv-offer-dismiss').addEventListener('click', closeOfferModal);
   }
+  window._lvShowBooking = showBookingModal;
+
+  // ============================================================
+  // EXIT INTENT MODAL
+  // ============================================================
+  function showExitModal() {
+    if (offerModal.classList.contains('active')) return;
+    if (!acquireSlot()) return;
+
+    offerBox.innerHTML = `
+      <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+      <div class="lv-offer-badge">Free in 24 Hours</div>
+      <h2 class="lv-offer-title">Wait — Get a Free Site Audit</h2>
+      <p class="lv-offer-sub">Before you go, let us show you exactly where your site is losing leads. No fluff. Real findings, delivered fast.</p>
+      <ul class="lv-offer-checklist">
+        <li><i class="fa-solid fa-circle-check"></i><span>Speed & mobile performance score</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>Lead conversion gap analysis</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>Google visibility breakdown</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span>AI follow-up readiness check</span></li>
+      </ul>
+      <input class="lv-offer-input" type="url"   id="audit-url"   placeholder="yourwebsite.com" />
+      <input class="lv-offer-input" type="email" id="audit-email" placeholder="Your email address" />
+      <button class="lv-offer-btn-primary" onclick="lvSubmitAudit()">Send My Free Audit →</button>
+      <button class="lv-offer-dismiss">No thanks, I'm all set.</button>`;
+
+    offerModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    offerBox.querySelector('.lv-offer-close').addEventListener('click', closeOfferModal);
+    offerBox.querySelector('.lv-offer-dismiss').addEventListener('click', closeOfferModal);
+  }
+
   function closeOfferModal() {
     offerModal.classList.remove('active');
     document.body.style.overflow = '';
+    releaseSlot();
   }
   offerBd.addEventListener('click', closeOfferModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeOfferModal(); hideBanner(); hideFooterFlash(); } });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeOfferModal(); dismissToast(); }
+  });
 
-  // ---------- BOOKING HELPER ----------
-  function showBookingModal() {
-    showOfferModal({
-      html: `
-        <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-        <span class="lv-offer-icon">📞</span>
-        <h2 class="lv-offer-title">Book Your Free Strategy Call</h2>
-        <p class="lv-offer-sub">15 minutes. No pitch. We pull up your business live and show you exactly what's costing you leads.</p>
-        <ul class="lv-offer-checklist">
-          <li><i class="fa-solid fa-check-circle"></i>Your #1 lead-loss bottleneck identified</li>
-          <li><i class="fa-solid fa-check-circle"></i>Custom 3-step growth roadmap</li>
-          <li><i class="fa-solid fa-check-circle"></i>AI follow-up system walkthrough</li>
-          <li><i class="fa-solid fa-check-circle"></i>Zero commitment — just real strategy</li>
-        </ul>
-        <div style="border-radius:1rem;overflow:hidden;margin-top:1rem;">
-          <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
-            style="width:100%;display:block;border:none;min-height:480px;" scrolling="no"></iframe>
-        </div>
-        <button class="lv-offer-dismiss">Not right now.</button>`
-    });
-  }
+  // ============================================================
+  // SMART TRIGGERS — only ONE fires per page load
+  // ============================================================
 
-  // ---------- OFFER DEFINITIONS ----------
-  const OFFERS = [
-
-    // 1. TOP BANNER — 4s after load — Free Website Build
-    {
-      trigger: 'delay', value: 4000,
-      key: 'lv:banner-build', cooldown: 8,
-      type: 'banner',
-      text: '🔥 <strong>Only 3 spots left this month</strong> — Claim your Free Website Build before they\'re gone.',
-      cta: 'Apply Now →',
-      duration: 20000,
-      action() { showOfferModal(OFFERS.find(o => o.key === 'lv:build-modal')); }
-    },
-
-    // 2. CORNER TOAST — 8s — Free Site Audit
-    {
-      trigger: 'delay', value: 8000,
-      key: 'lv:audit-toast', cooldown: 12,
-      type: 'toast',
-      icon: '🔍', title: 'Get a Free Site Audit',
-      body: "We'll find exactly where your site is losing leads — free, 24-hour turnaround.",
-      cta: 'Claim My Free Audit →', duration: 14000,
-      action() { showOfferModal(OFFERS.find(o => o.key === 'lv:audit-modal')); }
-    },
-
-    // 3. RETURN VISITOR TOAST — immediate if returning
-    {
-      trigger: 'return-visit',
-      key: 'lv:return-toast', cooldown: 24,
-      type: 'toast',
-      icon: '👋', title: 'Welcome Back!',
-      body: "Still thinking it over? We'd love to show you exactly what we'd build for your business.",
-      cta: 'Book a 15-Min Call →', duration: 13000,
-      action() { showBookingModal(); }
-    },
-
-    // 4. FOOTER FLASH — 30% scroll — 50% off setup
-    {
-      trigger: 'scroll', value: 30,
-      key: 'lv:ff-discount', cooldown: 12,
-      type: 'footer-flash',
-      label: '⚡ This Week Only',
-      headline: '50% Off Your Setup Fee — Lock In Your Rate Today',
-      sub: 'Offer expires end of week. Book a call to claim it.',
-      cta: 'Lock In My Rate →',
-      duration: 18000,
-      action() { showBookingModal(); }
-    },
-
-    // 5. CORNER TOAST — 40% scroll — Follow socials
-    {
-      trigger: 'scroll', value: 40,
-      key: 'lv:social-toast', cooldown: 24,
-      type: 'toast',
-      icon: '📱', title: 'Follow @lovosonmedia',
-      body: 'Watch us build brands, run campaigns, and fill calendars in real time.',
-      cta: 'Follow on Instagram →', duration: 11000,
-      action() { window.open('https://www.instagram.com/lovosonmedia', '_blank'); }
-    },
-
-    // 6. FULL MODAL — 60% scroll — Book a Call
-    {
-      trigger: 'scroll', value: 60,
-      key: 'lv:call-modal', cooldown: 8,
-      type: 'modal-action',
-      action() { showBookingModal(); }
-    },
-
-    // 7. FOOTER FLASH — 75% scroll — Free audit reminder
-    {
-      trigger: 'scroll', value: 75,
-      key: 'lv:ff-audit', cooldown: 12,
-      type: 'footer-flash',
-      label: '🔍 Free For You',
-      headline: 'Claim Your Free Website Audit — 24-Hour Turnaround',
-      sub: "We'll find every place your site is leaking leads.",
-      cta: 'Get My Free Audit →',
-      duration: 16000,
-      action() { showOfferModal(OFFERS.find(o => o.key === 'lv:audit-modal')); }
-    },
-
-    // 8. CORNER TOAST — 88% scroll — Book call
-    {
-      trigger: 'scroll', value: 88,
-      key: 'lv:call-toast', cooldown: 8,
-      type: 'toast',
-      icon: '📞', title: 'Ready to Fill Your Calendar?',
-      body: "15 minutes. No pitch. We pull up your business live and show you what's costing you leads.",
-      cta: 'Book a Free Strategy Call →', duration: 15000,
-      action() { showBookingModal(); }
-    },
-
-    // 9. FULL MODAL — 90s — Free Website Build
-    {
-      trigger: 'delay', value: 90000,
-      key: 'lv:build-modal', cooldown: 24,
-      type: 'modal',
-      html: `
-        <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-        <span class="lv-offer-icon">💻</span>
-        <h2 class="lv-offer-title">Claim a Free Website Build</h2>
-        <p class="lv-offer-sub">We're taking on <strong>3 service businesses</strong> this month for a completely free high-converting website build. See if you qualify.</p>
-        <ul class="lv-offer-checklist">
-          <li><i class="fa-solid fa-check-circle"></i>Professional, conversion-optimized design</li>
-          <li><i class="fa-solid fa-check-circle"></i>Mobile-ready and fast-loading</li>
-          <li><i class="fa-solid fa-check-circle"></i>Built-in AI lead follow-up integration</li>
-          <li><i class="fa-solid fa-check-circle"></i>No cost — just results</li>
-        </ul>
-        <input class="lv-offer-input" type="text"  id="build-biz"   placeholder="Business name" />
-        <input class="lv-offer-input" type="text"  id="build-niche" placeholder="What type of business?" />
-        <input class="lv-offer-input" type="email" id="build-email" placeholder="Your email" />
-        <button class="lv-offer-btn-primary" onclick="lvSubmitBuild()">Check My Availability →</button>
-        <button class="lv-offer-dismiss">I already have a great website.</button>`
-    },
-
-    // 10. EXIT INTENT MODAL
-    {
-      trigger: 'exit',
-      key: 'lv:exit-modal', cooldown: 6,
-      type: 'modal',
-      html: `
-        <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-        <span class="lv-offer-icon">✋</span>
-        <h2 class="lv-offer-title">Wait — Before You Go</h2>
-        <p class="lv-offer-sub">Let us run a <strong>free audit</strong> on your site. We'll show you exactly where leads are slipping away — in 24 hours, no strings attached.</p>
-        <ul class="lv-offer-checklist">
-          <li><i class="fa-solid fa-check-circle"></i>Speed & mobile performance check</li>
-          <li><i class="fa-solid fa-check-circle"></i>Lead conversion bottleneck analysis</li>
-          <li><i class="fa-solid fa-check-circle"></i>Google visibility score</li>
-          <li><i class="fa-solid fa-check-circle"></i>AI follow-up gap report</li>
-        </ul>
-        <input class="lv-offer-input" type="url"   id="audit-url"   placeholder="Your website URL (e.g. yoursite.com)" />
-        <input class="lv-offer-input" type="email" id="audit-email" placeholder="Your email address" />
-        <button class="lv-offer-btn-primary" onclick="lvSubmitAudit()">Send Me My Free Audit →</button>
-        <button class="lv-offer-dismiss">No thanks, I'll keep losing leads.</button>`
-    },
-
-    // Content-only modal defs
-    {
-      key: 'lv:audit-modal', type: 'modal-def',
-      html: `
-        <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-        <span class="lv-offer-icon">🔍</span>
-        <h2 class="lv-offer-title">Free Site Audit</h2>
-        <p class="lv-offer-sub">We'll review your website and show you exactly where leads are escaping — zero cost, zero commitment.</p>
-        <ul class="lv-offer-checklist">
-          <li><i class="fa-solid fa-check-circle"></i>Speed & mobile performance check</li>
-          <li><i class="fa-solid fa-check-circle"></i>Lead conversion bottleneck analysis</li>
-          <li><i class="fa-solid fa-check-circle"></i>Google visibility assessment</li>
-          <li><i class="fa-solid fa-check-circle"></i>AI follow-up gap report</li>
-        </ul>
-        <input class="lv-offer-input" type="url"   id="audit-url"   placeholder="Your website URL (e.g. yoursite.com)" />
-        <input class="lv-offer-input" type="email" id="audit-email" placeholder="Your email address" />
-        <button class="lv-offer-btn-primary" onclick="lvSubmitAudit()">Send Me My Free Audit →</button>
-        <button class="lv-offer-dismiss">No thanks, I'll keep losing leads.</button>`
-    }
-  ];
-
-  // ---------- FIRE ENGINE ----------
-  const scrollFired = new Set();
-
-  // Return visitor check (fired immediately)
-  const prevVisit = getStored('lv:site-visit');
-  if (prevVisit > 0) {
-    const returnOffer = OFFERS.find(o => o.trigger === 'return-visit');
-    if (returnOffer && canShow(returnOffer.key, returnOffer.cooldown)) {
-      setTimeout(() => {
-        setStored(returnOffer.key, now);
-        showToast(returnOffer);
-      }, 2000);
-    }
-  }
+  const isFirstVisit = getStored('lv:site-visit') === 0;
   setStored('lv:site-visit', now);
 
-  // Delay triggers
-  OFFERS.forEach(offer => {
-    if (offer.trigger !== 'delay') return;
+  // Priority 1 — Return visitor: show booking nudge toast (48h cooldown)
+  if (!isFirstVisit && canShow('lv:return-toast', 48)) {
     setTimeout(() => {
-      if (!canShow(offer.key, offer.cooldown)) return;
-      setStored(offer.key, now);
-      if (offer.type === 'toast')        showToast(offer);
-      else if (offer.type === 'banner')  showBanner(offer);
-      else if (offer.type === 'modal')   showOfferModal(offer);
-    }, offer.value);
-  });
+      if (popupActive) return;
+      setStored('lv:return-toast', now);
+      showToast({
+        icon: '👋',
+        title: 'Good to see you again.',
+        body: "Still weighing your options? Let's map out exactly what we'd build for your business.",
+        cta: 'Book a 15-Min Strategy Call →',
+        duration: 15000,
+        action() { showBookingModal(true); }
+      });
+    }, 3000);
+    return; // Priority 1 fires → nothing else queues
+  }
 
-  // Scroll triggers
+  // Priority 2 — Multi-page session (high intent): booking modal (12h cooldown)
+  if (sessionPages >= 2 && canShow('lv:multi-page-modal', 12)) {
+    setTimeout(() => {
+      if (popupActive) return;
+      setStored('lv:multi-page-modal', now);
+      showToast({
+        icon: '🔍',
+        title: "Looks like you're doing your research.",
+        body: 'We can walk you through everything in 15 minutes — no sales deck, just real answers.',
+        cta: 'Book a Free Call →',
+        duration: 15000,
+        action() { showBookingModal(true); }
+      });
+    }, 4000);
+    return; // Priority 2 fires → nothing else queues
+  }
+
+  // Priority 3 — Scroll 75%+ (high engagement): toast with Instagram follow
+  let scrollFired = false;
   window.addEventListener('scroll', () => {
+    if (scrollFired || popupActive) return;
     const pct = (window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100;
-    OFFERS.forEach(offer => {
-      if (offer.trigger !== 'scroll') return;
-      if (scrollFired.has(offer.key)) return;
-      if (pct < offer.value) return;
-      scrollFired.add(offer.key);
+    if (pct >= 75 && canShow('lv:social-toast', 24)) {
+      scrollFired = true;
       setTimeout(() => {
-        if (!canShow(offer.key, offer.cooldown)) return;
-        setStored(offer.key, now);
-        if (offer.type === 'toast')         showToast(offer);
-        else if (offer.type === 'footer-flash') showFooterFlash(offer);
-        else if (offer.type === 'modal')    showOfferModal(offer);
-        else if (offer.type === 'modal-action') offer.action();
-      }, 800);
-    });
+        if (popupActive) return;
+        setStored('lv:social-toast', now);
+        showToast({
+          icon: '📱',
+          title: 'We post the results, not the pitch.',
+          body: 'Follow @lovosonmedia — real campaigns, real numbers, behind the scenes.',
+          cta: 'Follow on Instagram →',
+          duration: 13000,
+          action() { window.open('https://www.instagram.com/lovosonmedia', '_blank'); }
+        });
+      }, 1000);
+    }
   }, { passive: true });
 
-  // Exit intent (mouse leaves toward top of viewport)
+  // Priority 4 — Exit intent: free audit modal (8h cooldown, desktop only)
   let exitFired = false;
-  document.addEventListener('mouseleave', e => {
-    if (exitFired || e.clientY > 50) return;
-    exitFired = true;
-    const exitOffer = OFFERS.find(o => o.trigger === 'exit');
-    if (!exitOffer || !canShow(exitOffer.key, exitOffer.cooldown)) return;
-    setStored(exitOffer.key, now);
-    showOfferModal(exitOffer);
-  });
+  if (window.innerWidth > 768) {
+    document.addEventListener('mouseleave', e => {
+      if (exitFired || e.clientY > 50 || popupActive) return;
+      if (!canShow('lv:exit-modal', 8)) return;
+      exitFired = true;
+      setStored('lv:exit-modal', now);
+      showExitModal();
+    });
+  }
 }
 
 // ---------- FORM SUBMITTERS ----------
@@ -801,40 +661,6 @@ function initPageReveal() {
   });
 }
 
-// ==========================================================================
-// FREE OFFER MODAL
-// ==========================================================================
-
-function initOfferModal() {
-  const backdrop = document.getElementById('offer-backdrop');
-  const modal = document.getElementById('offer-modal');
-  const closeBtn = document.getElementById('offer-modal-close');
-
-  if (!backdrop || !modal) return;
-
-  const triggers = document.querySelectorAll('[data-offer-trigger]');
-
-  const openModal = () => {
-    backdrop.classList.add('active');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    backdrop.classList.remove('active');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  };
-
-  triggers.forEach(btn => btn.addEventListener('click', openModal));
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  backdrop.addEventListener('click', closeModal);
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
-  });
-}
 
 // ==========================================================================
 // COLOR PICKER (ACCENT THEMING)

@@ -5,6 +5,15 @@
 /* Import Design System Components */
 @import url('./components.css');
 
+/* ======================================================================= */
+/* GLOBAL ZOOM — desktop only (feels like 115% browser zoom)                */
+/* ======================================================================= */
+@media (min-width: 768px) {
+    html {
+        zoom: 1.15;
+    }
+}
+
 /* --- Reusable UI Component Classes --- */
 
 /* Core Liquid Glass effect */
@@ -37,12 +46,24 @@
 .nav-link {
     position: relative;
     padding: 8px 16px;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 700 !important;
     color: #374151;
-    /* slate-700 (darker, readable) */
     transition: color 0.3s ease;
 }
 
+/* Force bold on ALL nav text — desktop + mobile */
+.mobile-nav-link,
+#mobile-nav a,
+#mobile-nav button,
+.nav-brand-text,
+#main-header nav a,
+.button-glow {
+    font-weight: 700 !important;
+}
+
+
+/* Pill/circle — hover only, NOT on active */
 .nav-link::before {
     content: '';
     position: absolute;
@@ -60,10 +81,267 @@
     opacity: 1;
 }
 
+/* No pill on the active link — underline only */
+.nav-link.active::before {
+    display: none !important;
+}
+
 .nav-link:hover {
     color: #111111;
-    /* pure black */
 }
+
+/* ===== NAV PILL LAYOUT: prevent wrapping / clipping ===== */
+/* Logo must never shrink or wrap */
+.logo-svg-wrap {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    min-width: 0;
+}
+
+.nav-brand-text {
+    white-space: nowrap !important;
+}
+
+/* Desktop nav links — never wrap, never shrink */
+#main-header nav {
+    flex-shrink: 1;
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+#main-header nav a {
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Action buttons group — never shrink below its natural width */
+#main-header > div > div.hidden.md\:flex:last-of-type {
+    flex-shrink: 0;
+}
+
+/* The outer pill row itself must never wrap */
+#main-header > div {
+    flex-wrap: nowrap !important;
+}
+
+
+/* ===== NAV PILL: permanent glass background — no scroll dependency ===== */
+#main-header > div {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(1.3) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.3) !important;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.07) !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    max-width: 1100px !important;
+    padding: 1rem 2rem !important;
+    flex-wrap: nowrap !important;
+}
+
+[data-theme="dark"] #main-header > div {
+    background: rgba(15, 15, 20, 0.88) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Scrolled state = identical to default — no visual change ever */
+#main-header.scrolled > div {
+    max-width: 1100px !important;
+    padding: 1rem 2rem !important;
+}
+
+/* Always show brand text and full btn-offer */
+#main-header.scrolled .nav-brand-text {
+    display: inline !important;
+}
+#main-header.scrolled .btn-offer .btn-offer-label {
+    display: inline !important;
+}
+#main-header.scrolled .btn-offer {
+    padding: unset;
+    min-width: unset;
+}
+
+/* ======================================================================= */
+/* DARK MODE — CARD & CONTAINER LEGIBILITY                                  */
+/* ======================================================================= */
+
+/* Service cards (stat tiles, service feature cards) */
+[data-theme="dark"] .service-card {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.09) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
+}
+
+[data-theme="dark"] .service-card:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Force light text inside service cards in dark mode */
+[data-theme="dark"] .service-card p,
+[data-theme="dark"] .service-card span,
+[data-theme="dark"] .service-card h3,
+[data-theme="dark"] .service-card h4,
+[data-theme="dark"] .service-card i {
+    color: #e5e7eb !important;
+}
+
+[data-theme="dark"] .service-card .text-black,
+[data-theme="dark"] .service-card .text-slate-800,
+[data-theme="dark"] .service-card .text-slate-700 {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .service-card .text-slate-500,
+[data-theme="dark"] .service-card .text-slate-600 {
+    color: #9ca3af !important;
+}
+
+/* Inline Tailwind glass containers (bg-white/70, bg-white/60 etc.) */
+[data-theme="dark"] .bg-white\/70,
+[data-theme="dark"] .bg-white\/60,
+[data-theme="dark"] .bg-white\/50,
+[data-theme="dark"] .bg-white\/40,
+[data-theme="dark"] .bg-white\/20,
+[data-theme="dark"] .bg-white\/10 {
+    background: rgba(18, 20, 28, 0.80) !important;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Text inside Tailwind glass containers in dark mode */
+[data-theme="dark"] .bg-white\/70 p,
+[data-theme="dark"] .bg-white\/70 li,
+[data-theme="dark"] .bg-white\/70 span:not(.btn-offer-label):not(.card-niche),
+[data-theme="dark"] .bg-white\/60 p,
+[data-theme="dark"] .bg-white\/50 p,
+[data-theme="dark"] .bg-white\/20 p {
+    color: #d1d5db !important;
+}
+
+[data-theme="dark"] .bg-white\/70 h2,
+[data-theme="dark"] .bg-white\/70 h3,
+[data-theme="dark"] .bg-white\/70 h4,
+[data-theme="dark"] .bg-white\/60 h2,
+[data-theme="dark"] .bg-white\/60 h3,
+[data-theme="dark"] .bg-white\/50 h2,
+[data-theme="dark"] .bg-white\/50 h3 {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-black,
+[data-theme="dark"] .bg-white\/70 .text-slate-800,
+[data-theme="dark"] .bg-white\/60 .text-black,
+[data-theme="dark"] .bg-white\/50 .text-black {
+    color: #f3f4f6 !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-slate-700,
+[data-theme="dark"] .bg-white\/70 .text-slate-600,
+[data-theme="dark"] .bg-white\/60 .text-slate-700,
+[data-theme="dark"] .bg-white\/50 .text-slate-700 {
+    color: #9ca3af !important;
+}
+
+[data-theme="dark"] .bg-white\/70 .text-slate-500,
+[data-theme="dark"] .bg-white\/60 .text-slate-500 {
+    color: #6b7280 !important;
+}
+
+/* Accordion case study cards in dark mode */
+[data-theme="dark"] details.bg-white\/70,
+[data-theme="dark"] details[class*="bg-white"] {
+    background: rgba(18, 20, 28, 0.82) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] details summary h2,
+[data-theme="dark"] details summary p {
+    color: #e5e7eb !important;
+}
+
+/* Social placeholder cards */
+[data-theme="dark"] .aspect-square.bg-white\/60 {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ======================================================================= */
+/* SITE-WIDE ALIGNMENT — consistent max-width and centering                 */
+/* ======================================================================= */
+
+/* Standardize all main page content to the same horizontal rhythm */
+main > section {
+    width: 100%;
+}
+
+/* Consistent grid column alignment — prevent lone cards drifting left */
+.grid.md\:grid-cols-3 > *:last-child:nth-child(3n+1) {
+    grid-column: 1;
+}
+
+/* Ensure the page body never causes horizontal scroll */
+body {
+    overflow-x: hidden;
+}
+
+/* ===== CTA PRISM: visible in light mode, rounded corners ===== */
+.cta-prism {
+    border-radius: 2rem !important;
+    margin: 0 1rem;
+    background: rgba(10, 10, 15, 0.88) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Dark mode stripes — light lines on dark bg */
+.cta-prism::before {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(255, 255, 255, 0.07) 7px,
+            rgba(255, 255, 255, 0.14) 8px,
+            rgba(255, 255, 255, 0.07) 9px,
+            transparent 10px,
+            transparent 18px
+        ) !important;
+    opacity: 0.8 !important;
+    width: 100% !important;
+}
+
+/* ===== LIGHT MODE: inverted CTA — light background, dark stripes, dark text ===== */
+:root:not([data-theme="dark"]) .cta-prism {
+    background: rgba(240, 240, 245, 0.97) !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1) !important;
+}
+:root:not([data-theme="dark"]) .cta-prism::before {
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 6px,
+            rgba(0, 0, 0, 0.04) 7px,
+            rgba(0, 0, 0, 0.09) 8px,
+            rgba(0, 0, 0, 0.04) 9px,
+            transparent 10px,
+            transparent 18px
+        ) !important;
+    opacity: 1 !important;
+}
+:root:not([data-theme="dark"]) .cta-prism h2,
+:root:not([data-theme="dark"]) .cta-prism p {
+    color: #111111 !important;
+}
+:root:not([data-theme="dark"]) .cta-prism .font-semibold {
+    color: #1a1a1a !important;
+}
+:root:not([data-theme="dark"]) .cta-prism .button-outline {
+    border-color: rgba(0, 0, 0, 0.3) !important;
+    color: #111111 !important;
+}
+
 
 /* Primary button (black base) */
 .button-glow {
@@ -131,9 +409,7 @@
 }
 
 /* Header animation */
-#main-header {
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+/* Navbar scroll rules live in each page's inline <style> block. Do NOT add them here. */
 
 #main-header.header-hidden {
     transform: translateY(-150%);
@@ -178,19 +454,7 @@ a {
 }
 
 /* Smooth shrink effect + blur on scroll */
-#main-header {
-    transition: all 0.3s ease;
-}
-
-#main-header.scrolled div {
-    max-width: 4xl;
-    /* even slimmer when scrolled */
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-silver-border);
-    padding: 0.6rem 1.5rem;
-}
+/* Navbar scroll rules live in each page's inline <style> block. Do NOT add them here. */
 
 /* Sections */
 section {
@@ -207,4 +471,418 @@ footer {
 
 footer a:hover {
     color: #000;
+}
+
+/* ======================================================================= */
+/* ENGAGEMENT POPUP SYSTEM                                                  */
+/* ======================================================================= */
+
+/* ---- Corner Toast (bottom-right slide-up) ---- */
+#lv-toast {
+    position: fixed;
+    bottom: -240px;
+    right: 1.5rem;
+    left: auto;
+    z-index: 9000;
+    width: 340px;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(24px) saturate(1.3);
+    -webkit-backdrop-filter: blur(24px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.13), 0 4px 16px rgba(0,0,0,0.06);
+    padding: 1.375rem;
+    transition: bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+#lv-toast.active {
+    bottom: 1.75rem;
+    pointer-events: all;
+}
+
+[data-theme="dark"] #lv-toast {
+    background: rgba(18, 18, 26, 0.97);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.lv-toast-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
+}
+
+.lv-toast-icon {
+    font-size: 1.375rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.lv-toast-text {
+    flex: 1;
+}
+
+.lv-toast-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .lv-toast-title { color: #f3f4f6; }
+
+.lv-toast-body {
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.55;
+    margin: 0;
+}
+
+[data-theme="dark"] .lv-toast-body { color: #9ca3af; }
+
+.lv-toast-close {
+    background: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #9ca3af;
+    font-size: 0.8rem;
+    width: 1.625rem;
+    height: 1.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+}
+
+.lv-toast-close:hover { background: rgba(0,0,0,0.1); color: #111; }
+[data-theme="dark"] .lv-toast-close { background: rgba(255,255,255,0.06); color: #6b7280; }
+[data-theme="dark"] .lv-toast-close:hover { background: rgba(255,255,255,0.12); color: #e5e7eb; }
+
+.lv-toast-cta {
+    display: block;
+    width: 100%;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-align: center;
+    margin-top: 0.875rem;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+}
+
+.lv-toast-cta:hover {
+    background: #2a2a2a;
+    transform: translateY(-1px);
+}
+
+/* Progress bar auto-dismiss */
+.lv-toast-progress {
+    height: 2px;
+    background: rgba(0,0,0,0.07);
+    border-radius: 9999px;
+    margin-top: 0.875rem;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .lv-toast-progress { background: rgba(255,255,255,0.08); }
+
+.lv-toast-progress-bar {
+    height: 100%;
+    background: #111;
+    border-radius: 9999px;
+    width: 100%;
+    transform-origin: left;
+    transition: transform linear;
+}
+
+[data-theme="dark"] .lv-toast-progress-bar { background: rgba(255,255,255,0.5); }
+
+/* ---- Full Offer Modal (centre overlay) ---- */
+#lv-offer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#lv-offer-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#lv-offer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+#lv-offer-box {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 2rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.18), 0 8px 32px rgba(0,0,0,0.08);
+    padding: 2.75rem 2.25rem 2rem;
+    max-width: 520px;
+    width: 100%;
+    transform: translateY(28px) scale(0.96);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+#lv-offer-modal.active #lv-offer-box {
+    transform: translateY(0) scale(1);
+}
+
+[data-theme="dark"] #lv-offer-box {
+    background: #13131a;
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+}
+
+/* Badge pill (e.g. "Free — No Commitment") */
+.lv-offer-badge {
+    display: inline-block;
+    background: rgba(17, 17, 17, 0.07);
+    color: #374151;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    padding: 0.3rem 0.875rem;
+    margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .lv-offer-badge {
+    background: rgba(255,255,255,0.08);
+    color: #9ca3af;
+}
+
+.lv-offer-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 50%;
+    width: 2.25rem;
+    height: 2.25rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.lv-offer-close:hover { background: rgba(0,0,0,0.1); color: #111; }
+[data-theme="dark"] .lv-offer-close { background: rgba(255,255,255,0.06); }
+[data-theme="dark"] .lv-offer-close:hover { background: rgba(255,255,255,0.12); color: #e5e7eb; }
+
+.lv-offer-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0 0 0.625rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .lv-offer-title { color: #f3f4f6; }
+
+.lv-offer-sub {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+    line-height: 1.65;
+}
+
+[data-theme="dark"] .lv-offer-sub { color: #9ca3af; }
+
+/* Booking embed wrapper */
+.lv-booking-embed-wrap {
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 1.25rem 0 0;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .lv-booking-embed-wrap { border-color: rgba(255,255,255,0.06); }
+
+.lv-offer-input {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 0.875rem;
+    font-size: 0.92rem;
+    background: rgba(248,248,250,1);
+    margin-bottom: 0.75rem;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: #111;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lv-offer-input:focus {
+    outline: none;
+    border-color: #111;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+}
+
+[data-theme="dark"] .lv-offer-input {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+    color: #f3f4f6;
+}
+
+.lv-offer-btn-primary {
+    display: block;
+    width: 100%;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 0.875rem;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    margin-top: 0.25rem;
+}
+
+.lv-offer-btn-primary:hover {
+    background: #2a2a2a;
+    transform: translateY(-1px);
+}
+
+.lv-offer-dismiss {
+    display: block;
+    text-align: center;
+    margin-top: 1.125rem;
+    font-size: 0.77rem;
+    color: #9ca3af;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    width: 100%;
+    transition: color 0.2s;
+}
+
+.lv-offer-dismiss:hover { color: #6b7280; }
+
+.lv-offer-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.lv-offer-checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: #374151;
+    line-height: 1.45;
+}
+
+.lv-offer-checklist li i {
+    color: #111;
+    font-size: 0.85rem;
+    margin-top: 0.17rem;
+    flex-shrink: 0;
+}
+
+.lv-offer-checklist li span { flex: 1; }
+
+[data-theme="dark"] .lv-offer-checklist li { color: #d1d5db; }
+[data-theme="dark"] .lv-offer-checklist li i { color: #e5e7eb; }
+
+/* ======================================================================= */
+/* TOP BANNER & FOOTER FLASH — removed (v4 system uses toast + modal only)  */
+/* ======================================================================= */
+
+/* ======================================================================= */
+/* MOBILE & DEVICE FRIENDLINESS POLISH                                      */
+/* ======================================================================= */
+
+/* ---- Toast: center-bottom on mobile (easier to tap) ---- */
+@media (max-width: 540px) {
+    #lv-toast {
+        right: auto;
+        left: 50%;
+        bottom: -260px;
+        width: calc(100vw - 2rem);
+        max-width: 380px;
+        transform: translateX(-50%);
+        transition: bottom 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    #lv-toast.active {
+        bottom: 1rem;
+        transform: translateX(-50%);
+    }
+
+    .lv-toast-cta { padding: 0.85rem 1rem; font-size: 0.875rem; }
+
+    /* ---- Offer / booking modal: bottom-sheet on mobile ---- */
+    #lv-offer-modal {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    #lv-offer-box {
+        max-width: 100%;
+        width: 100%;
+        border-radius: 1.75rem 1.75rem 0 0;
+        padding: 2rem 1.375rem 2.5rem;
+        max-height: 93dvh;
+    }
+
+    #lv-offer-box iframe { min-height: 380px !important; }
+
+    .lv-offer-title { font-size: 1.4rem; }
+    .lv-offer-sub   { font-size: 0.86rem; margin-bottom: 1.25rem; }
+}
+
+/* ---- Touch: fast tap on all interactive popup elements ---- */
+#lv-toast,
+#lv-offer-modal,
+.lv-toast-cta,
+.lv-toast-close,
+.lv-offer-close,
+.lv-offer-btn-primary,
+.lv-offer-dismiss {
+    touch-action: manipulation;
 }

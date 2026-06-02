@@ -262,7 +262,7 @@ function initEngagementSystem() {
       </ul>
       <div class="lv-booking-embed-wrap">
         <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
-          style="width:100%;display:block;border:none;min-height:480px;" scrolling="no" loading="lazy"></iframe>
+          style="width:100%;display:block;border:none;min-height:720px;" scrolling="yes" loading="lazy"></iframe>
       </div>
       <button class="lv-offer-dismiss">I'll figure it out on my own.</button>`;
 

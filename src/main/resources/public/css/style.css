@@ -644,14 +644,16 @@ footer a:hover {
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 2rem;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.18), 0 8px 32px rgba(0,0,0,0.08);
-    padding: 2.75rem 2.25rem 2rem;
-    max-width: 520px;
+    padding: 2rem 2rem 1.5rem;
+    max-width: 600px;
     width: 100%;
     transform: translateY(28px) scale(0.96);
     transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-    max-height: 90vh;
+    max-height: 92vh;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
 }
 
 #lv-offer-modal.active #lv-offer-box {
@@ -870,7 +872,7 @@ footer a:hover {
         max-height: 93dvh;
     }
 
-    #lv-offer-box iframe { min-height: 380px !important; }
+    #lv-offer-box iframe { min-height: 560px !important; }
 
     .lv-offer-title { font-size: 1.4rem; }
     .lv-offer-sub   { font-size: 0.86rem; margin-bottom: 1.25rem; }

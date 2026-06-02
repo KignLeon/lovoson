@@ -6,11 +6,11 @@
 @import url('./components.css');
 
 /* ======================================================================= */
-/* GLOBAL ZOOM — removed to prevent oversized viewport overflow             */
+/* GLOBAL ZOOM — desktop only (~108% browser zoom feel)                     */
 /* ======================================================================= */
 @media (min-width: 768px) {
     html {
-        zoom: 1;
+        zoom: 1.08;
     }
 }
 

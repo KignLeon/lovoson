@@ -120,12 +120,31 @@
     }
 
     /* ============================================================
-       DESKTOP: Hero image full-height stretch
+       DESKTOP: Compact hero + full-height image
     ============================================================ */
     @media (min-width: 768px) {
-      /* Grid row stretches to tallest column */
+      /* Compact hero grid */
       #hero-grid {
         align-items: stretch !important;
+        padding-top: 1.5rem !important;
+        padding-bottom: 1rem !important;
+        gap: 2rem !important;
+      }
+      /* Rein in H1 so it doesn't eat the viewport */
+      #hero-text h1 {
+        font-size: clamp(2.4rem, 4.2vw, 3.4rem) !important;
+        line-height: 1.15 !important;
+      }
+      /* Smaller subheading */
+      #hero-text p.text-lg,
+      #hero-text p.text-xl {
+        font-size: 1rem !important;
+        margin-top: 0.875rem !important;
+      }
+      /* Compact CTA buttons */
+      #hero-text .mt-10 {
+        margin-top: 1.25rem !important;
+        gap: 0.75rem !important;
       }
       /* Image column fills grid row height */
       #hero-image {
@@ -133,17 +152,18 @@
         align-items: stretch !important;
         min-height: 0;
       }
-      /* Image itself fills its container */
+      /* Image fills its container, capped so carousel is visible */
       #hero-image img {
         width: 100% !important;
         height: 100% !important;
-        min-height: 460px !important;
+        min-height: 320px !important;
+        max-height: 420px !important;
         object-fit: cover !important;
         object-position: center top !important;
       }
-      /* Platform carousel: zero top margin, flush below hero */
+      /* Platform carousel: flush, no extra top space */
       #platform-carousel-section {
-        padding-top: 0 !important;
+        padding-top: 0.5rem !important;
         margin-top: 0 !important;
       }
     }

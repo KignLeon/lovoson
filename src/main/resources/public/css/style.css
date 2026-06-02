@@ -886,3 +886,553 @@ footer a:hover {
 .lv-offer-dismiss {
     touch-action: manipulation;
 }
+
+/* ======================================================================= */
+/* DARK MODE — SITE-WIDE DEFAULTS (dark is the default theme)              */
+/* ======================================================================= */
+
+/* Global dark background + text */
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #0a0a0f 0%, #111118 50%, #0d0d14 100%) !important;
+    color: #e5e7eb !important;
+}
+
+/* Dark headings */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: #f3f4f6 !important;
+}
+
+/* Dark body copy */
+[data-theme="dark"] p,
+[data-theme="dark"] li {
+    color: #d1d5db !important;
+}
+
+/* Muted text in dark */
+[data-theme="dark"] .text-slate-500,
+[data-theme="dark"] .text-slate-600 {
+    color: #6b7280 !important;
+}
+[data-theme="dark"] .text-slate-700,
+[data-theme="dark"] .text-slate-800 {
+    color: #9ca3af !important;
+}
+[data-theme="dark"] .text-black {
+    color: #f3f4f6 !important;
+}
+
+/* Dark nav links */
+[data-theme="dark"] .nav-link {
+    color: #d1d5db !important;
+}
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-brand-text {
+    color: #ffffff !important;
+}
+[data-theme="dark"] .nav-link::before {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Dark footer */
+[data-theme="dark"] footer {
+    background: linear-gradient(to top, #09090f, #0d0d14) !important;
+    border-top-color: rgba(255, 255, 255, 0.08) !important;
+    color: #9ca3af !important;
+}
+[data-theme="dark"] footer h3 {
+    color: #f3f4f6 !important;
+}
+[data-theme="dark"] footer p,
+[data-theme="dark"] footer a {
+    color: #9ca3af !important;
+}
+[data-theme="dark"] footer a:hover {
+    color: #ffffff !important;
+}
+
+/* Dark mobile nav */
+[data-theme="dark"] #mobile-nav {
+    background: rgba(10, 10, 18, 0.96) !important;
+    border-top-color: rgba(255, 255, 255, 0.06) !important;
+}
+[data-theme="dark"] .mobile-nav-link,
+[data-theme="dark"] #mobile-nav a {
+    color: #e5e7eb !important;
+}
+
+/* ======================================================================= */
+/* GLASSMORPHISM CLOUD-WHITE BUTTONS (both light + dark)                   */
+/* ======================================================================= */
+
+/* ---- Primary button: cloud-white glass ---- */
+.button-glow {
+    background: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(16px) saturate(1.4) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.30) !important;
+    border-radius: 0.875rem !important;
+    padding: 0.85rem 1.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        inset 0 -1px 0 rgba(255,255,255,0.08) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+}
+.button-glow:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    box-shadow:
+        0 8px 32px rgba(255,255,255,0.12),
+        0 2px 8px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        inset 0 -1px 0 rgba(255,255,255,0.1) !important;
+    transform: translateY(-2px) scale(1.01) !important;
+}
+
+/* Light mode button: dark glass */
+:root:not([data-theme="dark"]) .button-glow {
+    background: rgba(15, 15, 20, 0.85) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.12) !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5) !important;
+}
+:root:not([data-theme="dark"]) .button-glow:hover {
+    background: rgba(30, 30, 40, 0.92) !important;
+    box-shadow:
+        0 8px 24px rgba(0,0,0,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.15) !important;
+}
+
+/* ---- Outline / secondary button: cloud-white glass ---- */
+.button-outline {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    color: #e5e7eb !important;
+    border-radius: 0.875rem !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+.button-outline:hover {
+    background: rgba(255, 255, 255, 0.16) !important;
+    border-color: rgba(255, 255, 255, 0.40) !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow:
+        0 6px 20px rgba(255,255,255,0.08),
+        inset 0 1px 0 rgba(255,255,255,0.2) !important;
+}
+
+:root:not([data-theme="dark"]) .button-outline {
+    background: rgba(255, 255, 255, 0.55) !important;
+    border-color: rgba(0, 0, 0, 0.14) !important;
+    color: #111111 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.7) !important;
+}
+:root:not([data-theme="dark"]) .button-outline:hover {
+    background: rgba(255, 255, 255, 0.85) !important;
+    border-color: rgba(0, 0, 0, 0.22) !important;
+    color: #000000 !important;
+}
+
+/* ---- btn-offer (Free Strategy Call) — cloud-white glass ---- */
+.btn-offer {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(18px) saturate(1.5) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
+    padding: 0.65rem 1.4rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.2),
+        inset 0 1px 0 rgba(255,255,255,0.2) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.35) !important;
+    white-space: nowrap !important;
+}
+.btn-offer:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+    border-color: rgba(255, 255, 255, 0.45) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow:
+        0 8px 28px rgba(255,255,255,0.10),
+        inset 0 1px 0 rgba(255,255,255,0.3) !important;
+}
+
+:root:not([data-theme="dark"]) .btn-offer {
+    background: rgba(10, 10, 18, 0.82) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+    color: #ffffff !important;
+}
+:root:not([data-theme="dark"]) .btn-offer:hover {
+    background: rgba(20, 20, 30, 0.92) !important;
+}
+
+/* Sheen on all glass buttons */
+.button-glow::after,
+.button-outline::after,
+.btn-offer::after {
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,255,255,0.18) 40%,
+        rgba(255,255,255,0.35) 50%,
+        rgba(255,255,255,0.18) 60%,
+        transparent 100%) !important;
+}
+
+/* ======================================================================= */
+/* PLATFORM LOGO CAROUSEL                                                   */
+/* ======================================================================= */
+
+/* Section heading */
+.platform-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 0.4rem;
+}
+[data-theme="dark"] .platform-eyebrow {
+    color: #4b5563;
+}
+
+.platform-sub {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+    font-weight: 500;
+}
+[data-theme="dark"] .platform-sub {
+    color: #374151;
+}
+
+/* Outer wrapper — clips overflow, hosts fade masks */
+.platform-track-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* prevent layout shift */
+    contain: layout style;
+}
+
+/* Progressive blur/fade masks on edges */
+.platform-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 10;
+    pointer-events: none;
+}
+.platform-fade--left {
+    left: 0;
+    background: linear-gradient(to right,
+        var(--fade-bg, rgba(248,249,250,1)) 0%,
+        transparent 100%);
+}
+.platform-fade--right {
+    right: 0;
+    background: linear-gradient(to left,
+        var(--fade-bg, rgba(248,249,250,1)) 0%,
+        transparent 100%);
+}
+[data-theme="dark"] .platform-fade--left {
+    background: linear-gradient(to right, #0a0a0f 0%, transparent 100%);
+}
+[data-theme="dark"] .platform-fade--right {
+    background: linear-gradient(to left, #0a0a0f 0%, transparent 100%);
+}
+
+/* Scrolling track — uses CSS animation for buttery infinite scroll */
+@keyframes platform-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.platform-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    animation: platform-scroll 32s linear infinite;
+    will-change: transform;
+}
+
+.platform-track:hover {
+    animation-play-state: paused;
+}
+
+/* Pause on reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .platform-track { animation: none; }
+}
+
+/* Individual logo slot */
+.platform-logo {
+    flex-shrink: 0;
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Inner container for icon + label */
+.platform-logo-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: default;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* monochrome default */
+    color: rgba(0, 0, 0, 0.22);
+    filter: grayscale(1);
+}
+[data-theme="dark"] .platform-logo-inner {
+    color: rgba(255, 255, 255, 0.20);
+    filter: grayscale(1) brightness(2);
+}
+
+/* Hover: restore brand color + lift */
+.platform-logo-inner:hover {
+    color: inherit;
+    filter: grayscale(0) !important;
+    transform: translateY(-4px) scale(1.08);
+    /* brand colors per slot */
+}
+[data-theme="dark"] .platform-logo-inner:hover {
+    filter: grayscale(0) brightness(1) !important;
+}
+
+/* Brand-specific hover colors */
+.platform-logo-inner[data-brand="google"]:hover  { color: #4285F4; }
+.platform-logo-inner[data-brand="shopify"]:hover  { color: #7AB55C; }
+.platform-logo-inner[data-brand="ghl"]:hover      { color: #FF6B2B; }
+.platform-logo-inner[data-brand="cloudinary"]:hover { color: #3448C5; }
+.platform-logo-inner[data-brand="gemini"]:hover   { color: #8E75B2; }
+.platform-logo-inner[data-brand="meta"]:hover     { color: #0467DF; }
+.platform-logo-inner[data-brand="wordpress"]:hover { color: #21759B; }
+/* OpenAI, GitHub, Vercel: remain near-black/dark on hover */
+.platform-logo-inner:not([data-brand]):hover { color: #111111; }
+[data-theme="dark"] .platform-logo-inner:not([data-brand]):hover { color: #f3f4f6; }
+
+/* SVG icon */
+.platform-svg {
+    width: 36px;
+    height: 36px;
+    display: block;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+/* Brand name label */
+.platform-name {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+[data-theme="dark"] .platform-name {
+    color: #374151;
+}
+.platform-logo-inner:hover .platform-name {
+    color: #6b7280;
+}
+[data-theme="dark"] .platform-logo-inner:hover .platform-name {
+    color: #9ca3af;
+}
+
+/* Mobile: smaller logos, tighter gap */
+@media (max-width: 640px) {
+    .platform-logo { padding: 0 1.4rem; }
+    .platform-svg  { width: 28px; height: 28px; }
+    .platform-fade { width: 60px; }
+    .platform-track { animation-duration: 22s; }
+}
+
+/* ======================================================================= */
+/* FULL MOBILE + TABLET RESPONSIVENESS                                      */
+/* ======================================================================= */
+
+/* Reduce global zoom on smaller tablets so nav doesn't clip */
+@media (min-width: 768px) and (max-width: 1024px) {
+    html { zoom: 1.05 !important; }
+}
+
+/* Tablet: nav pill shrinks to fit */
+@media (max-width: 900px) {
+    #main-header > div {
+        padding: 0.75rem 1.25rem !important;
+        max-width: calc(100% - 2rem) !important;
+    }
+}
+
+/* ---- Hero section on mobile ---- */
+@media (max-width: 767px) {
+    /* Body top padding with floating nav */
+    body { padding-top: 5rem !important; }
+
+    /* Hero: single column, tighter */
+    #hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+
+    /* Hero text: centered */
+    #hero-text {
+        text-align: center !important;
+        align-items: center !important;
+    }
+    #hero-text h1 {
+        font-size: 2rem !important;
+        line-height: 1.22 !important;
+    }
+    #hero-text p.text-lg {
+        font-size: 0.95rem !important;
+        max-width: 90% !important;
+    }
+    #hero-text .mt-10 {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+    }
+    #hero-text .mt-10 > * {
+        width: 100% !important;
+        max-width: 320px !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+
+    /* Hero image on mobile */
+    #hero-image {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        order: 2;
+    }
+    #hero-image img {
+        width: 100% !important;
+        height: 220px !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+        border-radius: 1.25rem !important;
+        min-height: unset !important;
+    }
+
+    /* Sections */
+    section {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    main {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    /* Client highlight card */
+    .grid.grid-cols-2.md\\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.75rem !important;
+    }
+
+    /* Service cards: 1 col */
+    .grid.md\\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+
+    /* Stats: 2 col on mobile */
+    .grid-cols-2.md\\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Social grid: 2x2 */
+    .grid-cols-2.md\\:grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    /* Platform carousel */
+    #platform-carousel-section { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+
+    /* Footer */
+    .grid.md\\:grid-cols-3 {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+    footer .flex.space-x-5 {
+        justify-content: center !important;
+    }
+}
+
+/* Tablet (768px–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #hero-grid { gap: 2rem !important; }
+    .grid.md\\:grid-cols-3 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+/* ======================================================================= */
+/* DARK MODE — SOCIAL / ASPECT-SQUARE CARDS                                */
+/* ======================================================================= */
+
+[data-theme="dark"] .aspect-square {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+}
+[data-theme="dark"] .aspect-square i {
+    color: #4b5563 !important;
+}
+[data-theme="dark"] .aspect-square p {
+    color: #4b5563 !important;
+}
+
+/* Dark social icons */
+[data-theme="dark"] .text-slate-600.text-2xl a,
+[data-theme="dark"] .text-slate-600 {
+    color: #4b5563 !important;
+}
+
+/* ======================================================================= */
+/* DARK MODE — GENERAL TEXT CORRECTIONS                                     */
+/* ======================================================================= */
+
+[data-theme="dark"] .text-sm.font-semibold.uppercase {
+    color: #4b5563 !important;
+}
+[data-theme="dark"] .text-xl.font-bold.text-black {
+    color: #e5e7eb !important;
+}
+
+/* Divider */
+[data-theme="dark"] .divider-silver {
+    border-top-color: rgba(255,255,255,0.07) !important;
+}
+[data-theme="dark"] .text-slate-500.text-sm {
+    color: #4b5563 !important;
+}

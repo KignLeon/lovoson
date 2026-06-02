@@ -442,10 +442,11 @@ function initThemeToggle() {
 
 function _syncToggleIcon(btn) {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  // Moon = currently dark (click to go light), Sun = currently light (click to go dark)
+  // Dark mode active → show SUN icon (click to switch to light)
+  // Light mode active → show MOON icon (click to switch to dark)
   btn.innerHTML = isDark
-    ? '<i class="fa-solid fa-moon"></i>'
-    : '<i class="fa-solid fa-sun"></i>';
+    ? '<i class="fa-solid fa-sun"></i>'
+    : '<i class="fa-solid fa-moon"></i>';
   btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
   btn.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
 }
@@ -453,17 +454,18 @@ function _syncToggleIcon(btn) {
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
+  // Default is dark — toggling from dark goes light, from light goes dark
   const next = current === 'dark' ? 'light' : 'dark';
 
   html.classList.add('theme-transitioning');
 
   if (next === 'dark') {
     html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('lovoson-theme', 'dark');
   } else {
     html.removeAttribute('data-theme');
+    localStorage.setItem('lovoson-theme', 'light');
   }
-
-  localStorage.setItem('lovoson-theme', next);
 
   setTimeout(() => {
     html.classList.remove('theme-transitioning');

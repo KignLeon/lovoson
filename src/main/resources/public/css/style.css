@@ -166,18 +166,6 @@
 /* DARK MODE — CARD & CONTAINER LEGIBILITY                                  */
 /* ======================================================================= */
 
-/* GHL three-arrow logo: hardcoded fills, so override hover to show full color */
-.platform-logo-inner[data-brand="ghl"] {
-    filter: grayscale(1) brightness(0.7) !important;
-}
-[data-theme="dark"] .platform-logo-inner[data-brand="ghl"] {
-    filter: grayscale(1) brightness(1.8) !important;
-}
-.platform-logo-inner[data-brand="ghl"]:hover {
-    filter: none !important;
-    transform: translateY(-4px) scale(1.08);
-}
-
 /* Service cards (stat tiles, service feature cards) */
 [data-theme="dark"] .service-card {
     background: rgba(255, 255, 255, 0.06) !important;

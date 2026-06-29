@@ -827,3 +827,28 @@ function initCardStack() {
   // Initial layout
   layout();
 }
+
+// ─── CTA ROTATOR ───────────────────────────────────────────
+// Cycles through 3 CTA labels every 2 days, site-wide.
+// Any element with [data-cta-label] gets its text swapped.
+(function () {
+  const CTAs = [
+    'Free Strategy Call',
+    'Free System Audit',
+    'Free Website Audit'
+  ];
+  const daysSinceEpoch = Math.floor(Date.now() / 86400000);
+  const index = Math.floor(daysSinceEpoch / 2) % CTAs.length;
+  const currentCTA = CTAs[index];
+  document.querySelectorAll('[data-cta-label]').forEach(function (el) {
+    // Preserve any icon inside the element
+    const icon = el.querySelector('i, svg');
+    if (icon) {
+      el.textContent = '';
+      el.appendChild(icon);
+      el.appendChild(document.createTextNode(' ' + currentCTA));
+    } else {
+      el.textContent = currentCTA;
+    }
+  });
+})();

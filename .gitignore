@@ -1,6 +1,8 @@
 # macOS metadata
 .DS_Store
+**/.DS_Store
 ._*
+**/._*
 
 # Skills directory (not part of the website)
 skills/
@@ -8,7 +10,13 @@ skills/
 # Java build artifacts
 target/
 *.class
+dependency-reduced-pom.xml
 
 # IDE
 .vscode/
 .idea/
+*.iml
+
+# Misc
+*.log
+.env

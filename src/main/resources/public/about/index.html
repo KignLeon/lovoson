@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About | Lovoson Media</title>
+    <title>About Lovoson Media | AI-Powered Lead Systems for Service Businesses</title>
 
     <!-- Anti-FOUC: Apply theme before paint -->
     <script>
@@ -19,17 +19,17 @@
 
     <!-- SEO META TAGS -->
     <meta name="description"
-        content="Learn about Lovoson Media — a digital design and automation agency helping brands grow through data-driven marketing, automation, and web strategy.">
+        content="Watch how Lovoson Media builds AI-powered lead follow-up systems that help service businesses respond to every lead in under 60 seconds. Book a free strategy call.">
     <meta name="keywords"
-        content="Lovoson Media, about Lovoson, web design agency, marketing automation, brand growth, San Diego marketing, creative studio, design and automation">
+        content="Lovoson Media, AI lead follow-up, website audit, lead systems, service business marketing, San Diego marketing, free strategy call, VSL, lead generation">
     <meta name="author" content="Lovoson Media">
     <link rel="canonical" href="https://www.lovoson.com/about/">
 
     <!-- OPEN GRAPH / TWITTER -->
-    <meta property="og:title" content="About Lovoson Media | Design + Automation for Modern Brands">
+    <meta property="og:title" content="About Lovoson Media | AI-Powered Lead Systems for Service Businesses">
     <meta property="og:description"
-        content="Meet Lovoson Media — the creative and technical team behind automated systems that scale brands through design, marketing, and growth strategy.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1553877522-43269d4ea984">
+        content="Watch how Lovoson Media builds AI-powered lead follow-up systems that help service businesses respond to every lead in under 60 seconds. Book a free strategy call.">
+    <meta property="og:image" content="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1779409591/lovoson_hero_image_btdddu.jpg">
     <meta property="og:url" content="https://www.lovoson.com/about/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -108,6 +108,18 @@
       .team-carousel { display: none; }
       .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
     }
+
+    /* VSL Hero — center on mobile */
+    @media (max-width: 768px) {
+      .vsl-hero-headline { font-size: 2rem !important; }
+      .vsl-hero-ctas { flex-direction: column !important; align-items: center !important; }
+      .vsl-hero-ctas > * { width: 100%; max-width: 320px; text-align: center; justify-content: center; }
+    }
+
+    /* Sticky CTA padding on mobile so content isn't hidden behind it */
+    @media (max-width: 640px) {
+      footer { padding-bottom: 4rem !important; }
+    }
   </style>
 </head>
 
@@ -144,7 +156,7 @@
                     </div>
                 </div>
                 <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-                <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+                <button class="btn-offer" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label" data-cta-label>Free Strategy Call</span></button>
                 <a href="/enroll/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
             </div>
 
@@ -158,7 +170,7 @@
                 <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
                 <a href="/clients/" class="text-lg font-medium mobile-nav-link hover:underline">Clients</a>
 
-                <button class="btn-offer mx-auto" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+                <button class="btn-offer mx-auto" data-offer-trigger><i class="fa-solid fa-phone"></i> <span class="btn-offer-label" data-cta-label>Free Strategy Call</span></button>
                 <a href="/enroll/"
                     class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get
                     Started</a>
@@ -166,133 +178,299 @@
         </nav>
     </header>
 
-    <!-- HERO -->
     <main class="max-w-7xl mx-auto px-8 md:px-12">
-        <section class="text-center py-12 md:py-16">
-            <h1 class="text-5xl md:text-6xl font-bold text-black mb-3">About Lovoson Media</h1>
-            <p class="text-lg md:text-xl uppercase tracking-wide text-slate-600 mb-5">Who We Are</p>
-            <p class="max-w-4xl mx-auto text-slate-800 text-lg md:text-2xl leading-relaxed font-medium">
-                Lovoson Media builds high-converting websites and AI-powered systems for service businesses that are tired of losing leads to slow follow-up. We've helped contractors, local businesses, and service providers go from missing calls to never letting a lead go cold — automatically, without touching a thing.
+
+        <!-- ===== SECTION 1: HERO ===== -->
+        <section class="text-center py-12 md:py-20 reveal" id="vsl-hero">
+            <div class="max-w-5xl mx-auto">
+            <h1 class="vsl-hero-headline">
+                Your Website Is Losing You Leads.<br>
+                <span class="gradient-line">Let Us Show You Where.</span>
+            </h1>
+            <p class="mt-6 text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed">
+                We'll pull up your site live, show you exactly what's costing you customers, and give you a clear fix. 15 minutes, totally free. No pitch. No obligation.
             </p>
-        </section>
-
-        <!-- VIDEO PLACEHOLDER -->
-        <section class="py-4 md:py-8">
-            <div class="max-w-4xl mx-auto">
-                <div class="vsl-placeholder" style="
-                    position: relative;
-                    width: 100%;
-                    aspect-ratio: 16 / 9;
-                    background: rgba(255, 255, 255, 0.55);
-                    backdrop-filter: blur(16px);
-                    -webkit-backdrop-filter: blur(16px);
-                    border: 1px solid rgba(255, 255, 255, 0.4);
-                    border-radius: 1.5rem;
-                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    overflow: hidden;
-                    transition: box-shadow 0.3s ease, transform 0.3s ease;
-                ">
-                    <div style="
-                        width: 80px;
-                        height: 80px;
-                        border-radius: 50%;
-                        background: rgba(0, 0, 0, 0.06);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-bottom: 1.25rem;
-                        transition: background 0.3s ease;
-                    ">
-                        <i class="fa-solid fa-play" style="font-size: 1.75rem; color: #6b7280; margin-left: 4px;"></i>
-                    </div>
-                    <p style="font-size: 1.1rem; font-weight: 600; color: #374151; margin: 0;">Coming Soon</p>
-                    <p style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.35rem;">Our story — in motion.</p>
-                </div>
+            <div class="mt-10 flex flex-row gap-4 justify-center flex-wrap vsl-hero-ctas">
+                <button class="vsl-cta-primary" data-cta-label onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">
+                    <i class="fa-solid fa-calendar-days"></i> Free Strategy Call
+                </button>
+                <a href="#video" class="vsl-cta-ghost">
+                    <i class="fa-solid fa-play"></i> Watch First (3 min)
+                </a>
+            </div>
             </div>
         </section>
 
-        <section class="py-6 md:py-10">
-            <div class="bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-8 md:p-12 max-w-4xl mx-auto">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-laptop-code text-2xl text-black"></i>
+        <!-- ===== SECTION 2: VSL VIDEO ===== -->
+        <section class="py-8 md:py-12 reveal" id="video">
+            <p class="text-center vsl-section-label mb-6">WATCH BEFORE YOU BOOK · ~3 MIN</p>
+            <div class="max-w-5xl mx-auto">
+                <div class="vsl-video-wrap">
+                    <video src="/assets/vsl.mp4" controls preload="metadata" poster="/assets/vsl-poster.jpg" style="display:none;"></video>
+                    <!-- Placeholder shown until vsl.mp4 exists -->
+                    <div class="vsl-video-placeholder" id="vsl-placeholder">
+                        <div class="play-ring">
+                            <i class="fa-solid fa-play"></i>
                         </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">High-Converting Website</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-robot text-2xl text-black"></i>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">AI Lead Follow-Up</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-phone-slash text-2xl text-black"></i>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">Missed Call Text-Back</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-star text-2xl text-black"></i>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">Google Review Automation</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-calendar-check text-2xl text-black"></i>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">Appointment Reminders</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-3">
-                        <div class="w-14 h-14 bg-black/5 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-chart-bar text-2xl text-black"></i>
-                        </div>
-                        <p class="text-sm font-semibold text-slate-800 leading-snug">Monthly Performance Reports</p>
+                        <h3>Video Coming Soon</h3>
+                        <p>The VSL is in post-production. Check back soon.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- BOOKING SECTION -->
-        <section class="py-12 md:py-16" id="book-call">
-            <div class="text-center max-w-4xl mx-auto mb-10">
-                <h2 class="text-4xl md:text-5xl font-bold text-black">Book a Free Strategy Call</h2>
-                <p class="mt-4 text-lg text-slate-600">15 minutes. Zero fluff. Walk away with a clear growth plan built for your business.</p>
-            </div>
-            <div class="max-w-4xl mx-auto bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-xl p-6 md:p-10">
-                <div class="grid md:grid-cols-2 gap-8 items-center mb-8">
-                    <div>
-                        <h3 class="text-2xl font-bold text-black mb-4">What You'll Get</h3>
-                        <ul class="space-y-3 text-slate-700">
-                            <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-black mt-1"></i><span>Identify your #1 conversion bottleneck</span></li>
-                            <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-black mt-1"></i><span>Custom growth roadmap for your niche</span></li>
-                            <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-black mt-1"></i><span>The exact systems behind our client results</span></li>
-                            <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-black mt-1"></i><span>No pressure, no fluff — just real strategy</span></li>
-                        </ul>
+        <!-- ===== 3. AGITATION ROW ===== -->
+        <section class="py-8 md:py-12 reveal">
+            <div class="max-w-5xl mx-auto">
+                <div class="vsl-agitation-bar">
+                    <div class="vsl-agitation-cell">
+                        <div class="cell-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="cell-text">A customer called you.</div>
                     </div>
-                    <div class="text-center md:text-left">
-                        <p class="text-5xl font-bold text-black">Free</p>
-                        <p class="text-slate-500 mt-1">15-minute call</p>
-                        <p class="mt-4 text-sm text-slate-600">Spots are limited. Book yours before they fill up.</p>
+                    <div class="vsl-agitation-cell">
+                        <div class="cell-icon"><i class="fa-solid fa-hard-hat"></i></div>
+                        <div class="cell-text">You were out on a job.</div>
+                    </div>
+                    <div class="vsl-agitation-cell">
+                        <div class="cell-icon"><i class="fa-solid fa-phone-slash"></i></div>
+                        <div class="cell-text">They didn't leave a voicemail.</div>
+                    </div>
+                    <div class="vsl-agitation-cell">
+                        <div class="cell-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
+                        <div class="cell-text">Now they're someone else's customer.</div>
                     </div>
                 </div>
-                <div class="w-full rounded-2xl overflow-hidden" style="border:1px solid rgba(0,0,0,0.06);">
+            </div>
+        </section>
+
+        <!-- ===== 4. PROBLEM / AGITATION ===== -->
+        <section class="py-12 md:py-16 reveal">
+            <div class="text-center mb-8">
+                <p class="vsl-section-label">THE PROBLEM</p>
+            </div>
+            <div class="vsl-problem-text max-w-5xl mx-auto">
+                <p>Someone finds your business online. They go to your site. It looks fine. But they don't call. Or they fill out a form and nobody follows up fast enough. They move on to whoever responded first. Not whoever was best. Whoever was fastest.</p>
+                <p>And if you're a service business, almost half of your inquiries come in after hours. When your phone is off. When nobody's checking email. Those leads just disappear.</p>
+                <p>It's not because your business isn't good. It's because the system behind the website is broken.</p>
+            </div>
+        </section>
+
+        <!-- ===== 5. THE SYSTEM (WHAT WE BUILD) ===== -->
+        <section class="py-12 md:py-16 reveal">
+            <div class="text-center mb-10 max-w-5xl mx-auto">
+                <p class="vsl-section-label">THE SYSTEM</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-black">We Build the System Behind the Website</h2>
+                <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Not just a website. The entire lead capture and follow-up engine that turns inquiries into booked jobs.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h4>High-Converting Website</h4>
+                    <p>Turns visitors into leads, not just browsers.</p>
+                </div>
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-robot"></i></div>
+                    <h4>AI Lead Follow-Up</h4>
+                    <p>Responds in under 60 seconds, automatically.</p>
+                </div>
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-phone-slash"></i></div>
+                    <h4>Missed Call Text-Back</h4>
+                    <p>Instant text when you can't pick up.</p>
+                </div>
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-star"></i></div>
+                    <h4>Google Review Automation</h4>
+                    <p>Collects 5-star reviews on autopilot.</p>
+                </div>
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h4>Appointment Reminders</h4>
+                    <p>Cuts no-shows by up to 68%.</p>
+                </div>
+                <div class="vsl-feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                    <h4>Monthly Performance Reports</h4>
+                    <p>Leads, bookings, and revenue at a glance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 6. SYSTEM FLOW ===== -->
+        <section class="py-12 md:py-16 reveal">
+            <div class="text-center mb-10">
+                <p class="vsl-section-label">WHAT HAPPENS WHEN A LEAD CONTACTS YOU</p>
+            </div>
+            <div class="max-w-5xl mx-auto">
+                <div class="vsl-flow">
+                    <div class="vsl-flow-step">
+                        <div class="step-circle"><i class="fa-solid fa-search"></i></div>
+                        <div class="step-text">
+                            <div class="step-num">Step 1</div>
+                            <h4>Lead finds you</h4>
+                            <p>Through Google, ads, or a referral.</p>
+                        </div>
+                    </div>
+                    <div class="vsl-flow-step">
+                        <div class="step-circle"><i class="fa-solid fa-paper-plane"></i></div>
+                        <div class="step-text">
+                            <div class="step-num">Step 2</div>
+                            <h4>They fill out a form or call</h4>
+                            <p>Any channel, captured instantly.</p>
+                        </div>
+                    </div>
+                    <div class="vsl-flow-step">
+                        <div class="step-circle"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="step-text">
+                            <div class="step-num">Step 3</div>
+                            <h4>AI responds in under 60 seconds</h4>
+                            <p>Instant text-back, no lead left waiting.</p>
+                        </div>
+                    </div>
+                    <div class="vsl-flow-step">
+                        <div class="step-circle"><i class="fa-solid fa-calendar-plus"></i></div>
+                        <div class="step-text">
+                            <div class="step-num">Step 4</div>
+                            <h4>Auto-booked on your calendar</h4>
+                            <p>No back-and-forth needed.</p>
+                        </div>
+                    </div>
+                    <div class="vsl-flow-step">
+                        <div class="step-circle"><i class="fa-solid fa-arrows-rotate"></i></div>
+                        <div class="step-text">
+                            <div class="step-num">Step 5</div>
+                            <h4>Follow-up runs for days automatically</h4>
+                            <p>Reminders, nurture, and review requests.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 7. FAQ (objections handled BEFORE the CTA) ===== -->
+        <section class="py-12 md:py-16 reveal">
+            <div class="text-center mb-10">
+                <p class="vsl-section-label">COMMON QUESTIONS</p>
+            </div>
+            <div class="max-w-5xl mx-auto">
+                <div class="vsl-faq-item">
+                    <button class="vsl-faq-question" aria-expanded="false">
+                        <h4>Is this really free?</h4>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="vsl-faq-answer">
+                        <div class="vsl-faq-answer-inner">
+                            <p>Yes. No credit card, no hidden fees, no obligation. I do a handful of these each week because they're the best way for me to show you what I do. If we're a fit, I'll tell you. If not, you still leave with a clear plan.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vsl-faq-item">
+                    <button class="vsl-faq-question" aria-expanded="false">
+                        <h4>How long is the call?</h4>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="vsl-faq-answer">
+                        <div class="vsl-faq-answer-inner">
+                            <p>15 minutes. I respect your time. We get on, I share my screen, pull up your site, and walk through what I'm seeing. No fluff.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vsl-faq-item">
+                    <button class="vsl-faq-question" aria-expanded="false">
+                        <h4>Will I be pressured to buy something?</h4>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="vsl-faq-answer">
+                        <div class="vsl-faq-answer-inner">
+                            <p>No. I don't do high-pressure closes. If what I see on your site is something we can fix, I'll explain what that looks like. If it's not a fit, I'll tell you that too.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vsl-faq-item">
+                    <button class="vsl-faq-question" aria-expanded="false">
+                        <h4>What if I already have a website?</h4>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="vsl-faq-answer">
+                        <div class="vsl-faq-answer-inner">
+                            <p>Perfect. That's actually the best starting point. Most of the businesses I work with already have a site. The issue is usually what's happening (or not happening) behind it: slow follow-up, no automation, leads falling through the cracks.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="vsl-faq-item">
+                    <button class="vsl-faq-question" aria-expanded="false">
+                        <h4>What makes Lovoson different from other agencies?</h4>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </button>
+                    <div class="vsl-faq-answer">
+                        <div class="vsl-faq-answer-inner">
+                            <p>We don't just design a website and hand it over. We build the automation system around it: AI follow-up, missed call text-back, review automation, appointment reminders. So every lead that comes in actually turns into a customer. The website is just the front door.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 8. HOW IT WORKS (bridge to calendar) ===== -->
+        <section class="py-12 md:py-8 reveal">
+            <div class="text-center mb-10">
+                <p class="vsl-section-label">HOW IT WORKS</p>
+            </div>
+            <div class="vsl-steps">
+                <div class="vsl-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Book a 15-minute slot below</h4>
+                        <p>Pick whatever time works. Confirmation + Zoom link sent immediately.</p>
+                    </div>
+                </div>
+                <div class="vsl-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>We get on a screen share</h4>
+                        <p>I pull up your website live. No prep needed on your end. Just show up.</p>
+                    </div>
+                </div>
+                <div class="vsl-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>You leave with a clear action plan</h4>
+                        <p>The 2 or 3 things costing you leads, and exactly what to do about them. Whether you work with me or not.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 9. CALENDAR + CTA ===== -->
+        <section class="py-12 md:py-16 reveal" id="book">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-black">Pick a time. I'll handle the rest.</h2>
+                <p class="mt-3 text-lg text-slate-600">15 minutes · Free · No pitch</p>
+            </div>
+            <div class="max-w-5xl mx-auto">
+                <div class="vsl-calendar-chrome">
+                    <div class="chrome-bar">
+                        <span class="chrome-dot chrome-dot--red"></span>
+                        <span class="chrome-dot chrome-dot--yellow"></span>
+                        <span class="chrome-dot chrome-dot--green"></span>
+                        <span class="chrome-title">Schedule Your Free Call · Lovoson Media</span>
+                    </div>
                     <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
-                        style="width:100%;display:block;border:none;overflow:hidden;min-height:640px;"
+                        style="width:100%;display:block;border:none;overflow:hidden;min-height:700px;"
                         scrolling="no"
                         id="Px6mbV1JQxmcE1WApcLM_about"></iframe>
                 </div>
+                <div class="vsl-trust-seals">
+                    <div class="vsl-trust-seal"><i class="fa-solid fa-lock"></i> No spam, ever</div>
+                    <div class="vsl-trust-seal"><i class="fa-solid fa-clock"></i> Confirms in 60 sec</div>
+                    <div class="vsl-trust-seal"><i class="fa-solid fa-xmark"></i> Cancel anytime</div>
+                </div>
             </div>
         </section>
 
-        <!-- TEAM -->
-        <section class="py-20 md:py-28">
-            <div class="text-center max-w-4xl mx-auto mb-12">
+        <!-- ===== SECTION 10: MEET THE TEAM ===== -->
+        <section class="py-20 md:py-28 reveal">
+            <div class="text-center max-w-5xl mx-auto mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold text-black">Meet the Team</h2>
                 <p class="mt-4 text-lg text-slate-700">The people driving strategy, creativity, and execution.</p>
             </div>
@@ -397,6 +575,11 @@
         </section>
     </main>
 
+    <!-- STICKY MOBILE CTA BAR -->
+    <div class="vsl-sticky-cta">
+        <a href="#book" data-cta-label><i class="fa-solid fa-calendar-days"></i> Free Strategy Call</a>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
         <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
@@ -483,8 +666,103 @@
         data-widget-id="6a0dfffb60140c84c19c01f6"
         data-source="WEB_USER"></script>
 
+    <!-- Meta Pixel Events -->
+    <script>
+        // ViewContent event
+        if (typeof fbq === 'function') {
+            fbq('track', 'ViewContent', { content_name: 'VSL Landing Page' });
+        }
+    </script>
+
     <!-- JS -->
     <script src="/css/js/script.js"></script>
+
+    <!-- VSL Page Scripts: FAQ Accordion + Scroll Reveal + Pixel Events -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ─── FAQ ACCORDION ──────────────────────────────────────
+        document.querySelectorAll('.vsl-faq-question').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var item = btn.closest('.vsl-faq-item');
+                var answer = item.querySelector('.vsl-faq-answer');
+                var isOpen = item.classList.contains('is-open');
+
+                // Close all others
+                document.querySelectorAll('.vsl-faq-item.is-open').forEach(function(openItem) {
+                    if (openItem !== item) {
+                        openItem.classList.remove('is-open');
+                        var openAnswer = openItem.querySelector('.vsl-faq-answer');
+                        openAnswer.style.maxHeight = null;
+                        openItem.querySelector('.vsl-faq-question').setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                if (isOpen) {
+                    item.classList.remove('is-open');
+                    answer.style.maxHeight = null;
+                    btn.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('is-open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // ─── SCROLL REVEAL ──────────────────────────────────────
+        if ('IntersectionObserver' in window) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+            document.querySelectorAll('.reveal').forEach(function(el) {
+                revealObserver.observe(el);
+            });
+
+            // ─── META PIXEL: Lead event on #book scroll ─────────
+            var bookSection = document.getElementById('book');
+            if (bookSection) {
+                var leadFired = false;
+                var bookObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting && !leadFired) {
+                            leadFired = true;
+                            if (typeof fbq === 'function') {
+                                fbq('track', 'Lead');
+                            }
+                            bookObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                bookObserver.observe(bookSection);
+            }
+        }
+
+        // ─── VIDEO PLACEHOLDER LOGIC ────────────────────────────
+        // If vsl.mp4 exists, hide placeholder and show video
+        var video = document.querySelector('.vsl-video-wrap video');
+        var placeholder = document.getElementById('vsl-placeholder');
+        if (video && placeholder) {
+            video.addEventListener('loadedmetadata', function() {
+                placeholder.style.display = 'none';
+                video.style.display = 'block';
+            });
+            // Also try to detect if video src fails
+            video.addEventListener('error', function() {
+                // Keep placeholder visible
+                video.style.display = 'none';
+            });
+        }
+    })();
+    </script>
+
 </body>
 
 </html>

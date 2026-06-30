@@ -2444,37 +2444,37 @@ footer a:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* Instagram Showcase Cards Sizing Fix */
+/* ── Instagram Showcase Cards ── */
 .ig-card {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1 !important;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  cursor: pointer;
 }
+/* Hide the raw blockquote before Instagram JS loads */
+.ig-card blockquote.instagram-media {
+  display: none !important;
+}
+/* The iframe Instagram injects — force it to fill the square card */
 .ig-card iframe {
   position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  /* Centered and scaled down to fit standard desktop grid column width */
-  transform: translate(-50%, -50%) scale(0.68) !important;
-  transform-origin: center center !important;
-  min-width: 326px !important;
-  width: 326px !important;
-  height: 480px !important;
-  max-height: 480px !important;
+  top: -1px !important;
+  left: -1px !important;
+  width: calc(100% + 2px) !important;
+  height: calc(100% + 2px) !important;
+  min-width: 0 !important;
+  max-width: none !important;
   border: none !important;
   margin: 0 !important;
-  border-radius: 12px !important;
-  pointer-events: none; /* Prevents scroll hijacking on the page */
+  padding: 0 !important;
+  border-radius: 16px !important;
+  object-fit: cover !important;
 }
-/* Adjust scale for single/double column grids on tablet & mobile */
-@media (max-width: 1024px) {
-  .ig-card iframe {
-    transform: translate(-50%, -50%) scale(0.85) !important;
-  }
-}
-@media (max-width: 640px) {
-  .ig-card iframe {
-    transform: translate(-50%, -50%) scale(1) !important;
-  }
+/* Make the cards clickable — open the Instagram post */
+.ig-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
 }

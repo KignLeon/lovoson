@@ -217,6 +217,7 @@
                         controls
                         playsinline
                         preload="metadata"
+                        style="width:100%;display:block;border-radius:1.25rem;"
                     ></video>
                 </div>
             </div>
@@ -241,38 +242,39 @@
             video.setAttribute('data-vsl-thumb', chosen.id);
             localStorage.setItem('vsl-thumb-shown', chosen.id);
 
-            // ── Tracking function — swap for GA4 / custom endpoint later ──
+            // ── Tracking function — swap this out for GA4 / custom endpoint later ──
             function trackVSL(eventName, payload) {
                 var record = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, payload);
                 console.log('[VSL Tracking]', JSON.stringify(record, null, 2));
-                // TODO: gtag('event', eventName, payload);
-                // TODO: fetch('/api/vsl-track', { method:'POST', body: JSON.stringify(record) });
+                // TODO: replace console.log with your analytics call, e.g.:
+                // gtag('event', eventName, payload);
+                // fetch('/api/vsl-track', { method: 'POST', body: JSON.stringify(record) });
             }
 
-            // Track first play (user-initiated)
+            // Fire on first intentional play (not the silent autoplay)
             var playTracked = false;
+            var autoplayed  = false;
             video.addEventListener('play', function () {
                 if (playTracked) return;
-                playTracked = true;
-                trackVSL('vsl_play', {
-                    thumbnail: chosen.id,
-                    played: true,
-                    muted: video.muted,
-                });
+                // Only track if user initiated (not our silent autoplay)
+                if (!autoplayed || !video.muted) {
+                    playTracked = true;
+                    trackVSL('vsl_play', {
+                        thumbnail: chosen.id,
+                        played: true,
+                        muted: video.muted,
+                    });
+                }
             });
 
-            // Unmute when user explicitly clicks play (in case autoplay muted it)
-            video.addEventListener('click', function () {
-                video.muted = false;
-            });
-
-            // ── Autoplay muted on scroll into view (scroll teaser only) ──────────
-            var autoplayed = false;
+            // ── Silent autoplay on scroll into view ───────────────────────────────
+            // Autoplays MUTED (browser requirement). When user clicks the player,
+            // it pauses + unmutes so their first intentional play is with sound.
             if ('IntersectionObserver' in window) {
                 var wrap = document.getElementById('vsl-video-wrap');
                 var autoObs = new IntersectionObserver(function (entries) {
                     entries.forEach(function (entry) {
-                        if (entry.isIntersecting && !autoplayed) {
+                        if (entry.isIntersecting) {
                             autoplayed = true;
                             video.muted = true;
                             video.play().catch(function () {});
@@ -281,11 +283,19 @@
                     });
                 }, { threshold: 0.5 });
                 autoObs.observe(wrap);
+
+                // When user clicks/taps the player after silent autoplay: pause & unmute
+                // so their next play press gives them full audio from the start
+                video.addEventListener('click', function () {
+                    if (autoplayed && video.muted) {
+                        video.pause();
+                        video.muted = false;
+                        video.currentTime = 0;
+                    }
+                });
             }
         })();
         </script>
-
-
 
         <!-- ===== 3. AGITATION ROW ===== -->
         <section class="py-8 md:py-12 reveal">

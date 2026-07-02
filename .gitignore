@@ -20,3 +20,5 @@ dependency-reduced-pom.xml
 # Misc
 *.log
 .env
+*.mp4
+*.webm

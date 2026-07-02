@@ -209,19 +209,77 @@
         <section class="py-8 md:py-12 reveal" id="video">
             <p class="text-center vsl-section-label mb-6">WATCH BEFORE YOU BOOK · ~3 MIN</p>
             <div class="max-w-5xl mx-auto">
-                <div class="vsl-video-wrap">
-                    <video src="/assets/vsl.mp4" controls preload="metadata" poster="/assets/vsl-poster.jpg" style="display:none;"></video>
-                    <!-- Placeholder shown until vsl.mp4 exists -->
-                    <div class="vsl-video-placeholder" id="vsl-placeholder">
-                        <div class="play-ring">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                        <h3>Video Coming Soon</h3>
-                        <p>The VSL is in post-production. Check back soon.</p>
-                    </div>
+                <div class="vsl-video-wrap" id="vsl-video-wrap">
+                    <!-- Native HTML5 VSL player — A/B/C/D thumbnail rotation -->
+                    <video
+                        id="vsl-player"
+                        src="/assets/vsl.mp4"
+                        controls
+                        muted
+                        playsinline
+                        preload="none"
+                        style="width:100%;display:block;border-radius:1.25rem;"
+                    ></video>
                 </div>
             </div>
         </section>
+
+        <script>
+        // ─── VSL Thumbnail A/B/C/D Rotation + Tracking ─────────────────────────────
+        (function () {
+            var THUMBS = [
+                { id: 'thumb-a', src: '/assets/vsl-thumb-a.jpg' },
+                { id: 'thumb-b', src: '/assets/vsl-thumb-b.jpg' },
+                { id: 'thumb-c', src: '/assets/vsl-thumb-c.jpg' },
+                { id: 'thumb-d', src: '/assets/vsl-thumb-d.jpg' },
+            ];
+
+            // Pick random thumb each page load
+            var chosen = THUMBS[Math.floor(Math.random() * THUMBS.length)];
+            var video  = document.getElementById('vsl-player');
+            if (!video) return;
+
+            video.poster = chosen.src;
+            video.setAttribute('data-vsl-thumb', chosen.id);
+            localStorage.setItem('vsl-thumb-shown', chosen.id);
+
+            // ── Tracking function — swap this out for GA4 / custom endpoint later ──
+            function trackVSL(eventName, payload) {
+                var record = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, payload);
+                console.log('[VSL Tracking]', JSON.stringify(record, null, 2));
+                // TODO: replace console.log with your analytics call, e.g.:
+                // gtag('event', eventName, payload);
+                // fetch('/api/vsl-track', { method: 'POST', body: JSON.stringify(record) });
+            }
+
+            // Fire on first play click
+            var playTracked = false;
+            video.addEventListener('play', function () {
+                if (playTracked) return;
+                playTracked = true;
+                trackVSL('vsl_play', {
+                    thumbnail: chosen.id,
+                    played: true,
+                    muted: video.muted,
+                });
+            });
+
+            // ── Autoplay muted when section scrolls into view ──────────────────────
+            if ('IntersectionObserver' in window) {
+                var wrap = document.getElementById('vsl-video-wrap');
+                var autoObs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            video.muted = true;
+                            video.play().catch(function () {}); // silent fail if blocked
+                            autoObs.unobserve(wrap);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                autoObs.observe(wrap);
+            }
+        })();
+        </script>
 
         <!-- ===== 3. AGITATION ROW ===== -->
         <section class="py-8 md:py-12 reveal">
@@ -723,21 +781,6 @@
             }
         }
 
-        // ─── VIDEO PLACEHOLDER LOGIC ────────────────────────────
-        // If vsl.mp4 exists, hide placeholder and show video
-        var video = document.querySelector('.vsl-video-wrap video');
-        var placeholder = document.getElementById('vsl-placeholder');
-        if (video && placeholder) {
-            video.addEventListener('loadedmetadata', function() {
-                placeholder.style.display = 'none';
-                video.style.display = 'block';
-            });
-            // Also try to detect if video src fails
-            video.addEventListener('error', function() {
-                // Keep placeholder visible
-                video.style.display = 'none';
-            });
-        }
     })();
     </script>
 

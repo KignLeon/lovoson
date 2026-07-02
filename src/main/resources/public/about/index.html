@@ -215,10 +215,8 @@
                         id="vsl-player"
                         src="/assets/vsl.mp4"
                         controls
-                        muted
                         playsinline
-                        preload="none"
-                        style="width:100%;display:block;border-radius:1.25rem;"
+                        preload="metadata"
                     ></video>
                 </div>
             </div>
@@ -243,16 +241,15 @@
             video.setAttribute('data-vsl-thumb', chosen.id);
             localStorage.setItem('vsl-thumb-shown', chosen.id);
 
-            // ── Tracking function — swap this out for GA4 / custom endpoint later ──
+            // ── Tracking function — swap for GA4 / custom endpoint later ──
             function trackVSL(eventName, payload) {
                 var record = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, payload);
                 console.log('[VSL Tracking]', JSON.stringify(record, null, 2));
-                // TODO: replace console.log with your analytics call, e.g.:
-                // gtag('event', eventName, payload);
-                // fetch('/api/vsl-track', { method: 'POST', body: JSON.stringify(record) });
+                // TODO: gtag('event', eventName, payload);
+                // TODO: fetch('/api/vsl-track', { method:'POST', body: JSON.stringify(record) });
             }
 
-            // Fire on first play click
+            // Track first play (user-initiated)
             var playTracked = false;
             video.addEventListener('play', function () {
                 if (playTracked) return;
@@ -264,14 +261,21 @@
                 });
             });
 
-            // ── Autoplay muted when section scrolls into view ──────────────────────
+            // Unmute when user explicitly clicks play (in case autoplay muted it)
+            video.addEventListener('click', function () {
+                video.muted = false;
+            });
+
+            // ── Autoplay muted on scroll into view (scroll teaser only) ──────────
+            var autoplayed = false;
             if ('IntersectionObserver' in window) {
                 var wrap = document.getElementById('vsl-video-wrap');
                 var autoObs = new IntersectionObserver(function (entries) {
                     entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
+                        if (entry.isIntersecting && !autoplayed) {
+                            autoplayed = true;
                             video.muted = true;
-                            video.play().catch(function () {}); // silent fail if blocked
+                            video.play().catch(function () {});
                             autoObs.unobserve(wrap);
                         }
                     });
@@ -280,6 +284,8 @@
             }
         })();
         </script>
+
+
 
         <!-- ===== 3. AGITATION ROW ===== -->
         <section class="py-8 md:py-12 reveal">

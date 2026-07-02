@@ -20,5 +20,7 @@ dependency-reduced-pom.xml
 # Misc
 *.log
 .env
+# Raw video files (too large for git)
 *.mp4
+!src/main/resources/public/assets/vsl.mp4
 *.webm

@@ -1616,13 +1616,18 @@ footer a:hover {
     border-radius: 1rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 40px hsla(217, 80%, 50%, 0.15), 0 0 80px hsla(217, 80%, 50%, 0.06);
+    box-shadow:
+        0 8px 40px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15),
+        0 0 80px  hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06);
+    transition: box-shadow 0.4s ease;
 }
 
 :root:not([data-theme="dark"]) .vsl-video-wrap {
     background: #111118;
     border-color: rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 40px hsla(217, 80%, 50%, 0.12), 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 8px 40px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12),
+        0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .vsl-video-wrap video {

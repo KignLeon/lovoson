@@ -842,18 +842,16 @@ a:focus-visible {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* =========================== NAV ACTIVE STATE ============================ */
-
-/* Active nav link — pill highlight matching brand */
+/* Active nav link — underline only, NO pill */
 .nav-link.active {
   color: #111111;
   font-weight: 600;
 }
 
+/* Explicitly hide the pill on active — hover only */
 .nav-link.active::before {
-  background-color: rgba(0, 0, 0, 0.08);
-  transform: scale(1);
-  opacity: 1;
+  display: none !important;
+  opacity: 0 !important;
 }
 
 /* Dark mode active */
@@ -861,8 +859,10 @@ a:focus-visible {
   color: #e8e8e8 !important;
 }
 
+/* No pill on dark active either */
 [data-theme="dark"] .nav-link.active::before {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+  display: none !important;
+  opacity: 0 !important;
 }
 
 /* =========================== NAV HEADER (shared) ========================= */

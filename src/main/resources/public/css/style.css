@@ -91,6 +91,12 @@
     opacity: 1;
 }
 
+/* Hover: pill only — no underline */
+.nav-link:hover::after {
+    transform: scaleX(0) !important;
+    opacity: 0 !important;
+}
+
 /* Active link — underline only, no pill */
 .nav-link.active::before {
     display: none !important;

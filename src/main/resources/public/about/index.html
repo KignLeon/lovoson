@@ -217,21 +217,42 @@
             <p class="text-center vsl-section-label mb-6">WATCH BEFORE YOU BOOK · ~3 MIN</p>
             <div class="max-w-5xl mx-auto">
                 <div class="vsl-video-wrap" id="vsl-video-wrap">
-                    <!-- Native HTML5 VSL player — Cloudinary CDN, A/B/C/D thumbnail rotation -->
-                    <video
-                        id="vsl-player"
-                        src="https://res.cloudinary.com/ddnhp0hzd/video/upload/f_auto,q_auto/v1783029365/VSL_web_ukyvw3.mp4"
-                        controls
-                        playsinline
-                        preload="metadata"
-                        style="width:100%;display:block;border-radius:1.25rem;"
-                    ></video>
+
+                    <!-- Thumbnail facade (shown before play) -->
+                    <div id="vsl-facade" style="
+                        position:absolute;inset:0;
+                        background-size:cover;background-position:center center;
+                        cursor:pointer;z-index:2;border-radius:1rem;
+                        display:flex;align-items:center;justify-content:center;">
+                        <div class="play-ring" id="vsl-play-btn" style="
+                            width:72px;height:72px;border-radius:50%;
+                            background:rgba(255,255,255,0.15);
+                            backdrop-filter:blur(12px);
+                            -webkit-backdrop-filter:blur(12px);
+                            border:2px solid rgba(255,255,255,0.35);
+                            display:flex;align-items:center;justify-content:center;
+                            transition:transform 0.2s ease,background 0.2s ease;
+                            box-shadow:0 4px 24px rgba(0,0,0,0.4);">
+                            <i class="fa-solid fa-play" style="color:#fff;font-size:1.3rem;margin-left:4px;"></i>
+                        </div>
+                    </div>
+
+                    <!-- YouTube iframe (hidden until play clicked) -->
+                    <iframe
+                        id="vsl-frame"
+                        data-src="https://www.youtube.com/embed/3N0-OnFaFOM?autoplay=1&rel=0&modestbranding=1&color=white"
+                        src=""
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                        style="width:100%;height:100%;border-radius:1rem;display:none;position:absolute;inset:0;"
+                    ></iframe>
                 </div>
             </div>
         </section>
 
         <script>
-        // ─── VSL Thumbnail A/B/C/D Rotation + Tracking ─────────────────────────────
+        // ─── VSL YouTube Facade: A/B/C/D Thumbnail Rotation + Tracking ──────────────
         (function () {
             var THUMBS = [
                 { id: 'thumb-a', src: '/assets/vsl-thumb-a.jpg' },
@@ -240,69 +261,44 @@
                 { id: 'thumb-d', src: '/assets/vsl-thumb-d.jpg' },
             ];
 
-            // Pick random thumb each page load
-            var chosen = THUMBS[Math.floor(Math.random() * THUMBS.length)];
-            var video  = document.getElementById('vsl-player');
-            if (!video) return;
+            var chosen  = THUMBS[Math.floor(Math.random() * THUMBS.length)];
+            var facade  = document.getElementById('vsl-facade');
+            var frame   = document.getElementById('vsl-frame');
+            var playBtn = document.getElementById('vsl-play-btn');
+            if (!facade || !frame) return;
 
-            video.poster = chosen.src;
-            video.setAttribute('data-vsl-thumb', chosen.id);
+            // Set random thumbnail as background
+            facade.style.backgroundImage = 'url(' + chosen.src + ')';
+            facade.setAttribute('data-vsl-thumb', chosen.id);
             localStorage.setItem('vsl-thumb-shown', chosen.id);
 
-            // ── Tracking function — swap this out for GA4 / custom endpoint later ──
+            // Play button hover effect
+            if (playBtn) {
+                facade.addEventListener('mouseenter', function() {
+                    playBtn.style.transform = 'scale(1.1)';
+                    playBtn.style.background = 'rgba(255,255,255,0.25)';
+                });
+                facade.addEventListener('mouseleave', function() {
+                    playBtn.style.transform = 'scale(1)';
+                    playBtn.style.background = 'rgba(255,255,255,0.15)';
+                });
+            }
+
+            // ── Tracking ──────────────────────────────────────────────────────────────
             function trackVSL(eventName, payload) {
                 var record = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, payload);
                 console.log('[VSL Tracking]', JSON.stringify(record, null, 2));
-                // TODO: replace console.log with your analytics call, e.g.:
-                // gtag('event', eventName, payload);
-                // fetch('/api/vsl-track', { method: 'POST', body: JSON.stringify(record) });
+                // TODO: swap for gtag() or fetch('/api/vsl-track', ...) when ready
             }
 
-            // Fire on first intentional play (not the silent autoplay)
-            var playTracked = false;
-            var autoplayed  = false;
-            video.addEventListener('play', function () {
-                if (playTracked) return;
-                // Only track if user initiated (not our silent autoplay)
-                if (!autoplayed || !video.muted) {
-                    playTracked = true;
-                    trackVSL('vsl_play', {
-                        thumbnail: chosen.id,
-                        played: true,
-                        muted: video.muted,
-                    });
-                }
+            // ── On click: load YouTube with autoplay ──────────────────────────────────
+            facade.addEventListener('click', function () {
+                trackVSL('vsl_play', { thumbnail: chosen.id, source: 'youtube' });
+                frame.src = frame.getAttribute('data-src');
+                frame.style.display = 'block';
+                facade.style.display = 'none';
             });
-
-            // ── Silent autoplay on scroll into view ───────────────────────────────
-            // Autoplays MUTED (browser requirement). When user clicks the player,
-            // it pauses + unmutes so their first intentional play is with sound.
-            if ('IntersectionObserver' in window) {
-                var wrap = document.getElementById('vsl-video-wrap');
-                var autoObs = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (entry) {
-                        if (entry.isIntersecting) {
-                            autoplayed = true;
-                            video.muted = true;
-                            video.play().catch(function () {});
-                            autoObs.unobserve(wrap);
-                        }
-                    });
-                }, { threshold: 0.5 });
-                autoObs.observe(wrap);
-
-                // When user clicks/taps the player after silent autoplay: pause & unmute
-                // so their next play press gives them full audio from the start
-                video.addEventListener('click', function () {
-                    if (autoplayed && video.muted) {
-                        video.pause();
-                        video.muted = false;
-                        video.currentTime = 0;
-                    }
-                });
-            }
         })();
-        </script>
 
         <!-- ===== 3. AGITATION ROW ===== -->
         <section class="py-8 md:py-12 reveal">

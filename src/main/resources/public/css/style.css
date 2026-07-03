@@ -91,12 +91,22 @@
     opacity: 1;
 }
 
-/* Active link — show pill fully filled, no underline */
+/* Active link — underline only, no pill */
 .nav-link.active::before {
-    transform: scale(1) !important;
-    opacity: 1 !important;
-    background-color: rgba(0, 0, 0, 0.09) !important;
-    display: block !important;
+    display: none !important;
+}
+
+/* Underline indicator for active page */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: 1px;
+    opacity: 0.45;
 }
 
 .nav-link:hover,
@@ -956,8 +966,9 @@ footer a:hover {
 [data-theme="dark"] .nav-link::before {
     background-color: rgba(255, 255, 255, 0.07) !important;
 }
+/* No active pill in dark mode either */
 [data-theme="dark"] .nav-link.active::before {
-    background-color: rgba(255, 255, 255, 0.12) !important;
+    display: none !important;
 }
 
 /* Dark footer */

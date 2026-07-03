@@ -1002,32 +1002,32 @@ footer a:hover {
 /* GLASSMORPHISM CLOUD-WHITE BUTTONS (both light + dark)                   */
 /* ======================================================================= */
 
-/* ---- Primary button: cloud-white glass ---- */
+/* ---- Primary button: dark glass (both modes) ---- */
 .button-glow {
-    background: rgba(255, 255, 255, 0.14) !important;
-    backdrop-filter: blur(16px) saturate(1.4) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(1.4) !important;
+    background: rgba(10, 10, 18, 0.88) !important;
+    backdrop-filter: blur(16px) saturate(1.2) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(1.2) !important;
     color: #ffffff !important;
-    border: 1px solid rgba(255, 255, 255, 0.30) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
     border-radius: 0.875rem !important;
     padding: 0.85rem 1.75rem !important;
     font-weight: 700 !important;
     letter-spacing: 0.3px !important;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     box-shadow:
-        0 2px 8px rgba(0,0,0,0.25),
-        inset 0 1px 0 rgba(255,255,255,0.25),
-        inset 0 -1px 0 rgba(255,255,255,0.08) !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+        0 2px 8px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        inset 0 -1px 0 rgba(0,0,0,0.2) !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
 }
 .button-glow:hover {
-    background: rgba(255, 255, 255, 0.22) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(25, 25, 40, 0.95) !important;
+    border-color: rgba(255, 255, 255, 0.30) !important;
     box-shadow:
-        0 8px 32px rgba(255,255,255,0.12),
+        0 8px 32px rgba(0,0,0,0.4),
         0 2px 8px rgba(0,0,0,0.3),
-        inset 0 1px 0 rgba(255,255,255,0.4),
-        inset 0 -1px 0 rgba(255,255,255,0.1) !important;
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        inset 0 -1px 0 rgba(0,0,0,0.1) !important;
     transform: translateY(-2px) scale(1.01) !important;
 }
 

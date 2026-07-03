@@ -291,11 +291,19 @@
                 // TODO: swap for gtag() or fetch('/api/vsl-track', ...) when ready
             }
 
-            // ── On click: load YouTube with autoplay ──────────────────────────────────
+            // ── On click: create iframe fresh (guarantees autoplay user-gesture) ───────
             facade.addEventListener('click', function () {
                 trackVSL('vsl_play', { thumbnail: chosen.id, source: 'youtube' });
-                frame.src = frame.getAttribute('data-src');
-                frame.style.display = 'block';
+
+                var yt = document.createElement('iframe');
+                yt.src = 'https://www.youtube.com/embed/3N0-OnFaFOM?autoplay=1&rel=0&modestbranding=1&color=white';
+                yt.setAttribute('frameborder', '0');
+                yt.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                yt.setAttribute('allowfullscreen', '');
+                yt.style.cssText = 'width:100%;height:100%;border-radius:1rem;position:absolute;inset:0;border:none;z-index:3;';
+
+                var wrap = document.getElementById('vsl-video-wrap');
+                wrap.appendChild(yt);
                 facade.style.display = 'none';
             });
         })();

@@ -10,9 +10,18 @@
     <script>
         (function () {
             var t = localStorage.getItem('lovoson-theme');
-            if (t === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+            // Default dark — only light if user explicitly chose it
+            if (t === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
             var a = localStorage.getItem('lovoson-accent');
             if (a) document.documentElement.style.setProperty('--accent-h', a);
+            var s = localStorage.getItem('lovoson-accent-s');
+            if (s) document.documentElement.style.setProperty('--accent-s', s + '%');
+            var l = localStorage.getItem('lovoson-accent-l');
+            if (l) document.documentElement.style.setProperty('--accent-l', l + '%');
             document.documentElement.classList.add('theme-loaded');
         })();
     </script>
@@ -140,8 +149,6 @@
             <nav class="hidden md:flex items-center space-x-6">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about/" class="nav-link active">About</a>
-
-
             </nav>
 
             <!-- DESKTOP ACTIONS -->
@@ -153,10 +160,10 @@
                     <div class="color-picker-popover" id="color-picker-popover">
                         <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
                         <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
-                        <button data-accent-h="340" class="color-dot" style="background:#f43f5e" title="Rose"></button>
+                        <button data-accent-h="4"   class="color-dot" style="background:#ef4444" title="Red"></button>
                         <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
-                        <button data-accent-h="30" class="color-dot" style="background:#f97316" title="Orange"></button>
-                        <button data-accent-h="0" class="color-dot" style="background:#111111" title="Neutral"></button>
+                        <button data-accent-h="30"  class="color-dot" style="background:#f97316" title="Orange"></button>
+                        <button data-accent-h="210" class="color-dot" data-accent-mode="white" style="background:#ffffff;border:2px solid #d1d5db;" title="White"></button>
                     </div>
                 </div>
                 <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>

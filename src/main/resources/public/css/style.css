@@ -6,6 +6,16 @@
 @import url('./components.css');
 
 /* ======================================================================= */
+/* ACCENT COLOR SYSTEM — driven by JS color picker                          */
+/* Default hue: 217 (blue). --accent-s and --accent-l allow white mode.    */
+/* ======================================================================= */
+:root {
+    --accent-h: 217;
+    --accent-s: 80%;
+    --accent-l: 55%;
+}
+
+/* ======================================================================= */
 /* GLOBAL ZOOM — desktop only (~108% browser zoom feel)                     */
 /* ======================================================================= */
 @media (min-width: 768px) {
@@ -81,13 +91,18 @@
     opacity: 1;
 }
 
-/* No pill on the active link — underline only */
+/* Active link — show pill fully filled, no underline */
 .nav-link.active::before {
-    display: none !important;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    background-color: rgba(0, 0, 0, 0.09) !important;
+    display: block !important;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.active {
     color: #111111;
+    text-decoration: none !important;
 }
 
 /* ===== NAV PILL LAYOUT: prevent wrapping / clipping ===== */
@@ -933,11 +948,16 @@ footer a:hover {
     color: #d1d5db !important;
 }
 [data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active,
 [data-theme="dark"] .nav-brand-text {
     color: #ffffff !important;
+    text-decoration: none !important;
 }
 [data-theme="dark"] .nav-link::before {
-    background-color: rgba(255, 255, 255, 0.06) !important;
+    background-color: rgba(255, 255, 255, 0.07) !important;
+}
+[data-theme="dark"] .nav-link.active::before {
+    background-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 /* Dark footer */
@@ -1495,12 +1515,16 @@ footer a:hover {
 
 .vsl-hero-headline .gradient-line {
     font-style: italic;
-    background: linear-gradient(135deg, hsl(217, 90%, 55%) 0%, hsl(260, 80%, 65%) 50%, hsl(217, 90%, 55%) 100%);
+    background: linear-gradient(135deg,
+        hsl(var(--accent-h), var(--accent-s), var(--accent-l)) 0%,
+        hsl(calc(var(--accent-h) + 43), calc(var(--accent-s) - 10%), calc(var(--accent-l) + 10%)) 50%,
+        hsl(var(--accent-h), var(--accent-s), var(--accent-l)) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
     animation: gradient-shift 6s ease-in-out infinite;
+    transition: background 0.4s ease;
 }
 
 @keyframes gradient-shift {
@@ -1513,7 +1537,7 @@ footer a:hover {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: hsl(217, 90%, 55%);
+    background: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
     color: #ffffff;
     border: none;
     border-radius: 0.875rem;
@@ -1522,15 +1546,19 @@ footer a:hover {
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 4px 20px hsla(217, 90%, 55%, 0.35), 0 0 40px hsla(217, 90%, 55%, 0.15);
+    box-shadow:
+        0 4px 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.35),
+        0 0 40px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15);
     font-family: inherit;
     text-decoration: none;
 }
 
 .vsl-cta-primary:hover {
-    background: hsl(217, 90%, 48%);
+    background: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 7%));
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 32px hsla(217, 90%, 55%, 0.45), 0 0 60px hsla(217, 90%, 55%, 0.2);
+    box-shadow:
+        0 8px 32px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.45),
+        0 0 60px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.2);
 }
 
 .vsl-cta-ghost {
@@ -2386,7 +2414,7 @@ footer a:hover {
 
 .home-flow-card .flow-icon i {
     font-size: 1.3rem;
-    color: hsl(var(--accent-h, 217), 80%, 55%);
+    color: hsl(var(--accent-h, 217), var(--accent-s, 80%), var(--accent-l, 55%));
     transition: color 0.3s ease;
 }
 

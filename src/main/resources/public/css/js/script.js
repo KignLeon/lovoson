@@ -673,13 +673,29 @@ function initColorPicker() {
   const popover = document.getElementById('color-picker-popover');
   if (!btn || !popover) return;
 
+  const html = document.documentElement;
   const dots = popover.querySelectorAll('.color-dot');
 
-  // Restore active dot from localStorage
-  const stored = localStorage.getItem('lovoson-accent');
-  if (stored) {
+  // Apply accent CSS vars from stored values
+  function applyAccent(hue, sat, light) {
+    html.style.setProperty('--accent-h', hue);
+    html.style.setProperty('--accent-s', sat + '%');
+    html.style.setProperty('--accent-l', light + '%');
+  }
+
+  // Restore saved accent on load
+  const storedHue   = localStorage.getItem('lovoson-accent');
+  const storedSat   = localStorage.getItem('lovoson-accent-s');
+  const storedLight = localStorage.getItem('lovoson-accent-l');
+  if (storedHue) {
+    applyAccent(
+      storedHue,
+      storedSat  !== null ? storedSat  : '80',
+      storedLight !== null ? storedLight : '55'
+    );
+    // Mark the matching dot as active
     dots.forEach(d => {
-      d.classList.toggle('is-active', d.getAttribute('data-accent-h') === stored);
+      d.classList.toggle('is-active', d.getAttribute('data-accent-h') === storedHue);
     });
   }
 
@@ -693,13 +709,26 @@ function initColorPicker() {
   dots.forEach(dot => {
     dot.addEventListener('click', (e) => {
       e.stopPropagation();
-      const hue = dot.getAttribute('data-accent-h');
+      const hue  = dot.getAttribute('data-accent-h');
+      const mode = dot.getAttribute('data-accent-mode');
 
-      // Update CSS custom property
-      document.documentElement.style.setProperty('--accent-h', hue);
+      let sat, light;
+      if (mode === 'white') {
+        // Near-white cloud accent — low saturation, very high lightness
+        sat   = 8;
+        light = 93;
+      } else {
+        // Standard vivid accent
+        sat   = 80;
+        light = 55;
+      }
 
-      // Persist
-      localStorage.setItem('lovoson-accent', hue);
+      applyAccent(hue, sat, light);
+
+      // Persist all three
+      localStorage.setItem('lovoson-accent',   hue);
+      localStorage.setItem('lovoson-accent-s', String(sat));
+      localStorage.setItem('lovoson-accent-l', String(light));
 
       // Update active state
       dots.forEach(d => d.classList.remove('is-active'));

@@ -168,8 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // ==========================================================================
 
 function initEngagementSystem() {
-  const toast    = document.getElementById('lv-toast');
-  const offerModal = document.getElementById('lv-offer-modal');
+  // Modals removed — engagement popups disabled
+  return;
   const offerBox   = document.getElementById('lv-offer-box');
   const offerBd    = document.getElementById('lv-offer-backdrop');
   if (!toast || !offerModal) return;
@@ -198,8 +198,8 @@ function initEngagementSystem() {
     return true;
   }
   function releaseSlot() {
-    // 60s cooldown before anything else can appear
-    setTimeout(() => { popupActive = false; }, 60_000);
+    // 180s cooldown before anything else can appear
+    setTimeout(() => { popupActive = false; }, 180_000);
   }
 
   // ---- Wire ALL [data-offer-trigger] buttons ----
@@ -319,8 +319,8 @@ function initEngagementSystem() {
   const isFirstVisit = getStored('lv:site-visit') === 0;
   setStored('lv:site-visit', now);
 
-  // Priority 1 — Return visitor: show booking nudge toast (48h cooldown)
-  if (!isFirstVisit && canShow('lv:return-toast', 48)) {
+  // Priority 1 — Return visitor: show booking nudge toast (72h cooldown)
+  if (!isFirstVisit && canShow('lv:return-toast', 72)) {
     setTimeout(() => {
       if (popupActive) return;
       setStored('lv:return-toast', now);
@@ -332,12 +332,12 @@ function initEngagementSystem() {
         duration: 15000,
         action() { showBookingModal(true); }
       });
-    }, 3000);
+    }, 7000);
     return; // Priority 1 fires → nothing else queues
   }
 
-  // Priority 2 — Multi-page session (high intent): booking modal (12h cooldown)
-  if (sessionPages >= 2 && canShow('lv:multi-page-modal', 12)) {
+  // Priority 2 — Multi-page session (high intent): booking modal (48h cooldown)
+  if (sessionPages >= 2 && canShow('lv:multi-page-modal', 48)) {
     setTimeout(() => {
       if (popupActive) return;
       setStored('lv:multi-page-modal', now);
@@ -349,7 +349,7 @@ function initEngagementSystem() {
         duration: 15000,
         action() { showBookingModal(true); }
       });
-    }, 4000);
+    }, 10000);
     return; // Priority 2 fires → nothing else queues
   }
 
@@ -358,7 +358,7 @@ function initEngagementSystem() {
   window.addEventListener('scroll', () => {
     if (scrollFired || popupActive) return;
     const pct = (window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100;
-    if (pct >= 75 && canShow('lv:social-toast', 24)) {
+    if (pct >= 75 && canShow('lv:social-toast', 48)) {
       scrollFired = true;
       setTimeout(() => {
         if (popupActive) return;
@@ -371,16 +371,16 @@ function initEngagementSystem() {
           duration: 13000,
           action() { window.open('https://www.instagram.com/lovosonmedia', '_blank'); }
         });
-      }, 1000);
+      }, 3000);
     }
   }, { passive: true });
 
-  // Priority 4 — Exit intent: free audit modal (8h cooldown, desktop only)
+  // Priority 4 — Exit intent: free audit modal (24h cooldown, desktop only)
   let exitFired = false;
   if (window.innerWidth > 768) {
     document.addEventListener('mouseleave', e => {
       if (exitFired || e.clientY > 50 || popupActive) return;
-      if (!canShow('lv:exit-modal', 8)) return;
+      if (!canShow('lv:exit-modal', 24)) return;
       exitFired = true;
       setStored('lv:exit-modal', now);
       showExitModal();

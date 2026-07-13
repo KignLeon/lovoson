@@ -205,7 +205,7 @@
           </div>
         </div>
         <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-        <a href="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM" target="_blank" rel="noopener" class="btn-offer"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></a>
+        <button class="btn-offer" id="book-cta-btn"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
         <a href="/about/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
       </div>
 
@@ -220,7 +220,7 @@
         <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
         <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
 
-        <a href="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM" target="_blank" rel="noopener" class="btn-offer mx-auto"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></a>
+        <button class="btn-offer mx-auto" id="book-cta-btn-mob"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
         <a href="/about/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get Started</a>
       </div>
     </nav>
@@ -238,9 +238,9 @@
           We build websites and AI systems that respond to every lead in under 60 seconds so you never lose another customer to a slow reply
         </p>
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-          <a href="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM" target="_blank" rel="noopener" class="btn-offer" style="font-size:1.1rem;padding:1rem 2rem;">
+          <button class="btn-offer" id="book-cta-hero" style="font-size:1.1rem;padding:1rem 2rem;">
             <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book a Free Strategy Call</span>
-          </a>
+          </button>
           <a href="/about/" class="button-outline font-semibold py-4 px-8 text-base rounded-xl inline-block">See How It Works</a>
         </div>
       </div>
@@ -600,9 +600,9 @@
           We'll pull up your online presence live, show you exactly where you're leaving money on the table, and walk you through how the system works. No pitch, no pressure. 15 minutes.
         </p>
         <div class="flex flex-col md:flex-row justify-center gap-6">
-          <a href="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM" target="_blank" rel="noopener" class="btn-offer" style="font-size:1.1rem;padding:1rem 2.5rem;">
-            <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book Your Free Call →</span>
-          </a>
+          <button class="btn-offer" id="book-cta-bottom" style="font-size:1.1rem;padding:1rem 2.5rem;">
+            <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book Your Free Call &rarr;</span>
+          </button>
           <a href="/about/" class="button-outline font-semibold py-4 px-10 text-lg rounded-full inline-block" style="border-color:rgba(255,255,255,0.3);color:#f3f4f6;">Learn More</a>
         </div>
       </div>
@@ -651,6 +651,81 @@
     </div>
   </footer>
 
+  <!-- BOOKING MODAL -->
+  <div id="booking-backdrop" style="
+      display:none;position:fixed;inset:0;z-index:9000;
+      background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      animation:fadeIn 0.2s ease;"></div>
+
+  <div id="booking-modal" style="
+      display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+      z-index:9001;width:min(680px,94vw);
+      background:var(--nav-bg,#fff);border-radius:1.25rem;
+      box-shadow:0 24px 80px rgba(0,0,0,0.4);overflow:hidden;
+      animation:slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);">
+
+      <!-- Modal Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;
+          padding:1.1rem 1.4rem;border-bottom:1px solid rgba(128,128,128,0.15);">
+          <div>
+              <p style="font-size:1.1rem;font-weight:700;margin:0;">Book Your Free Strategy Call</p>
+              <p style="font-size:0.82rem;color:#6b7280;margin:0.2rem 0 0;">15 minutes &middot; No pitch &middot; Real insights</p>
+          </div>
+          <button id="booking-modal-close" aria-label="Close" style="
+              width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+              background:rgba(128,128,128,0.1);color:inherit;
+              display:flex;align-items:center;justify-content:center;
+              font-size:1rem;transition:background 0.2s;">
+              <i class="fa-solid fa-xmark"></i>
+          </button>
+      </div>
+
+      <!-- Calendar iframe -->
+      <div style="padding:0;">
+          <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
+              style="width:100%;border:none;overflow:hidden;min-height:560px;display:block;"
+              scrolling="no" id="booking-cal-iframe"></iframe>
+      </div>
+  </div>
+
+  <style>
+      @keyframes fadeIn  { from{opacity:0} to{opacity:1} }
+      @keyframes slideUp { from{opacity:0;transform:translate(-50%,-46%)} to{opacity:1;transform:translate(-50%,-50%)} }
+      [data-theme="dark"] #booking-modal { background:#1a1a2e; color:#f3f4f6; }
+      [data-theme="dark"] #booking-modal > div:first-child { border-bottom-color:rgba(255,255,255,0.08); }
+      #booking-modal-close:hover { background:rgba(128,128,128,0.25) !important; }
+  </style>
+
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+  <script>
+  (function() {
+      var backdrop = document.getElementById('booking-backdrop');
+      var modal    = document.getElementById('booking-modal');
+      var closeBtn = document.getElementById('booking-modal-close');
+
+      function openModal() {
+          backdrop.style.display = 'block';
+          modal.style.display    = 'block';
+          document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+          backdrop.style.display = 'none';
+          modal.style.display    = 'none';
+          document.body.style.overflow = '';
+      }
+
+      ['book-cta-btn','book-cta-btn-mob','book-cta-hero','book-cta-bottom'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.addEventListener('click', openModal);
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closeModal();
+      });
+  })();
+  </script>
 
   <!-- GHL Chat Widget -->
   <script src="https://widgets.leadconnectorhq.com/loader.js"

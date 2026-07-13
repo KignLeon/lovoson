@@ -1624,12 +1624,11 @@ footer a:hover {
     color: #4b5563;
 }
 
-/* ---- VSL Video Wrapper ---- */
+/* ---- VSL Video Wrapper (Wistia) ---- */
 .vsl-video-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #0a0a12;
+    /* aspect-ratio handled by wistia-player[aspect] web component */
     border-radius: 1rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1640,7 +1639,6 @@ footer a:hover {
 }
 
 :root:not([data-theme="dark"]) .vsl-video-wrap {
-    background: #111118;
     border-color: rgba(0, 0, 0, 0.1);
     box-shadow:
         0 8px 40px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12),

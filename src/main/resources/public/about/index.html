@@ -216,98 +216,30 @@
         <section class="py-8 md:py-12 reveal" id="video">
             <p class="text-center vsl-section-label mb-6">WATCH BEFORE YOU BOOK · ~3 MIN</p>
             <div class="max-w-5xl mx-auto">
-                <div class="vsl-video-wrap" id="vsl-video-wrap">
+                <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio:unset;background:transparent;">
 
-                    <!-- Thumbnail facade (shown before play) -->
-                    <div id="vsl-facade" style="
-                        position:absolute;inset:0;
-                        background-size:cover;background-position:center center;
-                        cursor:pointer;z-index:2;border-radius:1rem;
-                        display:flex;align-items:center;justify-content:center;">
-                        <div class="play-ring" id="vsl-play-btn" style="
-                            width:72px;height:72px;border-radius:50%;
-                            background:rgba(255,255,255,0.15);
-                            backdrop-filter:blur(12px);
-                            -webkit-backdrop-filter:blur(12px);
-                            border:2px solid rgba(255,255,255,0.35);
-                            display:flex;align-items:center;justify-content:center;
-                            transition:transform 0.2s ease,background 0.2s ease;
-                            box-shadow:0 4px 24px rgba(0,0,0,0.4);">
-                            <i class="fa-solid fa-play" style="color:#fff;font-size:1.3rem;margin-left:4px;"></i>
-                        </div>
-                    </div>
+                    <!-- Wistia Inline Responsive Embed -->
+                    <script src="https://fast.wistia.com/player.js" async></script>
+                    <script src="https://fast.wistia.com/embed/202if6v81m.js" async type="module"></script>
+                    <style>
+                        wistia-player[media-id='202if6v81m']:not(:defined) {
+                            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/202if6v81m/swatch');
+                            display: block;
+                            filter: blur(5px);
+                            padding-top: 56.25%;
+                        }
+                        wistia-player[media-id='202if6v81m'] {
+                            display: block;
+                            width: 100%;
+                            border-radius: 1rem;
+                            overflow: hidden;
+                        }
+                    </style>
+                    <wistia-player media-id="202if6v81m" aspect="1.7777777777777777"></wistia-player>
 
-                    <!-- YouTube iframe (hidden until play clicked) -->
-                    <iframe
-                        id="vsl-frame"
-                        data-src="https://www.youtube.com/embed/3N0-OnFaFOM?autoplay=1&rel=0&modestbranding=1&color=white"
-                        src=""
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen
-                        style="width:100%;height:100%;border-radius:1rem;display:none;position:absolute;inset:0;"
-                    ></iframe>
                 </div>
             </div>
         </section>
-
-        <script>
-        // ─── VSL YouTube Facade: A/B/C/D Thumbnail Rotation + Tracking ──────────────
-        (function () {
-            var THUMBS = [
-                { id: 'thumb-a', src: '/assets/vsl-thumb-a.jpg' },
-                { id: 'thumb-b', src: '/assets/vsl-thumb-b.jpg' },
-                { id: 'thumb-c', src: '/assets/vsl-thumb-c.jpg' },
-                { id: 'thumb-d', src: '/assets/vsl-thumb-d.jpg' },
-            ];
-
-            var chosen  = THUMBS[Math.floor(Math.random() * THUMBS.length)];
-            var facade  = document.getElementById('vsl-facade');
-            var frame   = document.getElementById('vsl-frame');
-            var playBtn = document.getElementById('vsl-play-btn');
-            if (!facade || !frame) return;
-
-            // Set random thumbnail as background
-            facade.style.backgroundImage = 'url(' + chosen.src + ')';
-            facade.setAttribute('data-vsl-thumb', chosen.id);
-            localStorage.setItem('vsl-thumb-shown', chosen.id);
-
-            // Play button hover effect
-            if (playBtn) {
-                facade.addEventListener('mouseenter', function() {
-                    playBtn.style.transform = 'scale(1.1)';
-                    playBtn.style.background = 'rgba(255,255,255,0.25)';
-                });
-                facade.addEventListener('mouseleave', function() {
-                    playBtn.style.transform = 'scale(1)';
-                    playBtn.style.background = 'rgba(255,255,255,0.15)';
-                });
-            }
-
-            // ── Tracking ──────────────────────────────────────────────────────────────
-            function trackVSL(eventName, payload) {
-                var record = Object.assign({ event: eventName, timestamp: new Date().toISOString() }, payload);
-                console.log('[VSL Tracking]', JSON.stringify(record, null, 2));
-                // TODO: swap for gtag() or fetch('/api/vsl-track', ...) when ready
-            }
-
-            // ── On click: create iframe fresh (guarantees autoplay user-gesture) ───────
-            facade.addEventListener('click', function () {
-                trackVSL('vsl_play', { thumbnail: chosen.id, source: 'youtube' });
-
-                var yt = document.createElement('iframe');
-                yt.src = 'https://www.youtube.com/embed/3N0-OnFaFOM?autoplay=1&rel=0&modestbranding=1&color=white';
-                yt.setAttribute('frameborder', '0');
-                yt.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                yt.setAttribute('allowfullscreen', '');
-                yt.style.cssText = 'width:100%;height:100%;border-radius:1rem;position:absolute;inset:0;border:none;z-index:3;';
-
-                var wrap = document.getElementById('vsl-video-wrap');
-                wrap.appendChild(yt);
-                facade.style.display = 'none';
-            });
-        })();
-        </script>
 
         <!-- ===== 3. AGITATION ROW ===== -->
         <section class="py-8 md:py-12 reveal">

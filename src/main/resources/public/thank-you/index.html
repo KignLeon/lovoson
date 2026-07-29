@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Lovoson Media</title>
+
+  <!-- Anti-FOUC: Apply theme before paint -->
+  <script>
+    (function () {
+      var t = localStorage.getItem('lovoson-theme');
+      if (t === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      var a = localStorage.getItem('lovoson-accent');
+      if (a) document.documentElement.style.setProperty('--accent-h', a);
+      var s = localStorage.getItem('lovoson-accent-s');
+      if (s) document.documentElement.style.setProperty('--accent-s', s + '%');
+      var l = localStorage.getItem('lovoson-accent-l');
+      if (l) document.documentElement.style.setProperty('--accent-l', l + '%');
+      document.documentElement.classList.add('theme-loaded');
+    })();
+  </script>
+
+  <!-- SEO META TAGS -->
+  <meta name="description" content="Thank you for choosing Lovoson Media. Your booking has been confirmed.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://www.lovoson.com/thank-you/">
+
+  <!-- FAVICON + STYLES -->
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* Mobile dropdown */
+    #mobile-nav {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
+      transition: all 0.4s ease-in-out;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 40;
+    }
+    #mobile-nav.active {
+      max-height: 100vh;
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      padding-bottom: 2rem;
+    }
+
+    .thank-you-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      padding: 3rem 2.5rem;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    [data-theme="dark"] .thank-you-card {
+      background: rgba(30,30,50,0.85);
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, hsl(var(--accent-h,217),80%,55%), hsl(var(--accent-h,217),70%,42%));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      animation: scaleIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .check-circle i {
+      font-size: 2.2rem;
+      color: white;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .next-steps {
+      display: grid;
+      gap: 1rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .next-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    [data-theme="dark"] .next-step {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .next-step .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: hsl(var(--accent-h,217),80%,55%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .thank-you-card { padding: 2rem 1.5rem; }
+      h1 { font-size: 2rem !important; }
+    }
+  </style>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1475408903858304');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1475408903858304&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-20">
+
+  <!-- HEADER -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
+    <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-5xl relative z-50">
+      <a href="/" class="logo-svg-wrap" id="logo-link">
+        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+          alt="Lovoson" />
+        <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about/" class="nav-link">About</a>
+      </nav>
+
+      <!-- DESKTOP ACTIONS -->
+      <div class="hidden md:flex items-center gap-3">
+        <div class="color-picker-wrap" id="color-picker-wrap">
+          <button id="color-picker-btn" aria-label="Change accent color">
+            <i class="fa-solid fa-palette"></i>
+          </button>
+          <div class="color-picker-popover" id="color-picker-popover">
+            <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
+            <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
+            <button data-accent-h="4"   class="color-dot" style="background:#ef4444" title="Red"></button>
+            <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
+            <button data-accent-h="30"  class="color-dot" style="background:#f97316" title="Orange"></button>
+            <button data-accent-h="210" class="color-dot" data-accent-mode="white" style="background:#475569;" title="Slate"></button>
+          </div>
+        </div>
+        <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <a href="/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Back to Home</a>
+      </div>
+
+      <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav id="mobile-nav" class="md:hidden text-center px-8">
+      <div class="flex flex-col space-y-5 py-6">
+        <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
+        <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
+        <a href="/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Back to Home</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-8 md:px-12 pt-12 pb-20">
+    <section class="py-16 md:py-24">
+      <div class="thank-you-card">
+        <div class="check-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-black mb-3">You're All Set!</h1>
+        <p class="text-lg text-slate-600 mb-2">Your booking has been confirmed.</p>
+        <p class="text-sm text-slate-500">Check your email for the confirmation details and Zoom link.</p>
+
+        <div class="next-steps">
+          <div class="next-step">
+            <div class="step-num">1</div>
+            <div>
+              <h4 class="font-semibold text-black text-sm">Check your inbox</h4>
+              <p class="text-xs text-slate-600">You'll receive a confirmation email with the Zoom link and calendar invite.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="step-num">2</div>
+            <div>
+              <h4 class="font-semibold text-black text-sm">Show up on time</h4>
+              <p class="text-xs text-slate-600">15 minutes — we'll share our screen and walk through your site live.</p>
+            </div>
+          </div>
+          <div class="next-step">
+            <div class="step-num">3</div>
+            <div>
+              <h4 class="font-semibold text-black text-sm">Leave with a clear plan</h4>
+              <p class="text-xs text-slate-600">We'll tell you the 2–3 things costing you leads and exactly how to fix them.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <a href="/" class="button-glow font-semibold py-3 px-8 text-sm rounded-full inline-block">Back to Home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+      <div class="pt-1">
+        <div class="flex items-center space-x-2 mb-3">
+          <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+            alt="Lovoson Media Logo" class="h-10 w-10 object-contain" />
+          <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
+        </div>
+        <p class="text-sm text-slate-700">
+          Scaling businesses through strategy, design, and automation.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
+        <p class="text-sm text-slate-700">Website Design & Management</p>
+        <p class="text-sm text-slate-700">Email & SMS Automation</p>
+        <p class="text-sm text-slate-700">Social Media Campaigns</p>
+        <p class="text-sm text-slate-700">Brand Strategy</p>
+        <p class="text-sm text-slate-700">Content Creation</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
+        <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
+        <p class="text-sm text-slate-700 mb-4">Phone: (818) 825-7468</p>
+        <div class="flex space-x-5 text-2xl text-slate-700">
+          <a href="mailto:contact@lovoson.com" class="hover:text-black transition">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+          <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
+      <p>&copy; 2025 Lovoson Media. All Rights Reserved.</p>
+      <div class="mt-2 md:mt-0 space-x-4">
+        <a href="/terms/" class="hover:text-black transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BEGIN GCR Opt-in Module Code -->
+  <script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+  <script>
+    window.renderOptIn = function() {
+      // Read parameters from URL
+      var params = new URLSearchParams(window.location.search);
+      var orderId = params.get('order_id') || 'LM-' + Date.now();
+      var email = params.get('email') || '';
+      var deliveryCountry = params.get('delivery_country') || 'US';
+
+      // Default estimated_delivery_date to 7 days from now if not provided
+      var estDate = params.get('estimated_delivery_date');
+      if (!estDate) {
+        var d = new Date();
+        d.setDate(d.getDate() + 7);
+        estDate = d.toISOString().split('T')[0];
+      }
+
+      // Only render if we have an email (required by Google)
+      if (email) {
+        window.gapi.load('surveyoptin', function() {
+          window.gapi.surveyoptin.render({
+            "merchant_id": 5681922455,
+            "order_id": orderId,
+            "email": email,
+            "delivery_country": deliveryCountry,
+            "estimated_delivery_date": estDate,
+            "opt_in_style": "CENTER_DIALOG"
+          });
+        });
+      }
+    }
+  </script>
+  <!-- END GCR Opt-in Module Code -->
+
+  <!-- BEGIN GCR Language Code -->
+  <script>
+    window.___gcfg = {
+      lang: 'en_US'
+    };
+  </script>
+  <!-- END GCR Language Code -->
+
+  <!-- Google Customer Reviews Badge -->
+  <script id="merchantWidgetScript" src="https://www.gstatic.com/shopping/merchant/merchantwidget.js" defer></script>
+  <script>
+    document.getElementById('merchantWidgetScript').addEventListener('load', function () {
+      merchantwidget.start({
+        merchant_id: 5681922455,
+        position: 'BOTTOM_LEFT',
+        region: 'US',
+      });
+    });
+  </script>
+
+  <!-- JS -->
+  <script src="/css/js/script.js"></script>
+
+</body>
+
+</html>

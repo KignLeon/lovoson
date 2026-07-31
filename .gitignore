@@ -7,6 +7,15 @@
 # Skills directory (not part of the website)
 skills/
 
+# Reference / inspiration files
+html-inspo/
+
+# Generated social media images (30+ carousel/post directories)
+imgs/
+
+# Documents (DNS settings, etc.)
+*.pdf
+
 # Java build artifacts
 target/
 *.class
@@ -20,7 +29,11 @@ dependency-reduced-pom.xml
 # Misc
 *.log
 .env
+
 # Raw video files (too large for git)
 *.mp4
 !src/main/resources/public/assets/vsl.mp4
 *.webm
+
+# Generated social media images at workspace root
+/*.png

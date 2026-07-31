@@ -1,6 +1,29 @@
 /* ======================================================================= */
-/* FILE: components.css - Enterprise Design System for Lovoson Media       */
-/* Premium Frosted Glass + Flow Animation System                           */
+/* FILE: components.css — Enterprise Design System for Lovoson Media       */
+/* ======================================================================= */
+/*                                                                          */
+/* SINGLE SOURCE OF TRUTH for all shared UI components.                     */
+/* Imported by style.css — do NOT import any other file from here.          */
+/*                                                                          */
+/* SECTIONS:                                                                */
+/*   1. CSS Variables (colors, typography, spacing, animation)              */
+/*   2. Keyframe Animations                                                 */
+/*   3. Liquid Glass Components                                             */
+/*   4. Text Effects (shimmer, gradient)                                    */
+/*   5. Buttons (glow, outline, offer, sheen)                               */
+/*   6. Cards (service, review, glass, team, client, stat, flow)            */
+/*   7. Navigation (pill, toggle, mobile, active states)                    */
+/*   8. Modals (shader, offer)                                              */
+/*   9. Aurora Background                                                   */
+/*  10. Icon Cloud                                                          */
+/*  11. Color Picker                                                        */
+/*  12. Page Reveal System                                                  */
+/*  13. Layout Consistency                                                  */
+/*  14. Dark Mode                                                           */
+/*  15. Light Mode Overrides                                                */
+/*  16. Accessibility                                                       */
+/*  17. Responsive Typography                                               */
+/*                                                                          */
 /* ======================================================================= */
 
 /* =========================== CSS VARIABLES ============================= */
@@ -74,8 +97,19 @@
 
 /* =========================== ANIMATIONS ================================ */
 
-/* Shine Sweep - For Hero Text */
+/* Shine/Shimmer Sweep — For Hero Text & Shimmer Effects */
 @keyframes shine-sweep {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Alias: same animation, referenced by .shimmer-text */
+@keyframes shimmer-sweep {
   0% {
     background-position: -200% center;
   }
@@ -173,6 +207,7 @@
   overflow: hidden;
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-shadow);
+  padding: 2rem; /* 32px — consistent p-8 equivalent */
   transition: all var(--duration-liquid) var(--ease-liquid);
 }
 
@@ -255,7 +290,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine-sweep 4s ease-in-out infinite;
+  animation: shimmer-sweep 4s linear infinite;
 }
 
 /* Gradient Text */
@@ -603,34 +638,7 @@ a:focus-visible {
   }
 }
 
-/* Primary CTA buttons with sheen effect */
-.button-glow {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--color-silver-border);
-}
-
-.button-glow::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.15) 40%,
-      rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0.15) 60%,
-      transparent 100%);
-  transform: translateX(-100%);
-  animation: sheen-sweep 7s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.button-glow:hover {
-  box-shadow: 0 6px 24px rgba(17, 17, 17, 0.2), 0 0 0 1px var(--color-silver-border);
-}
+/* .button-glow sheen effect — consolidated into BUTTON SHEEN section below */
 
 /* =========================== SILVER ACCENT UTILITIES ===================== */
 
@@ -1143,15 +1151,7 @@ select:focus {
   transform: scale(1.08);
 }
 
-/* Enhanced shimmer text — silver-blue tint */
-.shimmer-text {
-  background-image: linear-gradient(90deg,
-      #111111 0%,
-      #6e7a8a 40%,
-      #b8c4d4 50%,
-      #6e7a8a 60%,
-      #111111 100%);
-}
+/* shimmer-text: silver-blue tint override (consolidated into base definition above) */
 
 /* =========================== AURORA BACKGROUND =========================== */
 
@@ -1266,11 +1266,7 @@ select:focus {
 
 /* =========================== LAYOUT CONSISTENCY ========================== */
 
-/* Uniform glass-card inner padding across all pages */
-.glass-card {
-  padding: 2rem;
-  /* 32px — consistent p-8 equivalent */
-}
+/* glass-card padding: merged into main .glass-card definition above */
 
 /* Section headers: uniform heading + subtext + bottom spacing */
 .section-header {
@@ -1924,11 +1920,28 @@ select:focus {
   transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--color-silver-border);
+}
+
+/* Sheen sweep overlay */
+.button-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.15) 60%,
+      transparent 100%);
+  transform: translateX(-100%);
+  animation: sheen-sweep 7s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .button-glow:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--color-silver-border);
 }
 
 .button-glow:active {
@@ -2180,22 +2193,7 @@ select:focus {
   }
 }
 
-/* =========================== SHIMMER SWEEP ============================== */
-
-@keyframes shimmer-sweep {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.shimmer-text {
-  background-size: 200% auto;
-  animation: shimmer-sweep 4s linear infinite;
-}
+/* shimmer-sweep keyframes + .shimmer-text animation: consolidated into base definition above */
 
 /* =========================== COLOR PICKER ================================ */
 

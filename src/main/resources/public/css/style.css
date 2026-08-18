@@ -1133,32 +1133,28 @@ footer a:hover {
     contain: layout style;
 }
 
-/* Progressive blur/fade masks on edges */
+/* Progressive blur/fade masks on edges — removed to touch page edges */
 .platform-fade {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 120px;
+    width: 0;
     z-index: 10;
     pointer-events: none;
 }
 .platform-fade--left {
     left: 0;
-    background: linear-gradient(to right,
-        var(--fade-bg, rgba(248,249,250,1)) 0%,
-        transparent 100%);
+    background: none;
 }
 .platform-fade--right {
     right: 0;
-    background: linear-gradient(to left,
-        var(--fade-bg, rgba(248,249,250,1)) 0%,
-        transparent 100%);
+    background: none;
 }
 [data-theme="dark"] .platform-fade--left {
-    background: linear-gradient(to right, #0a0a0f 0%, transparent 100%);
+    background: none;
 }
 [data-theme="dark"] .platform-fade--right {
-    background: linear-gradient(to left, #0a0a0f 0%, transparent 100%);
+    background: none;
 }
 
 /* Scrolling track — uses CSS animation for buttery infinite scroll */
@@ -1267,7 +1263,6 @@ footer a:hover {
 @media (max-width: 640px) {
     .platform-logo { padding: 0 1.4rem; }
     .platform-svg  { width: 28px; height: 28px; }
-    .platform-fade { width: 60px; }
     .platform-track { animation-duration: 22s; }
 }
 

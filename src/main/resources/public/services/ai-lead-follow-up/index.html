@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Lead Follow-Up | Lovoson Media</title>
+  <script>
+    (function () {
+      var t = localStorage.getItem('lovoson-theme');
+      if (t === 'light') { document.documentElement.removeAttribute('data-theme'); }
+      else { document.documentElement.setAttribute('data-theme', 'dark'); }
+      var a = localStorage.getItem('lovoson-accent');
+      if (a) document.documentElement.style.setProperty('--accent-h', a);
+      var s2 = localStorage.getItem('lovoson-accent-s');
+      if (s2) document.documentElement.style.setProperty('--accent-s', s2 + '%');
+      var l = localStorage.getItem('lovoson-accent-l');
+      if (l) document.documentElement.style.setProperty('--accent-l', l + '%');
+      document.documentElement.classList.add('theme-loaded');
+    })();
+  </script>
+  <meta name="description" content="Lovoson Media's AI lead follow-up system responds to every new inquiry in under 60 seconds — automatically — so you never lose a customer to slow response times.">
+  <link rel="canonical" href="https://www.lovoson.com/services/ai-lead-follow-up/">
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+
+    #mobile-nav { max-height:0;overflow:hidden;opacity:0;transform:translateY(-10px);background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,0.4);border-bottom-left-radius:1.5rem;border-bottom-right-radius:1.5rem;transition:all 0.4s ease-in-out;position:absolute;top:100%;left:0;right:0;z-index:40; }
+    #mobile-nav.active { max-height:100vh;opacity:1;transform:translateY(0);box-shadow:0 10px 25px rgba(0,0,0,0.05);padding-bottom:2rem; }
+    .nav-dropdown { position:relative; }
+    .nav-dropdown-menu { display:none;position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);border:1px solid rgba(0,0,0,0.07);border-radius:1rem;box-shadow:0 16px 48px rgba(0,0,0,0.13);min-width:240px;padding:0.5rem;z-index:200; }
+    [data-theme="dark"] .nav-dropdown-menu { background:rgba(20,20,35,0.97);border-color:rgba(255,255,255,0.08); }
+    .nav-dropdown:hover .nav-dropdown-menu, .nav-dropdown:focus-within .nav-dropdown-menu { display:block; }
+    .nav-dropdown-menu a { display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.9rem;border-radius:0.6rem;font-size:0.83rem;font-weight:500;color:#374151;text-decoration:none;transition:background 0.15s ease;white-space:nowrap; }
+    [data-theme="dark"] .nav-dropdown-menu a { color:#d1d5db; }
+    .nav-dropdown-menu a:hover { background:rgba(0,0,0,0.05);color:#111; }
+    [data-theme="dark"] .nav-dropdown-menu a:hover { background:rgba(255,255,255,0.06);color:#fff; }
+    .nav-dropdown-menu a i { width:16px;text-align:center;font-size:0.78rem;color:hsl(var(--accent-h,217),80%,50%); }
+    .nav-dropdown-trigger { display:flex;align-items:center;gap:0.3rem;cursor:pointer; }
+    .nav-dropdown-trigger .chevron-icon { font-size:0.6rem;transition:transform 0.2s ease; }
+    .nav-dropdown:hover .nav-dropdown-trigger .chevron-icon { transform:rotate(180deg); }
+
+
+    .booking-backdrop { display:none;position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px); }
+    .booking-modal { display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9001;width:min(480px,92vw);max-height:88vh;overflow-y:auto;border-radius:1.5rem;border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.92);backdrop-filter:blur(24px);box-shadow:0 32px 80px rgba(0,0,0,0.18); }
+    [data-theme="dark"] .booking-modal { background:rgba(22,22,40,0.95); }
+    .bm-accent-bar { height:4px;border-radius:1.5rem 1.5rem 0 0;background:linear-gradient(90deg,hsl(var(--accent-h,217),80%,55%),hsl(var(--accent-h,217),70%,42%),hsl(var(--accent-h,217),80%,55%));background-size:200% 100%;animation:bm-shimmer 3s ease-in-out infinite; }
+    .bm-close { position:absolute;top:14px;right:14px;z-index:2;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;background:rgba(128,128,128,0.08);color:#6b7280;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease; }
+    .bm-header { padding:1.6rem 1.8rem 0;text-align:center; }
+    .bm-badge { display:inline-flex;align-items:center;gap:0.4rem;font-size:0.68rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:hsl(var(--accent-h,217),80%,55%);background:hsla(var(--accent-h,217),80%,55%,0.08);padding:0.35rem 0.85rem;border-radius:999px;margin-bottom:0.85rem; }
+    .bm-title { font-size:1.3rem;font-weight:800;line-height:1.3;color:#111;margin:0 0 0.5rem; }
+    [data-theme="dark"] .bm-title { color:#f3f4f6; }
+    .bm-title-accent { background:linear-gradient(135deg,hsl(var(--accent-h,217),80%,55%),hsl(var(--accent-h,217),70%,42%));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .bm-subtitle { font-size:0.82rem;color:#6b7280;line-height:1.55;margin:0 auto;max-width:380px; }
+    .bm-agitation { display:flex;justify-content:center;gap:0.5rem;padding:1rem 1.5rem 0.6rem;flex-wrap:wrap; }
+    .bm-agit-item { display:inline-flex;align-items:center;gap:0.35rem;font-size:0.72rem;font-weight:600;color:#374151;background:rgba(0,0,0,0.03);border:1px solid rgba(0,0,0,0.05);padding:0.35rem 0.7rem;border-radius:999px;white-space:nowrap; }
+    .bm-agit-item i { font-size:0.62rem;color:hsl(var(--accent-h,217),80%,50%); }
+    .bm-calendar { padding:0.5rem 1rem; }
+    .bm-calendar iframe { width:100%;border:none;overflow:hidden;min-height:520px;display:block;border-radius:0.75rem; }
+    .bm-trust { padding:0.6rem 1.5rem 1.4rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap; }
+    .bm-trust span { font-size:0.7rem;color:#9ca3af;display:inline-flex;align-items:center;gap:0.3rem;font-weight:500; }
+    @keyframes bm-shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+    /* Page Styles */
+    .svc-hero { text-align:center;padding:4rem 0 3rem; }
+    .svc-eyebrow { font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:hsl(var(--accent-h,217),80%,50%);margin-bottom:1rem; }
+    .svc-h1 { font-size:clamp(2.4rem,5.5vw,4rem);font-weight:800;line-height:1.1;color:#111; }
+    [data-theme="dark"] .svc-h1 { color:#f3f4f6; }
+    .gradient-line { background:linear-gradient(135deg,hsl(var(--accent-h,217),80%,50%),hsl(var(--accent-h,217),60%,35%));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .svc-sub { font-size:1.1rem;color:#64748b;max-width:660px;margin:1.25rem auto 0;line-height:1.7; }
+
+    .glass-section { background:rgba(255,255,255,0.6);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.45);border-radius:1.75rem;padding:3rem 2.5rem;box-shadow:0 4px 28px rgba(0,0,0,0.06); }
+    [data-theme="dark"] .glass-section { background:rgba(22,22,40,0.65);border-color:rgba(255,255,255,0.06); }
+
+    .feature-card { background:rgba(255,255,255,0.75);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.45);border-radius:1.25rem;padding:1.75rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);transition:transform 0.2s ease,box-shadow 0.2s ease; }
+    .feature-card:hover { transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.1); }
+    [data-theme="dark"] .feature-card { background:rgba(28,28,50,0.7);border-color:rgba(255,255,255,0.06); }
+    .feature-icon { width:44px;height:44px;border-radius:0.75rem;background:hsla(var(--accent-h,217),80%,55%,0.1);display:flex;align-items:center;justify-content:center;margin-bottom:1rem; }
+    .feature-icon i { font-size:1.1rem;color:hsl(var(--accent-h,217),80%,50%); }
+
+    .step-row { display:flex;gap:1.25rem;align-items:flex-start;padding:1.5rem;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.4);border-radius:1rem;backdrop-filter:blur(10px);transition:transform 0.2s ease; }
+    .step-row:hover { transform:translateX(4px); }
+    [data-theme="dark"] .step-row { background:rgba(28,28,50,0.6);border-color:rgba(255,255,255,0.06); }
+    .step-num-badge { width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,hsl(var(--accent-h,217),80%,55%),hsl(var(--accent-h,217),70%,42%));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0; }
+
+    .cta-dark { background:linear-gradient(135deg,#0f0f1a 0%,hsl(var(--accent-h,217),60%,16%) 100%);border-radius:2rem;padding:4rem 2rem;text-align:center; }
+    .problem-box { border-left:4px solid hsl(var(--accent-h,217),80%,50%);padding-left:1.25rem; }
+  </style>
+</head>
+<body class="bg-gradient-to-tr from-white via-gray-200 to-gray-300 text-slate-800 font-sans antialiased pt-20">
+
+  <!-- HEADER -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
+    <div class="nav-pill mx-auto flex justify-between items-center px-6 py-2.5 max-w-6xl relative z-50">
+      <a href="/" class="logo-svg-wrap" id="logo-link">
+        <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg" alt="Lovoson" />
+        <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/our-work/" class="nav-link">Our Work</a>
+        <div class="nav-dropdown">
+          <span class="nav-link nav-dropdown-trigger">Services <i class="fa-solid fa-chevron-down chevron-icon"></i></span>
+          <div class="nav-dropdown-menu">
+            <a href="/services/high-converting-website/"><i class="fa-solid fa-laptop-code"></i>High-Converting Website</a>
+            <a href="/services/ai-lead-follow-up/"><i class="fa-solid fa-robot"></i>AI Lead Follow-Up</a>
+            <a href="/services/missed-call-text-back/"><i class="fa-solid fa-phone-slash"></i>Missed Call Text-Back</a>
+            <a href="/services/google-review-automation/"><i class="fa-solid fa-star"></i>Google Review Automation</a>
+            <a href="/services/appointment-reminders/"><i class="fa-solid fa-calendar-check"></i>Appointment Reminders</a>
+            <a href="/services/monthly-performance-reports/"><i class="fa-solid fa-chart-bar"></i>Monthly Performance Reports</a>
+          </div>
+        </div>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <div class="color-picker-wrap" id="color-picker-wrap">
+          <button id="color-picker-btn" aria-label="Change accent color"><i class="fa-solid fa-palette"></i></button>
+          <div class="color-picker-popover" id="color-picker-popover">
+            <button data-accent-h="217" class="color-dot is-active" style="background:#3b82f6" title="Blue"></button>
+            <button data-accent-h="270" class="color-dot" style="background:#8b5cf6" title="Purple"></button>
+            <button data-accent-h="4" class="color-dot" style="background:#ef4444" title="Red"></button>
+            <button data-accent-h="160" class="color-dot" style="background:#10b981" title="Emerald"></button>
+            <button data-accent-h="30" class="color-dot" style="background:#f97316" title="Orange"></button>
+            <button data-accent-h="210" class="color-dot" data-accent-mode="white" style="background:#475569;" title="Slate"></button>
+          </div>
+        </div>
+        <button id="theme-toggle-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <button class="btn-offer" id="book-cta-btn"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+        <a href="/about/" class="button-glow font-semibold py-2 px-5 text-sm rounded-full">Get Started</a>
+      </div>
+      <button id="nav-toggle" class="md:hidden text-2xl nav-toggle-icon focus:outline-none p-2"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <nav id="mobile-nav" class="md:hidden text-center px-8">
+      <div class="flex flex-col space-y-5 py-6">
+        <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
+        <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
+        <a href="/our-work/" class="text-lg font-medium mobile-nav-link hover:underline">Our Work</a>
+        <details class="text-left">
+          <summary class="text-lg font-medium mobile-nav-link cursor-pointer list-none flex items-center justify-center gap-2">Services <i class="fa-solid fa-chevron-down text-xs"></i></summary>
+          <div class="mt-3 flex flex-col space-y-3 pl-4 text-base">
+            <a href="/services/high-converting-website/" class="mobile-nav-link hover:underline">High-Converting Website</a>
+            <a href="/services/ai-lead-follow-up/" class="mobile-nav-link hover:underline">AI Lead Follow-Up</a>
+            <a href="/services/missed-call-text-back/" class="mobile-nav-link hover:underline">Missed Call Text-Back</a>
+            <a href="/services/google-review-automation/" class="mobile-nav-link hover:underline">Google Review Automation</a>
+            <a href="/services/appointment-reminders/" class="mobile-nav-link hover:underline">Appointment Reminders</a>
+            <a href="/services/monthly-performance-reports/" class="mobile-nav-link hover:underline">Monthly Performance Reports</a>
+          </div>
+        </details>
+        <button class="btn-offer mx-auto" id="book-cta-btn-mob"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
+        <a href="/about/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get Started</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 md:px-12">
+    <!-- HERO -->
+    <section class="svc-hero">
+      <p class="svc-eyebrow">Service 02 — AI Automation</p>
+      <h1 class="svc-h1">Every Lead Followed Up<br>In Under 60 Seconds</h1>
+      <p class="svc-sub">The fastest response wins the customer. Our AI system responds to every new inquiry instantly — text, email, and follow-up sequences — so you never lose a lead while you're on the job.</p>
+      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="btn-offer" id="book-cta-hero" style="font-size:1.05rem;padding:0.9rem 2rem;">
+          <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book a Free Strategy Call</span>
+        </button>
+        <a href="/our-work/" class="button-outline font-semibold py-4 px-8 text-base rounded-xl inline-block">See Our Work &rarr;</a>
+      </div>
+    </section>
+
+    <!-- PROBLEM + SOLUTION -->
+    <section class="py-12">
+      <div class="glass-section max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-10">
+          <div>
+            <p class="svc-eyebrow mb-3">The Problem</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-black mb-4">Speed Wins. Slow Response Loses.</h2>
+            <p class="text-slate-700 leading-relaxed problem-box">Studies show 78% of customers go with the first business that responds. When you're on a job site or with a client, you can't always answer. Every missed or delayed reply is a potential customer walking to your competitor.</p>
+          </div>
+          <div>
+            <p class="svc-eyebrow mb-3">Our Solution</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-black mb-4">AI That Responds While You Work</h2>
+            <p class="text-slate-700 leading-relaxed">Our system sends a personalized text and email to every new lead within 60 seconds of them reaching out — whether through your website form, a missed call, or an ad click. Then it follows up over 7 days until they book or opt out.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="py-12">
+      <div class="text-center mb-10">
+        <p class="svc-eyebrow">What's Included</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-black">Everything You Get</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">60-Second Response</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Every new lead gets an instant, personalized text message. Before you even know they reached out.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-envelope"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">Multi-Channel Follow-Up</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Text + email sequences that nurture leads over days — not just a one-time message.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-calendar-check"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">Appointment Booking Built In</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">The AI moves leads through to booking directly — no back and forth needed.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">Smart Conversation AI</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Two-way SMS conversations handled by AI, escalated to you only when ready to close.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">Lead Tracking Dashboard</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">See every lead, every message, and every booking in one clean dashboard.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><i class="fa-solid fa-gear"></i></div>
+          <h3 class="text-lg font-semibold text-black mb-2">Set It and Forget It</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Once live, it runs 24/7 without you touching it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="py-12">
+      <div class="text-center mb-10">
+        <p class="svc-eyebrow">The Process</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-black">How It Works</h2>
+      </div>
+      <div class="flex flex-col gap-4 max-w-3xl mx-auto">
+        <div class="step-row">
+          <div class="step-num-badge">1</div>
+          <div>
+            <h4 class="text-lg font-semibold text-black mb-1">Connect Your Lead Sources</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">We integrate your website form, Google Ads, Facebook Ads, and phone number into one system.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-badge">2</div>
+          <div>
+            <h4 class="text-lg font-semibold text-black mb-1">Build Your Sequences</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">We write your follow-up messages — matched to your voice and business — and load them in.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-badge">3</div>
+          <div>
+            <h4 class="text-lg font-semibold text-black mb-1">Go Live</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">System activates. Every new lead gets a response in under 60 seconds from this point forward.</p>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-badge">4</div>
+          <div>
+            <h4 class="text-lg font-semibold text-black mb-1">Monitor & Optimize</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">We track open rates, response rates, and bookings, then optimize sequences monthly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-dark my-16">
+      <p class="svc-eyebrow mb-3">Stop Losing Leads to Slow Response</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Book Your Free Strategy Call</h2>
+      <p class="text-gray-300 text-lg mb-8 max-w-xl mx-auto">15 minutes. We'll pull up your business online, show you what's costing you leads, and tell you exactly how we'd fix it. No pressure, no pitch.</p>
+      <button class="btn-offer" id="book-cta-bottom" style="font-size:1.05rem;padding:0.9rem 2rem;">
+        <i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Book a Free Call &rarr;</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 text-slate-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-8 py-12 grid md:grid-cols-3 gap-10 items-start">
+      <div class="pt-1">
+        <div class="flex items-center space-x-2 mb-3">
+          <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg" alt="Logo" class="h-10 w-10 object-contain" />
+          <h3 class="text-2xl font-bold text-black">Lovoson Media</h3>
+        </div>
+        <p class="text-sm text-slate-700">We build the website, the follow-up, and the automation so service businesses never lose another customer.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Services</h3>
+        <p class="text-sm text-slate-700"><a href="/services/high-converting-website/" class="hover:underline">High-Converting Websites</a></p>
+        <p class="text-sm text-slate-700"><a href="/services/ai-lead-follow-up/" class="hover:underline">AI Lead Follow-Up Systems</a></p>
+        <p class="text-sm text-slate-700"><a href="/services/missed-call-text-back/" class="hover:underline">Missed Call Text-Back</a></p>
+        <p class="text-sm text-slate-700"><a href="/services/google-review-automation/" class="hover:underline">Google Review Automation</a></p>
+        <p class="text-sm text-slate-700"><a href="/services/monthly-performance-reports/" class="hover:underline">Monthly Performance Reports</a></p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-black mb-3">Connect</h3>
+        <p class="text-sm text-slate-700">Email: contact@lovoson.com</p>
+        <p class="text-sm text-slate-700 mb-4">Phone: (818) 825-7468</p>
+        <div class="flex space-x-5 text-2xl text-slate-700">
+          <a href="mailto:contact@lovoson.com" class="hover:text-black transition"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://www.instagram.com/lovosonmedia" target="_blank" class="hover:text-black transition"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center text-slate-500 text-sm py-6 border-t divider-silver flex flex-col md:flex-row justify-between items-center px-8">
+      <p>&copy; <span id="year">2025</span> Lovoson Media. All Rights Reserved.</p>
+      <a href="/terms/" class="hover:text-black transition-colors mt-2 md:mt-0">Terms of Service</a>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL -->
+  <div id="booking-backdrop" class="booking-backdrop"></div>
+  <div id="booking-modal" class="booking-modal">
+    <div class="bm-accent-bar"></div>
+    <button id="booking-modal-close" class="bm-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="bm-header">
+      <div class="bm-badge"><i class="fa-solid fa-phone"></i> Free Strategy Call &middot; 15 Min</div>
+      <h2 class="bm-title">Your Website Is Losing You Leads.<br><span class="bm-title-accent">Let Us Show You Where.</span></h2>
+      <p class="bm-subtitle">We'll pull up your site live and show you exactly what's costing you customers. No pitch. No obligation.</p>
+    </div>
+    <div class="bm-agitation">
+      <div class="bm-agit-item"><i class="fa-solid fa-magnifying-glass-chart"></i><span>Live site audit</span></div>
+      <div class="bm-agit-item"><i class="fa-solid fa-bolt"></i><span>Clear action plan</span></div>
+      <div class="bm-agit-item"><i class="fa-solid fa-hand-holding-dollar"></i><span>100% free</span></div>
+    </div>
+    <div class="bm-calendar">
+      <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM" id="booking-cal-iframe" scrolling="no" title="Book a Strategy Call"></iframe>
+    </div>
+    <div class="bm-trust">
+      <span><i class="fa-solid fa-lock"></i> No spam, ever</span>
+      <span><i class="fa-solid fa-clock"></i> Confirms instantly</span>
+      <span><i class="fa-solid fa-calendar-xmark"></i> Cancel anytime</span>
+    </div>
+  </div>
+
+  <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+  <script>
+    (function() {
+      var backdrop = document.getElementById('booking-backdrop');
+      var modal = document.getElementById('booking-modal');
+      var closeBtn = document.getElementById('booking-modal-close');
+      function openModal() { backdrop.style.display='block'; modal.style.display='block'; document.body.style.overflow='hidden'; }
+      function closeModal() { backdrop.style.display='none'; modal.style.display='none'; document.body.style.overflow=''; }
+      ['book-cta-btn','book-cta-btn-mob','book-cta-hero','book-cta-bottom'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.addEventListener('click', openModal);
+      });
+      if (closeBtn) closeBtn.addEventListener('click', closeModal);
+      if (backdrop) backdrop.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function(e) { if (e.key==='Escape') closeModal(); });
+    })();
+  </script>
+  <script src="/js/script.js"></script>
+</body>
+</html>

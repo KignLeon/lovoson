@@ -82,7 +82,58 @@
       padding-bottom: 2rem;
     }
 
-    @media (max-width:768px) {
+    /* ── SERVICES DROPDOWN ────────────────────────── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 1rem;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.13);
+      min-width: 240px;
+      padding: 0.5rem;
+      z-index: 200;
+    }
+    [data-theme="dark"] .nav-dropdown-menu {
+      background: rgba(20,20,35,0.97);
+      border-color: rgba(255,255,255,0.08);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    }
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu { display: block; }
+    .nav-dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 0.6rem;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #374151;
+      text-decoration: none;
+      transition: background 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+    [data-theme="dark"] .nav-dropdown-menu a { color: #d1d5db; }
+    .nav-dropdown-menu a:hover { background: rgba(0,0,0,0.05); color: #111; }
+    [data-theme="dark"] .nav-dropdown-menu a:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .nav-dropdown-menu a i { width: 16px; text-align: center; font-size: 0.78rem; color: hsl(var(--accent-h,217),80%,50%); }
+    .nav-dropdown-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+    .nav-dropdown-trigger .chevron-icon {
+      font-size: 0.6rem;
+      transition: transform 0.2s ease;
+    }
+    .nav-dropdown:hover .nav-dropdown-trigger .chevron-icon { transform: rotate(180deg); }
       h1 { font-size: 2.3rem !important; line-height: 1.3; }
       h2 { font-size: 1.8rem !important; line-height: 1.35; }
       h3 { font-size: 1.3rem; }
@@ -166,6 +217,20 @@
             <nav class="hidden md:flex items-center space-x-6">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/about/" class="nav-link active">About</a>
+                <a href="/our-work/" class="nav-link">Our Work</a>
+                <div class="nav-dropdown">
+                  <span class="nav-link nav-dropdown-trigger">
+                    Services <i class="fa-solid fa-chevron-down chevron-icon"></i>
+                  </span>
+                  <div class="nav-dropdown-menu">
+                    <a href="/services/high-converting-website/"><i class="fa-solid fa-laptop-code"></i>High-Converting Website</a>
+                    <a href="/services/ai-lead-follow-up/"><i class="fa-solid fa-robot"></i>AI Lead Follow-Up</a>
+                    <a href="/services/missed-call-text-back/"><i class="fa-solid fa-phone-slash"></i>Missed Call Text-Back</a>
+                    <a href="/services/google-review-automation/"><i class="fa-solid fa-star"></i>Google Review Automation</a>
+                    <a href="/services/appointment-reminders/"><i class="fa-solid fa-calendar-check"></i>Appointment Reminders</a>
+                    <a href="/services/monthly-performance-reports/"><i class="fa-solid fa-chart-bar"></i>Monthly Performance Reports</a>
+                  </div>
+                </div>
             </nav>
 
             <!-- DESKTOP ACTIONS -->
@@ -196,7 +261,18 @@
             <div class="flex flex-col space-y-5 py-6">
                 <a href="/" class="text-lg font-medium mobile-nav-link hover:underline">Home</a>
                 <a href="/about/" class="text-lg font-medium mobile-nav-link hover:underline">About</a>
-
+                <a href="/our-work/" class="text-lg font-medium mobile-nav-link hover:underline">Our Work</a>
+                <details class="text-left">
+                  <summary class="text-lg font-medium mobile-nav-link cursor-pointer list-none flex items-center justify-center gap-2">Services <i class="fa-solid fa-chevron-down text-xs"></i></summary>
+                  <div class="mt-3 flex flex-col space-y-3 pl-4 text-base">
+                    <a href="/services/high-converting-website/" class="mobile-nav-link hover:underline">High-Converting Website</a>
+                    <a href="/services/ai-lead-follow-up/" class="mobile-nav-link hover:underline">AI Lead Follow-Up</a>
+                    <a href="/services/missed-call-text-back/" class="mobile-nav-link hover:underline">Missed Call Text-Back</a>
+                    <a href="/services/google-review-automation/" class="mobile-nav-link hover:underline">Google Review Automation</a>
+                    <a href="/services/appointment-reminders/" class="mobile-nav-link hover:underline">Appointment Reminders</a>
+                    <a href="/services/monthly-performance-reports/" class="mobile-nav-link hover:underline">Monthly Performance Reports</a>
+                  </div>
+                </details>
 
                 <button class="btn-offer mx-auto" id="book-cta-btn-mob"><i class="fa-solid fa-phone"></i> <span class="btn-offer-label">Free Strategy Call</span></button>
                 <a href="/about/" class="button-glow py-3 rounded-full text-base font-semibold inline-block mx-auto w-3/4">Get Started</a>
@@ -207,30 +283,18 @@
     <main class="max-w-7xl mx-auto px-8 md:px-12">
 
         <!-- ===== SECTION 1: HERO ===== -->
-        <section class="text-center py-12 md:py-20 reveal" id="vsl-hero">
+        <section class="text-center py-6 md:py-10 reveal" id="vsl-hero">
             <div class="max-w-5xl mx-auto">
             <h1 class="vsl-hero-headline">
                 Your Website Is Losing You Leads.<br>
                 <span class="gradient-line">Let Us Show You Where.</span>
             </h1>
-            <p class="mt-6 text-lg md:text-xl text-slate-700 max-w-2xl mx-auto leading-relaxed">
-                We build websites that get contractors more clients, more google reviews, and spend less time on their phones.
-            </p>
-            <div class="mt-10 flex flex-row gap-4 justify-center flex-wrap vsl-hero-ctas">
-                <button class="vsl-cta-primary" data-cta-label onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">
-                    <i class="fa-solid fa-calendar-days"></i> Free Strategy Call
-                </button>
-                <a href="#video" class="vsl-cta-ghost">
-                    <i class="fa-solid fa-play"></i> Watch First (3 min)
-                </a>
-            </div>
             </div>
         </section>
 
         <!-- ===== SECTION 2: VSL VIDEO ===== -->
-        <section class="py-8 md:py-12 reveal" id="video">
-            <p class="text-center vsl-section-label mb-6">WATCH BEFORE YOU BOOK · ~2 MIN</p>
-            <div class="max-w-5xl mx-auto">
+        <section class="pt-0 pb-4 md:pt-0 md:pb-6 reveal" id="video">
+            <div class="max-w-3xl mx-auto">
                 <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio:unset;background:transparent;">
 
                     <!-- Wistia Inline Responsive Embed -->
@@ -252,6 +316,18 @@
                     </style>
                     <wistia-player media-id="202if6v81m" aspect="1.7777777777777777"></wistia-player>
 
+                </div>
+                <!-- Subheadline + CTA moved under the video -->
+                <p class="mt-6 text-base md:text-lg text-slate-600 text-center max-w-2xl mx-auto leading-relaxed">
+                    We help contractors book more jobs, get more leads & earn more 5-star reviews without you lifting a finger.
+                </p>
+                <div class="mt-5 flex flex-row gap-4 justify-center flex-wrap vsl-hero-ctas">
+                    <button class="vsl-cta-primary" data-cta-label onclick="document.getElementById('book').scrollIntoView({behavior:'smooth'})">
+                        <i class="fa-solid fa-calendar-days"></i> Free Strategy Call
+                    </button>
+                    <a href="#video" class="vsl-cta-ghost">
+                        <i class="fa-solid fa-play"></i> Watch First (2 min)
+                    </a>
                 </div>
             </div>
         </section>
@@ -380,70 +456,6 @@
                             <div class="step-num">Step 5</div>
                             <h4>Follow-up runs for days automatically</h4>
                             <p>Reminders, nurture, and review requests.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== 7. FAQ (objections handled BEFORE the CTA) ===== -->
-        <section class="py-12 md:py-16 reveal">
-            <div class="text-center mb-10">
-                <p class="vsl-section-label">COMMON QUESTIONS</p>
-            </div>
-            <div class="max-w-5xl mx-auto">
-                <div class="vsl-faq-item">
-                    <button class="vsl-faq-question" aria-expanded="false">
-                        <h4>Is this really free?</h4>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </button>
-                    <div class="vsl-faq-answer">
-                        <div class="vsl-faq-answer-inner">
-                            <p>Yes. No credit card, no hidden fees, no obligation. I do a handful of these each week because they're the best way for me to show you what I do. If we're a fit, I'll tell you. If not, you still leave with a clear plan.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="vsl-faq-item">
-                    <button class="vsl-faq-question" aria-expanded="false">
-                        <h4>How long is the call?</h4>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </button>
-                    <div class="vsl-faq-answer">
-                        <div class="vsl-faq-answer-inner">
-                            <p>15 minutes. I respect your time. We get on, I share my screen, pull up your site, and walk through what I'm seeing. No fluff.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="vsl-faq-item">
-                    <button class="vsl-faq-question" aria-expanded="false">
-                        <h4>Will I be pressured to buy something?</h4>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </button>
-                    <div class="vsl-faq-answer">
-                        <div class="vsl-faq-answer-inner">
-                            <p>No. I don't do high-pressure closes. If what I see on your site is something we can fix, I'll explain what that looks like. If it's not a fit, I'll tell you that too.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="vsl-faq-item">
-                    <button class="vsl-faq-question" aria-expanded="false">
-                        <h4>What if I already have a website?</h4>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </button>
-                    <div class="vsl-faq-answer">
-                        <div class="vsl-faq-answer-inner">
-                            <p>Perfect. That's actually the best starting point. Most of the businesses I work with already have a site. The issue is usually what's happening (or not happening) behind it: slow follow-up, no automation, leads falling through the cracks.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="vsl-faq-item">
-                    <button class="vsl-faq-question" aria-expanded="false">
-                        <h4>What makes Lovoson different from other agencies?</h4>
-                        <i class="fa-solid fa-chevron-down chevron"></i>
-                    </button>
-                    <div class="vsl-faq-answer">
-                        <div class="vsl-faq-answer-inner">
-                            <p>We don't just design a website and hand it over. We build the automation system around it: AI follow-up, missed call text-back, review automation, appointment reminders. So every lead that comes in actually turns into a customer. The website is just the front door.</p>
                         </div>
                     </div>
                 </div>

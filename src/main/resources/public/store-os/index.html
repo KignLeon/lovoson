@@ -180,18 +180,19 @@
     }
     .Polaris-Card--proof .pc-footer i { font-size: 12px; color: #8c9196; }
 
-    /* Green Gradient Hue Shift Definition */
+    /* Dynamic Gradient Hue Shift Definition linked to Color Picker */
     .gradient-line {
       font-style: italic;
       background: linear-gradient(135deg,
-          #008060 0%,
-          #10b981 50%,
-          #059669 100%);
+          hsl(var(--accent-h), var(--accent-s), var(--accent-l)) 0%,
+          hsl(calc(var(--accent-h) + 43), calc(var(--accent-s) - 10%), calc(var(--accent-l) + 10%)) 50%,
+          hsl(var(--accent-h), var(--accent-s), var(--accent-l)) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       background-size: 200% auto;
       animation: gradient-shift 6s ease-in-out infinite;
+      transition: background 0.4s ease;
       display: inline-block;
       padding-right: 0.22em;
       padding-bottom: 0.12em;

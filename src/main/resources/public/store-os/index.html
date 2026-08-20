@@ -50,20 +50,21 @@
 
     /* ---- SHOPIFY POLARIS PROOF CARD ---- */
     .Polaris-Card--proof {
-      max-width: 1120px;
+      max-width: 100%;
       margin: 0 auto;
       background: #ffffff;
       border: 1px solid #e1e3e5;
-      border-radius: 8px;
-      box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
       overflow: hidden;
       color: #202223;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     .Polaris-Card--proof .pc-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border-bottom: 1px solid #e1e3e5;
+      background: #fafbfb;
     }
     .Polaris-Card--proof .pc-header-left {
       display: flex; align-items: center; gap: 8px;
@@ -71,7 +72,7 @@
     .Polaris-Card--proof .pc-header-left .shopify-icon { color: #95bf47; font-size: 18px; }
     .Polaris-Card--proof .pc-header-title { font-size: 13px; font-weight: 600; color: #202223; }
     .Polaris-Card--proof .pc-header-right {
-      display: flex; align-items: center; gap: 12px;
+      display: flex; align-items: center; gap: 10px;
       font-size: 12px; font-weight: 500; color: #6d7175;
     }
     .Polaris-Card--proof .pc-live {
@@ -85,11 +86,12 @@
       display: grid; grid-template-columns: 1fr 1fr; position: relative;
     }
     .Polaris-Card--proof .pc-col {
-      padding: 16px 20px;
-      display: flex; flex-direction: column; gap: 12px;
+      padding: 20px 24px;
+      display: flex; flex-direction: column; gap: 14px;
     }
     .Polaris-Card--proof .pc-col--before {
       border-right: 1px solid #e1e3e5;
+      background: #ffffff;
     }
     .Polaris-Card--proof .pc-period-row {
       display: flex; align-items: center; justify-content: space-between;
@@ -115,24 +117,24 @@
       display: flex; align-items: baseline; gap: 8px;
     }
     .Polaris-Card--proof .pc-metric-val {
-      font-size: 26px; font-weight: 600; color: #202223;
+      font-size: 28px; font-weight: 700; color: #202223;
       letter-spacing: -0.02em; line-height: 1.15;
       font-variant-numeric: tabular-nums;
     }
     .Polaris-Card--proof .pc-change {
       display: inline-flex; align-items: center; gap: 3px;
-      font-size: 12px; font-weight: 600; padding: 2px 6px;
+      font-size: 12px; font-weight: 600; padding: 2px 8px;
       border-radius: 9999px; color: #008060; background: #e4f5ee;
     }
     .Polaris-Card--proof .pc-change i { font-size: 9px; }
-    .Polaris-Card--proof .pc-spark { height: 36px; width: 100%; }
+    .Polaris-Card--proof .pc-spark { height: 40px; width: 100%; }
     .Polaris-Card--proof .pc-spark svg { width: 100%; height: 100%; display: block; }
     .Polaris-Card--proof .pc-spark-flat {
       fill: none; stroke: #c9cccf; stroke-width: 1.5;
       stroke-linecap: round; stroke-linejoin: round;
     }
     .Polaris-Card--proof .pc-spark-up {
-      fill: none; stroke: #008060; stroke-width: 2;
+      fill: none; stroke: #008060; stroke-width: 2.2;
       stroke-linecap: round; stroke-linejoin: round;
       stroke-dasharray: 500; stroke-dashoffset: 500;
       transition: stroke-dashoffset 1.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -144,19 +146,19 @@
     .Polaris-Card--proof.is-revealed .pc-spark-up { stroke-dashoffset: 0; }
     .Polaris-Card--proof.is-revealed .pc-spark-area { opacity: 1; }
     .Polaris-Card--proof .pc-subs {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
       padding-top: 12px; border-top: 1px solid #e1e3e5;
     }
     .Polaris-Card--proof .pc-sub-label {
-      font-size: 12px; font-weight: 500; color: #6d7175; margin-bottom: 2px;
+      font-size: 11px; font-weight: 500; color: #6d7175; margin-bottom: 2px;
     }
     .Polaris-Card--proof .pc-sub-val {
       font-size: 14px; font-weight: 600; color: #202223;
-      display: flex; align-items: center; gap: 6px;
+      display: flex; align-items: center; gap: 4px;
       font-variant-numeric: tabular-nums;
     }
     .Polaris-Card--proof .pc-sub-change {
-      font-size: 11px; font-weight: 600; color: #008060;
+      font-size: 10px; font-weight: 600; color: #008060;
     }
     .Polaris-Card--proof .pc-center-pill {
       position: absolute; top: 50%; left: 50%;
@@ -170,36 +172,75 @@
     }
     .Polaris-Card--proof .pc-center-pill i { font-size: 10px; }
     .Polaris-Card--proof .pc-footer {
-      padding: 8px 20px;
+      padding: 10px 20px;
       border-top: 1px solid #e1e3e5;
       font-size: 11px; font-weight: 400; color: #8c9196;
       display: flex; align-items: center; gap: 8px;
+      background: #fafbfb;
     }
     .Polaris-Card--proof .pc-footer i { font-size: 12px; color: #8c9196; }
 
-    /* Mobile Minimal Eye-Candy Mode for Polaris Proof Card */
+    /* Green Gradient Hue Shift Definition */
+    .gradient-line {
+      font-style: italic;
+      background: linear-gradient(135deg,
+          #008060 0%,
+          #10b981 50%,
+          #059669 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradient-shift 6s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Mobile Quarter Switcher Slider for Polaris Card */
     @media (max-width: 680px) {
-      .Polaris-Card--proof { border-radius: 8px; }
-      .Polaris-Card--proof .pc-header { padding: 8px 12px; }
-      .Polaris-Card--proof .pc-header-left .shopify-icon { font-size: 15px; }
-      .Polaris-Card--proof .pc-header-title { font-size: 11px; }
-      .Polaris-Card--proof .pc-header-right { font-size: 10px; gap: 6px; }
-      .Polaris-Card--proof .pc-grid { grid-template-columns: 1fr 1fr !important; }
-      .Polaris-Card--proof .pc-col { padding: 8px 10px; gap: 4px; }
-      .Polaris-Card--proof .pc-col--before { border-right: 1px solid #e1e3e5 !important; border-bottom: none !important; }
-      .Polaris-Card--proof .pc-period-label { font-size: 10px; }
-      .Polaris-Card--proof .pc-badge { font-size: 9px; padding: 1px 5px; }
-      .Polaris-Card--proof .pc-metric-label { font-size: 10px; margin-bottom: 2px; }
-      .Polaris-Card--proof .pc-metric-val { font-size: 16px; font-weight: 700; }
-      .Polaris-Card--proof .pc-change { font-size: 9px; padding: 1px 4px; gap: 2px; }
-      .Polaris-Card--proof .pc-spark { height: 24px; }
-      .Polaris-Card--proof .pc-subs { display: none !important; }
-      .Polaris-Card--proof .pc-footer { display: none !important; }
+      .Polaris-Card--proof .pc-header { padding: 10px 14px; }
+      .Polaris-Card--proof .pc-grid {
+        display: block;
+        position: relative;
+      }
+      .Polaris-Card--proof .pc-col {
+        display: none;
+        padding: 16px 16px;
+        gap: 12px;
+      }
+      .Polaris-Card--proof .pc-col.active-slide {
+        display: flex;
+        animation: slideInFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .Polaris-Card--proof .pc-col--before {
+        border-right: none;
+      }
+      .Polaris-Card--proof .pc-metric-val {
+        font-size: 24px;
+      }
+      .Polaris-Card--proof .pc-spark {
+        height: 34px;
+      }
+      .Polaris-Card--proof .pc-subs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .Polaris-Card--proof .pc-sub-label {
+        font-size: 10px;
+      }
+      .Polaris-Card--proof .pc-sub-val {
+        font-size: 12px;
+      }
       .Polaris-Card--proof .pc-center-pill {
-        display: inline-flex !important;
-        font-size: 9px;
-        padding: 2px 6px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+        display: none;
+      }
+      @keyframes slideInFade {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     }
 
@@ -462,7 +503,7 @@
   <!-- End Pixel Router -->
 </head>
 
-<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-16 md:pt-20">
+<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24 sm:pt-28 md:pt-32">
 
     <!-- HEADER — Shorter pill, no page links, logo + CTA only -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
@@ -507,9 +548,9 @@
     <main class="max-w-7xl mx-auto px-4 md:px-12">
 
         <!-- ===== SECTION 1: HERO ===== -->
-        <section class="text-center pt-2 pb-1 md:pt-4 md:pb-2 reveal" id="vsl-hero">
+        <section class="text-center pt-2 pb-2 md:pt-4 md:pb-4 reveal" id="vsl-hero">
             <div class="max-w-5xl mx-auto px-4">
-                <h1 class="vsl-hero-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight" style="line-height: 1.15;">
+                <h1 class="vsl-hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight" style="line-height: 1.15;">
                     We Handle All the Backend BS.<br>
                     <span class="gradient-line">So You Can Actually Scale.</span>
                 </h1>
@@ -517,37 +558,23 @@
         </section>
 
         <!-- ===== SECTION 2: VSL VIDEO ===== -->
-        <section class="pt-1 pb-4 md:pt-2 md:pb-6 reveal" id="video">
-            <div class="mx-auto" style="width: 100%; max-width: min(52rem, calc((100vh - 310px) * 1.777));">
-                <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio: 16/9; max-height: min(40vh, 440px); width: 100%; margin: 0 auto; background: transparent;">
+        <section class="pt-2 pb-6 md:pt-4 md:pb-8 reveal" id="video">
+            <div class="mx-auto w-full max-w-2xl lg:max-w-3xl px-2">
+                <div class="vsl-video-wrap shadow-xl rounded-2xl overflow-hidden" id="vsl-video-wrap" style="aspect-ratio: 16/9; width: 100%; background: #000;">
 
                     <!-- Wistia Inline Responsive Embed — Replace media-id with your ecom VSL -->
                     <script src="https://fast.wistia.com/player.js" async></script>
                     <script src="https://fast.wistia.com/embed/202if6v81m.js" async type="module"></script>
-                    <style>
-                        wistia-player[media-id='202if6v81m']:not(:defined) {
-                            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/202if6v81m/swatch');
-                            display: block;
-                            filter: blur(5px);
-                            padding-top: 56.25%;
-                        }
-                        wistia-player[media-id='202if6v81m'] {
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-                            border-radius: 0.875rem;
-                            overflow: hidden;
-                        }
-                    </style>
-                    <wistia-player media-id="202if6v81m" aspect="1.7777777777777777" style="height: 100%;"></wistia-player>
+                    <wistia-player media-id="202if6v81m" aspect="1.7777777777777777" style="width: 100%; height: 100%; display: block;"></wistia-player>
 
                 </div>
+                
                 <!-- Subheadline + CTA moved under the video -->
-                <p class="mt-2 md:mt-3 text-xs sm:text-sm md:text-base text-slate-600 text-center max-w-2xl mx-auto leading-normal px-4">
+                <p class="mt-4 text-sm sm:text-base md:text-lg text-slate-600 text-center max-w-2xl mx-auto leading-relaxed px-4">
                     We take over products, broken checkouts, tech headaches, and page updates while constantly optimizing your store so your conversion rate keeps climbing.
                 </p>
-                <div class="mt-2.5 md:mt-3.5 text-center">
-                    <button class="vsl-cta-primary text-xs sm:text-sm md:text-base py-2.5 px-6 sm:py-3 sm:px-8 font-bold" id="unlock-vsl-btn" onclick="const wp = document.querySelector('wistia-player'); if(wp) { wp.play(); if (wp.requestFullscreen) { wp.requestFullscreen(); } else if (wp.webkitRequestFullscreen) { wp.webkitRequestFullscreen(); } }">
+                <div class="mt-4 text-center">
+                    <button class="vsl-cta-primary text-sm sm:text-base md:text-lg py-3 px-8 md:py-3.5 md:px-10 font-bold shadow-lg" id="unlock-vsl-btn" onclick="const wp = document.querySelector('wistia-player'); if(wp) { wp.play(); if (wp.requestFullscreen) { wp.requestFullscreen(); } else if (wp.webkitRequestFullscreen) { wp.webkitRequestFullscreen(); } }">
                         <i class="fa-solid fa-play"></i> Click To See How It Works
                     </button>
                 </div>
@@ -556,13 +583,14 @@
 
         <!-- ===== SECTION 3: SHOPIFY POLARIS PROOF CARD ===== -->
         <section class="py-8 md:py-14 reveal" id="shopify-proof-section">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="text-center mb-5 md:mb-8">
-                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            <div class="max-w-2xl lg:max-w-3xl mx-auto px-2">
+                <div class="text-center mb-6 md:mb-8">
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                         We took a client from<br>
                         <span class="gradient-line">$25K to $240K in under 90 Days</span>
                     </h2>
                 </div>
+
                 <div class="Polaris-Card--proof" id="shopify-proof-card">
                     <div class="pc-header">
                         <div class="pc-header-left">
@@ -575,12 +603,24 @@
                             <span><strong>Client on Lovoson StoreOS™</strong></span>
                         </div>
                     </div>
+
+                    <!-- Mobile Quarter Switcher Tabs -->
+                    <div class="pc-mobile-toggle flex p-1 bg-slate-100 rounded-lg mx-3 my-2 border border-slate-200 gap-1 md:hidden">
+                        <button type="button" id="tab-q4" class="pc-tab-btn flex-1 py-2 px-3 text-xs font-semibold rounded-md transition-all text-slate-600" onclick="switchQuarter('q4')">
+                            Q4 2025 (Before)
+                        </button>
+                        <button type="button" id="tab-q1" class="pc-tab-btn flex-1 py-2 px-3 text-xs font-bold rounded-md transition-all text-emerald-800 bg-white shadow-sm" onclick="switchQuarter('q1')">
+                            Q1 2026 (StoreOS™)
+                        </button>
+                    </div>
+
                     <div class="pc-grid">
                         <div class="pc-center-pill">
                             <i class="fa-solid fa-arrow-trend-up"></i> +838%
                         </div>
+                        
                         <!-- Q4 2025 -->
-                        <div class="pc-col pc-col--before">
+                        <div class="pc-col pc-col--before" id="pc-col-q4">
                             <div class="pc-period-row">
                                 <span class="pc-period-label">Oct 1 – Dec 31, 2025</span>
                                 <span class="pc-badge pc-badge--subdued">Q4 2025</span>
@@ -597,13 +637,14 @@
                                 </svg>
                             </div>
                             <div class="pc-subs">
-                                <div><div class="pc-sub-label">Online store sessions</div><div class="pc-sub-val"><span data-counter="13385" data-format="comma">0</span></div></div>
+                                <div><div class="pc-sub-label">Online sessions</div><div class="pc-sub-val"><span data-counter="13385" data-format="comma">0</span></div></div>
                                 <div><div class="pc-sub-label">Orders</div><div class="pc-sub-val"><span data-counter="271" data-format="comma">0</span></div></div>
-                                <div><div class="pc-sub-label">Conversion rate</div><div class="pc-sub-val"><span data-counter="1.97" data-suffix="%" data-format="decimal">0%</span></div></div>
+                                <div><div class="pc-sub-label">Conv. rate</div><div class="pc-sub-val"><span data-counter="1.97" data-suffix="%" data-format="decimal">0%</span></div></div>
                             </div>
                         </div>
+
                         <!-- Q1 2026 -->
-                        <div class="pc-col">
+                        <div class="pc-col active-slide" id="pc-col-q1">
                             <div class="pc-period-row">
                                 <span class="pc-period-label">Jan 1 – Mar 31, 2026</span>
                                 <span class="pc-badge pc-badge--success">Q1 2026</span>
@@ -628,12 +669,13 @@
                                 </svg>
                             </div>
                             <div class="pc-subs">
-                                <div><div class="pc-sub-label">Online store sessions</div><div class="pc-sub-val"><span data-counter="73827" data-format="comma">0</span><span class="pc-sub-change">↑ 452%</span></div></div>
+                                <div><div class="pc-sub-label">Online sessions</div><div class="pc-sub-val"><span data-counter="73827" data-format="comma">0</span><span class="pc-sub-change">↑ 452%</span></div></div>
                                 <div><div class="pc-sub-label">Orders</div><div class="pc-sub-val"><span data-counter="2090" data-format="comma">0</span><span class="pc-sub-change">↑ 671%</span></div></div>
-                                <div><div class="pc-sub-label">Conversion rate</div><div class="pc-sub-val"><span data-counter="2.70" data-suffix="%" data-format="decimal">0%</span><span class="pc-sub-change">↑ 37%</span></div></div>
+                                <div><div class="pc-sub-label">Conv. rate</div><div class="pc-sub-val"><span data-counter="2.70" data-suffix="%" data-format="decimal">0%</span><span class="pc-sub-change">↑ 37%</span></div></div>
                             </div>
                         </div>
                     </div>
+
                     <div class="pc-footer">
                         <i class="fa-solid fa-circle-info"></i>
                         Data sourced directly from Shopify Admin · All channels
@@ -709,6 +751,7 @@
             </div>
             <div class="max-w-2xl mx-auto">
                 <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
+                    loading="lazy"
                     style="width:100%;display:block;border:none;overflow:hidden;min-height:680px;border-radius:1rem;"
                     scrolling="no"
                     id="Px6mbV1JQxmcE1WApcLM_ecom"></iframe>
@@ -724,7 +767,7 @@
 
     <!-- STICKY MOBILE CTA BAR -->
     <div class="vsl-sticky-cta">
-        <a href="#book" data-cta-label><i class="fa-solid fa-calendar-days"></i> Book a Call</a>
+        <a href="#book" data-cta-label><i class="fa-solid fa-calendar-days"></i> Free Store Audit</a>
     </div>
 
     <!-- FOOTER -->
@@ -782,6 +825,58 @@
     <!-- JS -->
     <script src="../js/script.js"></script>
 
+    <!-- Quarter Switcher & Swipe Logic -->
+    <script>
+    function switchQuarter(quarter) {
+        var colQ4 = document.getElementById('pc-col-q4');
+        var colQ1 = document.getElementById('pc-col-q1');
+        var tabQ4 = document.getElementById('tab-q4');
+        var tabQ1 = document.getElementById('tab-q1');
+        if (!colQ4 || !colQ1) return;
+
+        if (quarter === 'q4') {
+            colQ4.classList.add('active-slide');
+            colQ1.classList.remove('active-slide');
+            if (tabQ4) {
+                tabQ4.className = 'pc-tab-btn flex-1 py-2 px-3 text-xs font-bold rounded-md transition-all text-slate-800 bg-white shadow-sm';
+            }
+            if (tabQ1) {
+                tabQ1.className = 'pc-tab-btn flex-1 py-2 px-3 text-xs font-semibold rounded-md transition-all text-slate-600';
+            }
+        } else {
+            colQ1.classList.add('active-slide');
+            colQ4.classList.remove('active-slide');
+            if (tabQ1) {
+                tabQ1.className = 'pc-tab-btn flex-1 py-2 px-3 text-xs font-bold rounded-md transition-all text-emerald-800 bg-white shadow-sm';
+            }
+            if (tabQ4) {
+                tabQ4.className = 'pc-tab-btn flex-1 py-2 px-3 text-xs font-semibold rounded-md transition-all text-slate-600';
+            }
+        }
+    }
+
+    // Touch Swipe on Mobile for Proof Card
+    (function() {
+        var card = document.getElementById('shopify-proof-card');
+        if (!card) return;
+        var startX = 0;
+        card.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        card.addEventListener('touchend', function(e) {
+            var diff = e.changedTouches[0].screenX - startX;
+            if (Math.abs(diff) > 40) {
+                if (diff < 0) {
+                    switchQuarter('q1');
+                } else {
+                    switchQuarter('q4');
+                }
+            }
+        }, { passive: true });
+    })();
+    </script>
+
     <!-- Scroll Reveal + Pixel Events -->
     <script>
     (function() {
@@ -813,7 +908,7 @@
                             proofObserver.unobserve(proofCard);
                         }
                     });
-                }, { threshold: 0.2 });
+                }, { threshold: 0.15 });
                 proofObserver.observe(proofCard);
 
                 function animateProofCounters() {
@@ -868,6 +963,12 @@
                 bookObserver.observe(bookSection);
             }
         }
+
+        // Fix scroll on load
+        window.addEventListener('load', function() {
+            setTimeout(function() { window.scrollTo(0, 0); }, 50);
+            setTimeout(function() { window.scrollTo(0, 0); }, 250);
+        });
 
     })();
     </script>

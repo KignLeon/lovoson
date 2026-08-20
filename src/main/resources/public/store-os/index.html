@@ -508,6 +508,48 @@
 
 <body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24 sm:pt-28 md:pt-32">
 
+    <!-- PRELOADER SCREEN -->
+    <div id="page-preloader" style="position:fixed;inset:0;z-index:99999;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s ease-out, visibility 0.4s ease-out;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+            <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
+                alt="Lovoson" style="width:52px;height:52px;object-fit:contain;animation:preloaderPulse 1.2s ease-in-out infinite;" />
+            <div style="width:160px;height:4px;background:#f1f5f9;border-radius:9999px;overflow:hidden;position:relative;">
+                <div id="preloader-progress" style="width:20%;height:100%;background:linear-gradient(90deg, #008060, #10b981);border-radius:9999px;transition:width 0.4s ease-out;"></div>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes preloaderPulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+    </style>
+    <script>
+        (function() {
+            var bar = document.getElementById('preloader-progress');
+            if (bar) {
+                setTimeout(function() { bar.style.width = '65%'; }, 50);
+                setTimeout(function() { bar.style.width = '85%'; }, 200);
+            }
+            function dismissPreloader() {
+                var preloader = document.getElementById('page-preloader');
+                if (!preloader) return;
+                if (bar) bar.style.width = '100%';
+                window.scrollTo(0, 0);
+                setTimeout(function() {
+                    preloader.style.opacity = '0';
+                    preloader.style.visibility = 'hidden';
+                    window.scrollTo(0, 0);
+                    setTimeout(function() {
+                        if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+                    }, 400);
+                }, 180);
+            }
+            window.addEventListener('load', dismissPreloader);
+            setTimeout(dismissPreloader, 900);
+        })();
+    </script>
+
     <!-- HEADER — Shorter pill, no page links, logo + CTA only -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
         <div class="nav-pill ecom-nav-pill mx-auto flex justify-between items-center px-6 py-2.5 relative z-50">

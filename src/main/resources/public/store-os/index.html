@@ -84,18 +84,12 @@
     .Polaris-Card--proof .pc-grid {
       display: grid; grid-template-columns: 1fr 1fr; position: relative;
     }
-    @media (max-width: 680px) {
-      .Polaris-Card--proof .pc-grid { grid-template-columns: 1fr; }
-    }
     .Polaris-Card--proof .pc-col {
       padding: 16px 20px;
       display: flex; flex-direction: column; gap: 12px;
     }
     .Polaris-Card--proof .pc-col--before {
       border-right: 1px solid #e1e3e5;
-    }
-    @media (max-width: 680px) {
-      .Polaris-Card--proof .pc-col--before { border-right: none; border-bottom: 1px solid #e1e3e5; }
     }
     .Polaris-Card--proof .pc-period-row {
       display: flex; align-items: center; justify-content: space-between;
@@ -175,7 +169,6 @@
       display: flex; align-items: center; gap: 5px;
     }
     .Polaris-Card--proof .pc-center-pill i { font-size: 10px; }
-    @media (max-width: 680px) { .Polaris-Card--proof .pc-center-pill { display: none; } }
     .Polaris-Card--proof .pc-footer {
       padding: 8px 20px;
       border-top: 1px solid #e1e3e5;
@@ -184,11 +177,36 @@
     }
     .Polaris-Card--proof .pc-footer i { font-size: 12px; color: #8c9196; }
 
+    /* Mobile Minimal Eye-Candy Mode for Polaris Proof Card */
+    @media (max-width: 680px) {
+      .Polaris-Card--proof { border-radius: 8px; }
+      .Polaris-Card--proof .pc-header { padding: 8px 12px; }
+      .Polaris-Card--proof .pc-header-left .shopify-icon { font-size: 15px; }
+      .Polaris-Card--proof .pc-header-title { font-size: 11px; }
+      .Polaris-Card--proof .pc-header-right { font-size: 10px; gap: 6px; }
+      .Polaris-Card--proof .pc-grid { grid-template-columns: 1fr 1fr !important; }
+      .Polaris-Card--proof .pc-col { padding: 8px 10px; gap: 4px; }
+      .Polaris-Card--proof .pc-col--before { border-right: 1px solid #e1e3e5 !important; border-bottom: none !important; }
+      .Polaris-Card--proof .pc-period-label { font-size: 10px; }
+      .Polaris-Card--proof .pc-badge { font-size: 9px; padding: 1px 5px; }
+      .Polaris-Card--proof .pc-metric-label { font-size: 10px; margin-bottom: 2px; }
+      .Polaris-Card--proof .pc-metric-val { font-size: 16px; font-weight: 700; }
+      .Polaris-Card--proof .pc-change { font-size: 9px; padding: 1px 4px; gap: 2px; }
+      .Polaris-Card--proof .pc-spark { height: 24px; }
+      .Polaris-Card--proof .pc-subs { display: none !important; }
+      .Polaris-Card--proof .pc-footer { display: none !important; }
+      .Polaris-Card--proof .pc-center-pill {
+        display: inline-flex !important;
+        font-size: 9px;
+        padding: 2px 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+      }
+    }
+
     /* Shorter nav pill for this landing page — no page links, just logo + CTA */
     .ecom-nav-pill {
       /* no override — use default nav-pill sizing */
     }
-
 
     /* Mobile dropdown */
     #mobile-nav {
@@ -216,19 +234,9 @@
       padding-bottom: 2rem;
     }
 
-    /* Responsive typography */
+    /* Responsive typography & universal section padding */
     @media (max-width: 768px) {
-      h1 { font-size: 2.3rem !important; line-height: 1.3; }
-      h2 { font-size: 1.8rem !important; line-height: 1.35; }
-      h3 { font-size: 1.3rem; }
-      p { font-size: 0.95rem; }
-      .button-glow, .button-outline { padding: 0.75rem 1.5rem; font-size: 0.95rem; }
-      section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-    }
-
-    /* VSL Hero — center on mobile */
-    @media (max-width: 768px) {
-      .vsl-hero-headline { font-size: 2rem !important; }
+      .button-glow, .button-outline { padding: 0.65rem 1.25rem; font-size: 0.9rem; }
       .vsl-hero-ctas { flex-direction: column !important; align-items: center !important; }
       .vsl-hero-ctas > * { width: 100%; max-width: 320px; text-align: center; justify-content: center; }
     }
@@ -498,48 +506,48 @@
 
     <main class="max-w-7xl mx-auto px-4 md:px-12">
 
-        <!-- ===== SECTION 1: HERO & VIDEO (Unified Flex Container for viewport fitting) ===== -->
-        <section class="text-center pt-0 pb-0 md:py-6 reveal flex flex-col justify-center min-h-[calc(100vh-160px)]" id="vsl-hero">
-            <div class="max-w-6xl mx-auto px-2">
-            <h1 class="vsl-hero-headline text-3xl sm:text-4xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight" style="line-height: 1.1;">
-                We Handle All the Backend BS.<br>
-                <span class="gradient-line">So You Can Actually Scale.</span>
-            </h1>
+        <!-- ===== SECTION 1: HERO ===== -->
+        <section class="text-center pt-2 pb-1 md:pt-4 md:pb-2 reveal" id="vsl-hero">
+            <div class="max-w-5xl mx-auto px-4">
+                <h1 class="vsl-hero-headline text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight" style="line-height: 1.15;">
+                    We Handle All the Backend BS.<br>
+                    <span class="gradient-line">So You Can Actually Scale.</span>
+                </h1>
             </div>
+        </section>
 
-            <!-- ===== SECTION 2: VSL VIDEO ===== -->
-            <div class="pt-2 md:pt-4 pb-2 w-full" id="video">
-                <div class="mx-auto flex justify-center" style="width: 100%; max-width: 64rem; max-height: 38vh;">
-                    <div style="aspect-ratio: 16/9; max-height: 100%; width: auto; min-width: 0;">
-                        <div class="vsl-video-wrap h-full" id="vsl-video-wrap" style="background:transparent; height: 100%;">
-                            <script src="https://fast.wistia.com/player.js" async></script>
-                            <script src="https://fast.wistia.com/embed/202if6v81m.js" async type="module"></script>
-                            <style>
-                                wistia-player[media-id='202if6v81m']:not(:defined) {
-                                    background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/202if6v81m/swatch');
-                                    display: block;
-                                    filter: blur(5px);
-                                    padding-top: 56.25%;
-                                }
-                                wistia-player[media-id='202if6v81m'] {
-                                    display: block;
-                                    width: 100%;
-                                    height: 100%;
-                                    border-radius: 1rem;
-                                    overflow: hidden;
-                                }
-                            </style>
-                            <wistia-player media-id="202if6v81m" aspect="1.7777777777777777" style="height: 100%;"></wistia-player>
-                        </div>
-                    </div>
+        <!-- ===== SECTION 2: VSL VIDEO ===== -->
+        <section class="pt-1 pb-4 md:pt-2 md:pb-6 reveal" id="video">
+            <div class="mx-auto" style="width: 100%; max-width: min(52rem, calc((100vh - 310px) * 1.777));">
+                <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio: 16/9; max-height: min(40vh, 440px); width: 100%; margin: 0 auto; background: transparent;">
+
+                    <!-- Wistia Inline Responsive Embed — Replace media-id with your ecom VSL -->
+                    <script src="https://fast.wistia.com/player.js" async></script>
+                    <script src="https://fast.wistia.com/embed/202if6v81m.js" async type="module"></script>
+                    <style>
+                        wistia-player[media-id='202if6v81m']:not(:defined) {
+                            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/202if6v81m/swatch');
+                            display: block;
+                            filter: blur(5px);
+                            padding-top: 56.25%;
+                        }
+                        wistia-player[media-id='202if6v81m'] {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 0.875rem;
+                            overflow: hidden;
+                        }
+                    </style>
+                    <wistia-player media-id="202if6v81m" aspect="1.7777777777777777" style="height: 100%;"></wistia-player>
+
                 </div>
-                
                 <!-- Subheadline + CTA moved under the video -->
-                <p class="mt-2 md:mt-4 text-base md:text-xl lg:text-2xl text-slate-600 text-center max-w-4xl mx-auto leading-relaxed px-4">
+                <p class="mt-2 md:mt-3 text-xs sm:text-sm md:text-base text-slate-600 text-center max-w-2xl mx-auto leading-normal px-4">
                     We take over products, broken checkouts, tech headaches, and page updates while constantly optimizing your store so your conversion rate keeps climbing.
                 </p>
-                <div class="mt-3 md:mt-4 text-center">
-                    <button class="vsl-cta-primary text-base md:text-lg lg:text-xl py-3 px-8 md:py-4 md:px-12 font-bold" id="unlock-vsl-btn" onclick="const wp = document.querySelector('wistia-player'); if(wp) { wp.play(); if (wp.requestFullscreen) { wp.requestFullscreen(); } else if (wp.webkitRequestFullscreen) { wp.webkitRequestFullscreen(); } }">
+                <div class="mt-2.5 md:mt-3.5 text-center">
+                    <button class="vsl-cta-primary text-xs sm:text-sm md:text-base py-2.5 px-6 sm:py-3 sm:px-8 font-bold" id="unlock-vsl-btn" onclick="const wp = document.querySelector('wistia-player'); if(wp) { wp.play(); if (wp.requestFullscreen) { wp.requestFullscreen(); } else if (wp.webkitRequestFullscreen) { wp.webkitRequestFullscreen(); } }">
                         <i class="fa-solid fa-play"></i> Click To See How It Works
                     </button>
                 </div>
@@ -549,6 +557,12 @@
         <!-- ===== SECTION 3: SHOPIFY POLARIS PROOF CARD ===== -->
         <section class="py-8 md:py-14 reveal" id="shopify-proof-section">
             <div class="max-w-5xl mx-auto px-4">
+                <div class="text-center mb-5 md:mb-8">
+                    <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                        We took a client from<br>
+                        <span class="gradient-line">$25K to $240K in under 90 Days</span>
+                    </h2>
+                </div>
                 <div class="Polaris-Card--proof" id="shopify-proof-card">
                     <div class="pc-header">
                         <div class="pc-header-left">

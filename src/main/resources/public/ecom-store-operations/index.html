@@ -48,6 +48,142 @@
   <style>
     /* ── ECOM OPS LANDING PAGE — SCOPED STYLES ──────────────── */
 
+    /* ---- SHOPIFY POLARIS PROOF CARD ---- */
+    .Polaris-Card--proof {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e1e3e5;
+      border-radius: 8px;
+      box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      color: #202223;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .Polaris-Card--proof .pc-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px;
+      border-bottom: 1px solid #e1e3e5;
+    }
+    .Polaris-Card--proof .pc-header-left {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .Polaris-Card--proof .pc-header-left .shopify-icon { color: #95bf47; font-size: 18px; }
+    .Polaris-Card--proof .pc-header-title { font-size: 13px; font-weight: 600; color: #202223; }
+    .Polaris-Card--proof .pc-header-right {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 12px; font-weight: 500; color: #6d7175;
+    }
+    .Polaris-Card--proof .pc-live {
+      display: flex; align-items: center; gap: 6px;
+    }
+    .Polaris-Card--proof .pc-live::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: #008060; display: inline-block; flex-shrink: 0;
+    }
+    .Polaris-Card--proof .pc-grid {
+      display: grid; grid-template-columns: 1fr 1fr; position: relative;
+    }
+    @media (max-width: 680px) {
+      .Polaris-Card--proof .pc-grid { grid-template-columns: 1fr; }
+    }
+    .Polaris-Card--proof .pc-col {
+      padding: 16px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .Polaris-Card--proof .pc-col--before {
+      border-right: 1px solid #e1e3e5;
+    }
+    @media (max-width: 680px) {
+      .Polaris-Card--proof .pc-col--before { border-right: none; border-bottom: 1px solid #e1e3e5; }
+    }
+    .Polaris-Card--proof .pc-period-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .Polaris-Card--proof .pc-period-label {
+      font-size: 13px; font-weight: 500; color: #6d7175;
+    }
+    .Polaris-Card--proof .pc-badge {
+      display: inline-flex; align-items: center;
+      font-size: 11px; font-weight: 600; padding: 2px 8px;
+      border-radius: 9999px; line-height: 1.4;
+    }
+    .Polaris-Card--proof .pc-badge--subdued {
+      background: #f6f6f7; color: #6d7175; border: 1px solid #e1e3e5;
+    }
+    .Polaris-Card--proof .pc-badge--success {
+      background: #b4fed2; color: #0c5132;
+    }
+    .Polaris-Card--proof .pc-metric-label {
+      font-size: 12px; font-weight: 500; color: #6d7175; margin-bottom: 4px;
+    }
+    .Polaris-Card--proof .pc-metric-row {
+      display: flex; align-items: baseline; gap: 8px;
+    }
+    .Polaris-Card--proof .pc-metric-val {
+      font-size: 26px; font-weight: 600; color: #202223;
+      letter-spacing: -0.02em; line-height: 1.15;
+      font-variant-numeric: tabular-nums;
+    }
+    .Polaris-Card--proof .pc-change {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 12px; font-weight: 600; padding: 2px 6px;
+      border-radius: 9999px; color: #008060; background: #e4f5ee;
+    }
+    .Polaris-Card--proof .pc-change i { font-size: 9px; }
+    .Polaris-Card--proof .pc-spark { height: 36px; width: 100%; }
+    .Polaris-Card--proof .pc-spark svg { width: 100%; height: 100%; display: block; }
+    .Polaris-Card--proof .pc-spark-flat {
+      fill: none; stroke: #c9cccf; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .Polaris-Card--proof .pc-spark-up {
+      fill: none; stroke: #008060; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 500; stroke-dashoffset: 500;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .Polaris-Card--proof .pc-spark-area {
+      fill: url(#polaris-green-grad); opacity: 0;
+      transition: opacity 1.2s ease 0.6s;
+    }
+    .Polaris-Card--proof.is-revealed .pc-spark-up { stroke-dashoffset: 0; }
+    .Polaris-Card--proof.is-revealed .pc-spark-area { opacity: 1; }
+    .Polaris-Card--proof .pc-subs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      padding-top: 12px; border-top: 1px solid #e1e3e5;
+    }
+    .Polaris-Card--proof .pc-sub-label {
+      font-size: 12px; font-weight: 500; color: #6d7175; margin-bottom: 2px;
+    }
+    .Polaris-Card--proof .pc-sub-val {
+      font-size: 14px; font-weight: 600; color: #202223;
+      display: flex; align-items: center; gap: 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .Polaris-Card--proof .pc-sub-change {
+      font-size: 11px; font-weight: 600; color: #008060;
+    }
+    .Polaris-Card--proof .pc-center-pill {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #202223; color: #fff;
+      font-size: 11px; font-weight: 600;
+      padding: 4px 12px; border-radius: 9999px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 5; white-space: nowrap;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .Polaris-Card--proof .pc-center-pill i { font-size: 10px; }
+    @media (max-width: 680px) { .Polaris-Card--proof .pc-center-pill { display: none; } }
+    .Polaris-Card--proof .pc-footer {
+      padding: 8px 20px;
+      border-top: 1px solid #e1e3e5;
+      font-size: 11px; font-weight: 400; color: #8c9196;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .Polaris-Card--proof .pc-footer i { font-size: 12px; color: #8c9196; }
+
     /* Shorter nav pill for this landing page — no page links, just logo + CTA */
     .ecom-nav-pill {
       /* no override — use default nav-pill sizing */
@@ -283,7 +419,7 @@
   <!-- End Meta Pixel Code -->
 </head>
 
-<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-24">
+<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-20">
 
     <!-- HEADER — Shorter pill, no page links, logo + CTA only -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
@@ -328,7 +464,7 @@
     <main class="max-w-7xl mx-auto px-8 md:px-12">
 
         <!-- ===== SECTION 1: HERO ===== -->
-        <section class="text-center py-6 md:py-10 reveal" id="vsl-hero">
+        <section class="text-center py-4 md:py-6 reveal" id="vsl-hero">
             <div class="max-w-5xl mx-auto">
             <h1 class="vsl-hero-headline">
                 We Handle All the Backend BS.<br>
@@ -338,8 +474,8 @@
         </section>
 
         <!-- ===== SECTION 2: VSL VIDEO ===== -->
-        <section class="pt-0 pb-4 md:pt-0 md:pb-6 reveal" id="video">
-            <div class="max-w-3xl mx-auto">
+        <section class="pt-0 pb-4 reveal" id="video">
+            <div class="mx-auto" style="width: 100%; max-width: min(48rem, calc((100vh - 380px) * 1.777));">
                 <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio:unset;background:transparent;">
 
                     <!-- Wistia Inline Responsive Embed — Replace media-id with your ecom VSL -->
@@ -363,10 +499,10 @@
 
                 </div>
                 <!-- Subheadline + CTA moved under the video -->
-                <p class="mt-6 text-base md:text-lg text-slate-600 text-center max-w-2xl mx-auto leading-relaxed">
+                <p class="mt-4 text-[0.95rem] md:text-base text-slate-600 text-center max-w-2xl mx-auto leading-relaxed px-4">
                     We take over products, broken checkouts, tech headaches, and page updates while constantly optimizing your store so your conversion rate keeps climbing.
                 </p>
-                <div class="mt-5 text-center">
+                <div class="mt-4 text-center">
                     <button class="vsl-cta-primary" id="unlock-vsl-btn" onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'})">
                         <i class="fa-solid fa-play"></i> Click To See How It Works
                     </button>
@@ -374,25 +510,83 @@
             </div>
         </section>
 
-        <!-- ===== SECTION 3: AGITATION ROW ===== -->
-        <section class="py-8 md:py-12 reveal">
-            <div class="max-w-5xl mx-auto">
-                <div class="vsl-agitation-bar">
-                    <div class="vsl-agitation-cell">
-                        <div class="cell-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
-                        <div class="cell-text">Products are outdated and disorganized.</div>
+        <!-- ===== SECTION 3: SHOPIFY POLARIS PROOF CARD ===== -->
+        <section class="py-8 md:py-14 reveal" id="shopify-proof-section">
+            <div class="max-w-5xl mx-auto px-4">
+                <div class="Polaris-Card--proof" id="shopify-proof-card">
+                    <div class="pc-header">
+                        <div class="pc-header-left">
+                            <i class="fa-brands fa-shopify shopify-icon"></i>
+                            <span class="pc-header-title">Analytics overview</span>
+                        </div>
+                        <div class="pc-header-right">
+                            <span class="pc-live">Live</span>
+                            <span style="color:#c9cccf;">·</span>
+                            <span><strong>Client on Lovoson StoreOS™</strong></span>
+                        </div>
                     </div>
-                    <div class="vsl-agitation-cell">
-                        <div class="cell-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-                        <div class="cell-text">Checkout is broken on mobile.</div>
+                    <div class="pc-grid">
+                        <div class="pc-center-pill">
+                            <i class="fa-solid fa-arrow-trend-up"></i> +838%
+                        </div>
+                        <!-- Q4 2025 -->
+                        <div class="pc-col pc-col--before">
+                            <div class="pc-period-row">
+                                <span class="pc-period-label">Oct 1 – Dec 31, 2025</span>
+                                <span class="pc-badge pc-badge--subdued">Q4 2025</span>
+                            </div>
+                            <div>
+                                <div class="pc-metric-label">Total sales</div>
+                                <div class="pc-metric-row">
+                                    <span class="pc-metric-val" data-counter="25573" data-prefix="$" data-format="currency">$0</span>
+                                </div>
+                            </div>
+                            <div class="pc-spark">
+                                <svg viewBox="0 0 280 48" preserveAspectRatio="none">
+                                    <path class="pc-spark-flat" d="M0,30 Q35,28 70,32 T140,27 T210,34 T280,29"/>
+                                </svg>
+                            </div>
+                            <div class="pc-subs">
+                                <div><div class="pc-sub-label">Online store sessions</div><div class="pc-sub-val"><span data-counter="13385" data-format="comma">0</span></div></div>
+                                <div><div class="pc-sub-label">Orders</div><div class="pc-sub-val"><span data-counter="271" data-format="comma">0</span></div></div>
+                                <div><div class="pc-sub-label">Conversion rate</div><div class="pc-sub-val"><span data-counter="1.97" data-suffix="%" data-format="decimal">0%</span></div></div>
+                            </div>
+                        </div>
+                        <!-- Q1 2026 -->
+                        <div class="pc-col">
+                            <div class="pc-period-row">
+                                <span class="pc-period-label">Jan 1 – Mar 31, 2026</span>
+                                <span class="pc-badge pc-badge--success">Q1 2026</span>
+                            </div>
+                            <div>
+                                <div class="pc-metric-label">Total sales</div>
+                                <div class="pc-metric-row">
+                                    <span class="pc-metric-val" data-counter="239773" data-prefix="$" data-format="currency">$0</span>
+                                    <span class="pc-change"><i class="fa-solid fa-arrow-up"></i> 838%</span>
+                                </div>
+                            </div>
+                            <div class="pc-spark">
+                                <svg viewBox="0 0 280 48" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="polaris-green-grad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stop-color="#008060" stop-opacity="0.12"/>
+                                            <stop offset="100%" stop-color="#008060" stop-opacity="0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <path class="pc-spark-area" d="M0,40 C70,38 140,20 280,4 L280,48 L0,48 Z"/>
+                                    <path class="pc-spark-up" d="M0,40 C70,38 140,20 280,4"/>
+                                </svg>
+                            </div>
+                            <div class="pc-subs">
+                                <div><div class="pc-sub-label">Online store sessions</div><div class="pc-sub-val"><span data-counter="73827" data-format="comma">0</span><span class="pc-sub-change">↑ 452%</span></div></div>
+                                <div><div class="pc-sub-label">Orders</div><div class="pc-sub-val"><span data-counter="2090" data-format="comma">0</span><span class="pc-sub-change">↑ 671%</span></div></div>
+                                <div><div class="pc-sub-label">Conversion rate</div><div class="pc-sub-val"><span data-counter="2.70" data-suffix="%" data-format="decimal">0%</span><span class="pc-sub-change">↑ 37%</span></div></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="vsl-agitation-cell">
-                        <div class="cell-icon"><i class="fa-solid fa-tag"></i></div>
-                        <div class="cell-text">Promo codes don't work when customers try them.</div>
-                    </div>
-                    <div class="vsl-agitation-cell">
-                        <div class="cell-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
-                        <div class="cell-text">And you're the one stuck fixing all of it.</div>
+                    <div class="pc-footer">
+                        <i class="fa-solid fa-circle-info"></i>
+                        Data sourced directly from Shopify Admin · All channels
                     </div>
                 </div>
             </div>
@@ -557,6 +751,54 @@
             document.querySelectorAll('.reveal').forEach(function(el) {
                 revealObserver.observe(el);
             });
+
+            // ─── SHOPIFY PROOF CARD SCROLL TRIGGER & COUNTER ANIMATION ─
+            var proofCard = document.getElementById('shopify-proof-card');
+            if (proofCard) {
+                var proofObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            proofCard.classList.add('is-revealed');
+                            animateProofCounters();
+                            proofObserver.unobserve(proofCard);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                proofObserver.observe(proofCard);
+
+                function animateProofCounters() {
+                    var elements = proofCard.querySelectorAll('[data-counter]');
+                    elements.forEach(function(el) {
+                        var target = parseFloat(el.getAttribute('data-counter'));
+                        var format = el.getAttribute('data-format');
+                        var prefix = el.getAttribute('data-prefix') || '';
+                        var suffix = el.getAttribute('data-suffix') || '';
+                        var duration = 1400;
+                        var startTime = performance.now();
+
+                        function update(now) {
+                            var progress = Math.min((now - startTime) / duration, 1);
+                            var easeOut = 1 - Math.pow(1 - progress, 3);
+                            var current = target * easeOut;
+
+                            if (format === 'currency') {
+                                el.textContent = prefix + Math.round(current).toLocaleString('en-US');
+                            } else if (format === 'comma') {
+                                el.textContent = Math.round(current).toLocaleString('en-US');
+                            } else if (format === 'decimal') {
+                                el.textContent = current.toFixed(2) + suffix;
+                            } else {
+                                el.textContent = prefix + Math.round(current).toLocaleString('en-US') + suffix;
+                            }
+
+                            if (progress < 1) {
+                                requestAnimationFrame(update);
+                            }
+                        }
+                        requestAnimationFrame(update);
+                    });
+                }
+            }
 
             // ─── META PIXEL: Lead event on #book scroll ─────────
             var bookSection = document.getElementById('book');

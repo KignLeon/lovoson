@@ -454,7 +454,7 @@
   <!-- End Pixel Router -->
 </head>
 
-<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-20">
+<body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-16 md:pt-20">
 
     <!-- HEADER — Shorter pill, no page links, logo + CTA only -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
@@ -496,10 +496,10 @@
         </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 md:px-12">
+    <main class="max-w-7xl mx-auto px-4 md:px-12">
 
         <!-- ===== SECTION 1: HERO ===== -->
-        <section class="text-center py-4 md:py-6 reveal" id="vsl-hero">
+        <section class="text-center pt-2 pb-0 md:py-6 reveal" id="vsl-hero">
             <div class="max-w-6xl mx-auto px-2">
             <h1 class="vsl-hero-headline text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight" style="line-height: 1.1;">
                 We Handle All the Backend BS.<br>
@@ -534,11 +534,11 @@
 
                 </div>
                 <!-- Subheadline + CTA moved under the video -->
-                <p class="mt-4 text-lg md:text-xl lg:text-2xl text-slate-600 text-center max-w-4xl mx-auto leading-relaxed px-4">
+                <p class="mt-2 md:mt-4 text-lg md:text-xl lg:text-2xl text-slate-600 text-center max-w-4xl mx-auto leading-relaxed px-4">
                     We take over products, broken checkouts, tech headaches, and page updates while constantly optimizing your store so your conversion rate keeps climbing.
                 </p>
-                <div class="mt-6 text-center">
-                    <button class="vsl-cta-primary text-base md:text-lg lg:text-xl py-3 px-8 md:py-4 md:px-12 font-bold" id="unlock-vsl-btn" onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'})">
+                <div class="mt-4 md:mt-6 text-center">
+                    <button class="vsl-cta-primary text-base md:text-lg lg:text-xl py-3 px-8 md:py-4 md:px-12 font-bold" id="unlock-vsl-btn" onclick="const wp = document.querySelector('wistia-player'); if(wp) { wp.play(); if (wp.requestFullscreen) { wp.requestFullscreen(); } else if (wp.webkitRequestFullscreen) { wp.webkitRequestFullscreen(); } }">
                         <i class="fa-solid fa-play"></i> Click To See How It Works
                     </button>
                 </div>

@@ -614,7 +614,7 @@ function initCardStack() {
 (function () {
   const CTAs = [
     'Free Strategy Call',
-    'Free System Audit',
+    'Free Store Audit',
     'Free Website Audit'
   ];
   const daysSinceEpoch = Math.floor(Date.now() / 86400000);

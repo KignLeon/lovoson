@@ -400,23 +400,58 @@
     }
   </style>
 
-  <!-- Meta Pixel Code -->
+  <!-- Pixel Router for Marketing Attribution -->
   <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '1475408903858304');
-  fbq('track', 'PageView');
+    window.PIXEL_REGISTRY = {
+        mainxacc2: { id: '1475408903858304', platform: 'meta' },
+        default: { id: '1475408903858304', platform: 'meta' }
+    };
+    
+    window.resolveAndStorePid = function () {
+        const params = new URLSearchParams(window.location.search);
+        const urlPid = params.get('pid');
+        let pixelData = window.PIXEL_REGISTRY['default'];
+        let pidKey = 'default';
+        
+        if (urlPid) {
+            pidKey = urlPid.trim().toLowerCase();
+            if (window.PIXEL_REGISTRY[pidKey]) {
+                pixelData = window.PIXEL_REGISTRY[pidKey];
+            }
+        }
+        
+        if (pixelData) {
+            localStorage.setItem('chosen_pixel_id', pixelData.id);
+            localStorage.setItem('chosen_pixel_platform', pixelData.platform);
+            localStorage.setItem('chosen_pid', pidKey);
+            return { mode: 'single', pid: pidKey, pixelId: pixelData.id, platform: pixelData.platform };
+        }
+    };
+
+    window.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const source = params.get('utm_source');
+        if (source) {
+            localStorage.setItem('utm_source', source);
+        }
+    });
+
+    // Initialize Meta Pixel based on chosen Pixel ID
+    const pixelConfig = window.resolveAndStorePid();
+    if (pixelConfig && pixelConfig.platform === 'meta') {
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', pixelConfig.pixelId);
+        fbq('track', 'PageView');
+    }
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=1475408903858304&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+  <!-- End Pixel Router -->
 </head>
 
 <body class="bg-gradient-to-tr from-white via-gray-100 to-gray-200 text-slate-800 font-sans antialiased pt-20">
@@ -424,7 +459,7 @@
     <!-- HEADER — Shorter pill, no page links, logo + CTA only -->
     <header id="main-header" class="fixed top-0 left-0 right-0 z-50 p-4">
         <div class="nav-pill ecom-nav-pill mx-auto flex justify-between items-center px-6 py-2.5 relative z-50">
-            <a href="/ecom-store-operations/" class="logo-svg-wrap" id="logo-link">
+            <a href="/lovoson-store-os/" class="logo-svg-wrap" id="logo-link">
                 <img src="https://res.cloudinary.com/ddnhp0hzd/image/upload/v1770280276/lovoson_icon_svg_dxrbpw.svg"
                     alt="Lovoson" />
                 <span class="text-base font-bold nav-brand-text">Lovoson Media</span>
@@ -465,8 +500,8 @@
 
         <!-- ===== SECTION 1: HERO ===== -->
         <section class="text-center py-4 md:py-6 reveal" id="vsl-hero">
-            <div class="max-w-5xl mx-auto">
-            <h1 class="vsl-hero-headline">
+            <div class="max-w-6xl mx-auto px-2">
+            <h1 class="vsl-hero-headline text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight" style="line-height: 1.1;">
                 We Handle All the Backend BS.<br>
                 <span class="gradient-line">So You Can Actually Scale.</span>
             </h1>
@@ -475,7 +510,7 @@
 
         <!-- ===== SECTION 2: VSL VIDEO ===== -->
         <section class="pt-0 pb-4 reveal" id="video">
-            <div class="mx-auto" style="width: 100%; max-width: min(48rem, calc((100vh - 380px) * 1.777));">
+            <div class="mx-auto" style="width: 100%; max-width: min(64rem, calc((100vh - 380px) * 1.777));">
                 <div class="vsl-video-wrap" id="vsl-video-wrap" style="aspect-ratio:unset;background:transparent;">
 
                     <!-- Wistia Inline Responsive Embed — Replace media-id with your ecom VSL -->
@@ -499,11 +534,11 @@
 
                 </div>
                 <!-- Subheadline + CTA moved under the video -->
-                <p class="mt-4 text-[0.95rem] md:text-base text-slate-600 text-center max-w-2xl mx-auto leading-relaxed px-4">
+                <p class="mt-4 text-lg md:text-xl lg:text-2xl text-slate-600 text-center max-w-4xl mx-auto leading-relaxed px-4">
                     We take over products, broken checkouts, tech headaches, and page updates while constantly optimizing your store so your conversion rate keeps climbing.
                 </p>
-                <div class="mt-4 text-center">
-                    <button class="vsl-cta-primary" id="unlock-vsl-btn" onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'})">
+                <div class="mt-6 text-center">
+                    <button class="vsl-cta-primary text-base md:text-lg lg:text-xl py-3 px-8 md:py-4 md:px-12 font-bold" id="unlock-vsl-btn" onclick="document.getElementById('video').scrollIntoView({behavior:'smooth'})">
                         <i class="fa-solid fa-play"></i> Click To See How It Works
                     </button>
                 </div>

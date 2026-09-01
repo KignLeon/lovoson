@@ -164,262 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.documentElement.classList.add('theme-loaded');
 });
 // ==========================================================================
-// ENGAGEMENT POPUP SYSTEM  (v4 — One-at-a-time, High-Converting, Clean)
+// ENGAGEMENT POPUP SYSTEM (disabled — placeholder stub)
 // ==========================================================================
 
 function initEngagementSystem() {
-  const toast    = document.getElementById('lv-toast');
-  const offerModal = document.getElementById('lv-offer-modal');
-  const offerBox   = document.getElementById('lv-offer-box');
-  const offerBd    = document.getElementById('lv-offer-backdrop');
-  if (!toast || !offerModal) return;
-
-  // ---- Track page visits in session ----
-  const sessionKey   = 'lv:session-pages';
-  const sessionPages = parseInt(sessionStorage.getItem(sessionKey) || '0') + 1;
-  sessionStorage.setItem(sessionKey, String(sessionPages));
-
-  // ---- localStorage helpers ----
-  const now        = Date.now();
-  const getStored  = k  => parseInt(localStorage.getItem(k) || '0');
-  const setStored  = (k, v) => localStorage.setItem(k, String(v));
-  const hoursSince = k  => (now - getStored(k)) / 3_600_000;
-  const canShow    = (k, h) => hoursSince(k) > h;
-
-  // ---- STRICT one-at-a-time, one per session guard ----
-  let popupActive  = false;
-  let popupsShown  = 0;
-  const MAX_POPUPS = 1; // only ONE auto-popup per page load
-
-  function acquireSlot() {
-    if (popupActive || popupsShown >= MAX_POPUPS) return false;
-    popupActive = true;
-    popupsShown++;
-    return true;
-  }
-  function releaseSlot() {
-    // 60s cooldown before anything else can appear
-    setTimeout(() => { popupActive = false; }, 60_000);
-  }
-
-  // ---- Wire ALL [data-offer-trigger] buttons ----
-  document.querySelectorAll('[data-offer-trigger]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      showBookingModal(true);
-    });
-  });
-
-  // ============================================================
-  // TOAST  (bottom-right, unobtrusive)
-  // ============================================================
-  let progressTimer = null;
-
-  function showToast(cfg) {
-    if (!acquireSlot()) return;
-    document.getElementById('lv-toast-icon').textContent  = cfg.icon;
-    document.getElementById('lv-toast-title').textContent = cfg.title;
-    document.getElementById('lv-toast-body').textContent  = cfg.body;
-    const btn = document.getElementById('lv-toast-cta');
-    btn.textContent = cfg.cta;
-    btn.onclick = () => { cfg.action(); dismissToast(); };
-    const bar = document.getElementById('lv-toast-bar');
-    bar.style.transition = 'none';
-    bar.style.transform  = 'scaleX(1)';
-    toast.classList.add('active');
-    requestAnimationFrame(() => {
-      bar.style.transition = `transform ${cfg.duration || 14000}ms linear`;
-      bar.style.transform  = 'scaleX(0)';
-    });
-    progressTimer = setTimeout(dismissToast, cfg.duration || 14000);
-  }
-
-  function dismissToast() {
-    clearTimeout(progressTimer);
-    toast.classList.remove('active');
-    releaseSlot();
-  }
-  document.getElementById('lv-toast-close').addEventListener('click', dismissToast);
-
-  // ============================================================
-  // BOOKING MODAL (primary CTA — always available on-demand)
-  // ============================================================
-  function showBookingModal(fromTrigger) {
-    if (!fromTrigger && !acquireSlot()) return;
-    // If already open, do nothing
-    if (offerModal.classList.contains('active')) return;
-
-    offerBox.innerHTML = `
-      <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-      <div class="lv-offer-badge">Free — No Commitment</div>
-      <h2 class="lv-offer-title">Book Your Free Strategy Call</h2>
-      <p class="lv-offer-sub">15 minutes. We pull up your business live and show you exactly where leads are slipping — then hand you the fix.</p>
-      <ul class="lv-offer-checklist">
-        <li><i class="fa-solid fa-circle-check"></i><span>Your #1 lead-loss bottleneck identified</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>A custom 3-step growth roadmap</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>Live AI follow-up system demo</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>Zero pitch. Zero pressure.</span></li>
-      </ul>
-      <div class="lv-booking-embed-wrap">
-        <iframe src="https://api.leadconnectorhq.com/widget/booking/Px6mbV1JQxmcE1WApcLM"
-          style="width:100%;display:block;border:none;min-height:720px;" scrolling="yes" loading="lazy"></iframe>
-      </div>
-      <button class="lv-offer-dismiss">I'll figure it out on my own.</button>`;
-
-    offerModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    offerBox.querySelector('.lv-offer-close').addEventListener('click', closeOfferModal);
-    offerBox.querySelector('.lv-offer-dismiss').addEventListener('click', closeOfferModal);
-  }
-  window._lvShowBooking = showBookingModal;
-
-  // ============================================================
-  // EXIT INTENT MODAL
-  // ============================================================
-  function showExitModal() {
-    if (offerModal.classList.contains('active')) return;
-    if (!acquireSlot()) return;
-
-    offerBox.innerHTML = `
-      <button class="lv-offer-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
-      <div class="lv-offer-badge">Free in 24 Hours</div>
-      <h2 class="lv-offer-title">Wait — Get a Free Site Audit</h2>
-      <p class="lv-offer-sub">Before you go, let us show you exactly where your site is losing leads. No fluff. Real findings, delivered fast.</p>
-      <ul class="lv-offer-checklist">
-        <li><i class="fa-solid fa-circle-check"></i><span>Speed & mobile performance score</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>Lead conversion gap analysis</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>Google visibility breakdown</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span>AI follow-up readiness check</span></li>
-      </ul>
-      <input class="lv-offer-input" type="url"   id="audit-url"   placeholder="yourwebsite.com" />
-      <input class="lv-offer-input" type="email" id="audit-email" placeholder="Your email address" />
-      <button class="lv-offer-btn-primary" onclick="lvSubmitAudit()">Send My Free Audit →</button>
-      <button class="lv-offer-dismiss">No thanks, I'm all set.</button>`;
-
-    offerModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    offerBox.querySelector('.lv-offer-close').addEventListener('click', closeOfferModal);
-    offerBox.querySelector('.lv-offer-dismiss').addEventListener('click', closeOfferModal);
-  }
-
-  function closeOfferModal() {
-    offerModal.classList.remove('active');
-    document.body.style.overflow = '';
-    releaseSlot();
-  }
-  offerBd.addEventListener('click', closeOfferModal);
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeOfferModal(); dismissToast(); }
-  });
-
-  // ============================================================
-  // SMART TRIGGERS — only ONE fires per page load
-  // ============================================================
-
-  const isFirstVisit = getStored('lv:site-visit') === 0;
-  setStored('lv:site-visit', now);
-
-  // Priority 1 — Return visitor: show booking nudge toast (48h cooldown)
-  if (!isFirstVisit && canShow('lv:return-toast', 48)) {
-    setTimeout(() => {
-      if (popupActive) return;
-      setStored('lv:return-toast', now);
-      showToast({
-        icon: '👋',
-        title: 'Good to see you again.',
-        body: "Still weighing your options? Let's map out exactly what we'd build for your business.",
-        cta: 'Book a 15-Min Strategy Call →',
-        duration: 15000,
-        action() { showBookingModal(true); }
-      });
-    }, 3000);
-    return; // Priority 1 fires → nothing else queues
-  }
-
-  // Priority 2 — Multi-page session (high intent): booking modal (12h cooldown)
-  if (sessionPages >= 2 && canShow('lv:multi-page-modal', 12)) {
-    setTimeout(() => {
-      if (popupActive) return;
-      setStored('lv:multi-page-modal', now);
-      showToast({
-        icon: '🔍',
-        title: "Looks like you're doing your research.",
-        body: 'We can walk you through everything in 15 minutes — no sales deck, just real answers.',
-        cta: 'Book a Free Call →',
-        duration: 15000,
-        action() { showBookingModal(true); }
-      });
-    }, 4000);
-    return; // Priority 2 fires → nothing else queues
-  }
-
-  // Priority 3 — Scroll 75%+ (high engagement): toast with Instagram follow
-  let scrollFired = false;
-  window.addEventListener('scroll', () => {
-    if (scrollFired || popupActive) return;
-    const pct = (window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100;
-    if (pct >= 75 && canShow('lv:social-toast', 24)) {
-      scrollFired = true;
-      setTimeout(() => {
-        if (popupActive) return;
-        setStored('lv:social-toast', now);
-        showToast({
-          icon: '📱',
-          title: 'We post the results, not the pitch.',
-          body: 'Follow @lovosonmedia — real campaigns, real numbers, behind the scenes.',
-          cta: 'Follow on Instagram →',
-          duration: 13000,
-          action() { window.open('https://www.instagram.com/lovosonmedia', '_blank'); }
-        });
-      }, 1000);
-    }
-  }, { passive: true });
-
-  // Priority 4 — Exit intent: free audit modal (8h cooldown, desktop only)
-  let exitFired = false;
-  if (window.innerWidth > 768) {
-    document.addEventListener('mouseleave', e => {
-      if (exitFired || e.clientY > 50 || popupActive) return;
-      if (!canShow('lv:exit-modal', 8)) return;
-      exitFired = true;
-      setStored('lv:exit-modal', now);
-      showExitModal();
-    });
-  }
+  // Engagement popups (toast, booking modal, exit intent) removed.
+  // Re-implement here if needed in the future.
 }
-
-// ---------- FORM SUBMITTERS ----------
-window.lvSubmitAudit = function() {
-  const url   = document.getElementById('audit-url')?.value.trim();
-  const email = document.getElementById('audit-email')?.value.trim();
-  if (!url || !email) { alert('Please fill in both fields.'); return; }
-  document.querySelector('#lv-offer-box').innerHTML = `
-    <div style="text-align:center;padding:2rem 1rem;">
-      <span style="font-size:2.5rem;">✅</span>
-      <h2 class="lv-offer-title" style="margin-top:1rem;">You're on the list!</h2>
-      <p class="lv-offer-sub">We'll have your site audit ready within 24 hours at <strong>${email}</strong>.</p>
-    </div>`;
-  setTimeout(() => {
-    document.getElementById('lv-offer-modal')?.classList.remove('active');
-    document.body.style.overflow = '';
-  }, 3000);
-};
-
-window.lvSubmitBuild = function() {
-  const biz   = document.getElementById('build-biz')?.value.trim();
-  const email = document.getElementById('build-email')?.value.trim();
-  if (!biz || !email) { alert('Please fill in all fields.'); return; }
-  document.querySelector('#lv-offer-box').innerHTML = `
-    <div style="text-align:center;padding:2rem 1rem;">
-      <span style="font-size:2.5rem;">🎉</span>
-      <h2 class="lv-offer-title" style="margin-top:1rem;">Application Received!</h2>
-      <p class="lv-offer-sub">We'll review <strong>${biz}</strong>'s eligibility and get back to you at <strong>${email}</strong> within 24 hours.</p>
-    </div>`;
-  setTimeout(() => {
-    document.getElementById('lv-offer-modal')?.classList.remove('active');
-    document.body.style.overflow = '';
-  }, 3000);
-};
 
 
 
@@ -673,13 +424,29 @@ function initColorPicker() {
   const popover = document.getElementById('color-picker-popover');
   if (!btn || !popover) return;
 
+  const html = document.documentElement;
   const dots = popover.querySelectorAll('.color-dot');
 
-  // Restore active dot from localStorage
-  const stored = localStorage.getItem('lovoson-accent');
-  if (stored) {
+  // Apply accent CSS vars from stored values
+  function applyAccent(hue, sat, light) {
+    html.style.setProperty('--accent-h', hue);
+    html.style.setProperty('--accent-s', sat + '%');
+    html.style.setProperty('--accent-l', light + '%');
+  }
+
+  // Restore saved accent on load
+  const storedHue   = localStorage.getItem('lovoson-accent');
+  const storedSat   = localStorage.getItem('lovoson-accent-s');
+  const storedLight = localStorage.getItem('lovoson-accent-l');
+  if (storedHue) {
+    applyAccent(
+      storedHue,
+      storedSat  !== null ? storedSat  : '80',
+      storedLight !== null ? storedLight : '55'
+    );
+    // Mark the matching dot as active
     dots.forEach(d => {
-      d.classList.toggle('is-active', d.getAttribute('data-accent-h') === stored);
+      d.classList.toggle('is-active', d.getAttribute('data-accent-h') === storedHue);
     });
   }
 
@@ -693,13 +460,26 @@ function initColorPicker() {
   dots.forEach(dot => {
     dot.addEventListener('click', (e) => {
       e.stopPropagation();
-      const hue = dot.getAttribute('data-accent-h');
+      const hue  = dot.getAttribute('data-accent-h');
+      const mode = dot.getAttribute('data-accent-mode');
 
-      // Update CSS custom property
-      document.documentElement.style.setProperty('--accent-h', hue);
+      let sat, light;
+      if (mode === 'white') {
+        // Near-white cloud accent — low saturation, very high lightness
+        sat   = 8;
+        light = 93;
+      } else {
+        // Standard vivid accent
+        sat   = 80;
+        light = 55;
+      }
 
-      // Persist
-      localStorage.setItem('lovoson-accent', hue);
+      applyAccent(hue, sat, light);
+
+      // Persist all three
+      localStorage.setItem('lovoson-accent',   hue);
+      localStorage.setItem('lovoson-accent-s', String(sat));
+      localStorage.setItem('lovoson-accent-l', String(light));
 
       // Update active state
       dots.forEach(d => d.classList.remove('is-active'));
@@ -827,3 +607,28 @@ function initCardStack() {
   // Initial layout
   layout();
 }
+
+// ─── CTA ROTATOR ───────────────────────────────────────────
+// Cycles through 3 CTA labels every 2 days, site-wide.
+// Any element with [data-cta-label] gets its text swapped.
+(function () {
+  const CTAs = [
+    'Free Strategy Call',
+    'Free Store Audit',
+    'Free Website Audit'
+  ];
+  const daysSinceEpoch = Math.floor(Date.now() / 86400000);
+  const index = Math.floor(daysSinceEpoch / 2) % CTAs.length;
+  const currentCTA = CTAs[index];
+  document.querySelectorAll('[data-cta-label]').forEach(function (el) {
+    // Preserve any icon inside the element
+    const icon = el.querySelector('i, svg');
+    if (icon) {
+      el.textContent = '';
+      el.appendChild(icon);
+      el.appendChild(document.createTextNode(' ' + currentCTA));
+    } else {
+      el.textContent = currentCTA;
+    }
+  });
+})();
